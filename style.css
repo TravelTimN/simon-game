@@ -11,34 +11,58 @@
     font-family: var(--fontSurfer);
 }
 
+body {
+    background-color: grey;
+}
+
 #outer-circle {
-    /* background-color: black; */
+    background-color: black;
     border-radius: 50%;
     height: var(--size);
     width: var(--size);
     position: relative;
-    /* border: calc(var(--size) / 50) solid black; */
-    border: calc(var(--size) / 50) solid white;
+    border: calc(var(--size) / 50) solid black;
+    /* border: calc(var(--size) / 50) solid white; */
     margin: calc(var(--size) / 36) auto;
 }
 
-#btn-red, #btn-yellow, #btn-green, #btn-blue {
+#btn-yellow, #btn-blue, #btn-green, #btn-red {
     position: absolute;
     top: 50%;
     left: 50%;
+    opacity: 0;
     height: calc(var(--size) / 2);
     width: calc(var(--size) / 2);
     box-sizing: border-box;
-    /* border: calc((var(--size) / 50) / 2) solid black; */
-    border: calc((var(--size) / 50) / 2) solid white;
+    border: calc((var(--size) / 50) / 2) solid black;
+    /* border: calc((var(--size) / 50) / 2) solid white; */
     animation: fadeIn 1s forwards;
     overflow: hidden;
+}
+
+@keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+#btn-yellow::after,
+#btn-blue::after,
+#btn-green::after,
+#btn-red::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 50% 0px, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0) 58%);
+    filter: blur(5px);
+    z-index: 5;
 }
 
 #btn-yellow {
     border-radius: calc(var(--size) / 2) 0 0 0;
     margin: calc((var(--size) / 2) * -1) 0 0 calc((var(--size) / 2) * -1);
-    animation-delay: 0.2s;
+    animation-delay: 0.5s;
     background-color: yellow;
     background: linear-gradient(135deg,
         rgba(255, 255, 0, 0.6) 0%,
@@ -47,49 +71,25 @@
         rgba(255, 255, 255, 1) 100%);
 }
 
-#btn-yellow::after,
-#btn-blue::after,
-#btn-red::after,
-#btn-green::after {
-    content: "";
-    position: absolute;
-    border-radius: 50%;
-    width: 200%;
-    height: 200%;
-    background: radial-gradient(circle at 50% 0px, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0) 58%);
-    filter: blur(5px);
-    z-index: 2;
-}
-
 #btn-yellow::after {
-    transform: rotate(-45deg);
+    transform: rotate(-150deg);
     top: 10%;
     left: 10%;
+    animation: yellowLoad 0.5s forwards;
+    animation-delay: 1.5s;
 }
 
-#btn-blue::after {
-    transform: rotate(35deg);
-    top: 10%;
-    right: 10%;
-}
-
-#btn-red::after {
-    transform: rotate(-135deg);
-    bottom: 10%;
-    left: 10%;
-}
-
-#btn-green::after {
-    transform: rotate(135deg);
-    bottom: 10%;
-    right: 10%;
+@keyframes yellowLoad {
+    0% {transform: rotate(-150deg);}
+    90% {transform: rotate(0deg);}
+    100% {transform: rotate(-45deg);}
 }
 
 #btn-blue {
     background-color: blue;
     border-radius: 0 calc(var(--size) / 2) 0 0;
     margin: calc((var(--size) / 2) * -1) 0 0 0;
-    animation-delay: 0.3s;
+    animation-delay: 0.75s;
     background-color: blue;
     background: linear-gradient(45deg,
         rgba(255, 255, 255, 1) 0%,
@@ -98,10 +98,50 @@
         rgba(0, 0, 255, 0.6) 100%);
 }
 
+#btn-blue::after {
+    transform: rotate(-45deg);
+    top: 10%;
+    right: 10%;
+    animation: blueLoad 0.5s forwards;
+    animation-delay: 1.75s;
+}
+
+@keyframes blueLoad {
+    0% {transform: rotate(-70deg);}
+    90% {transform: rotate(80deg);}
+    100% {transform: rotate(35deg);}
+}
+
+#btn-green {
+    border-radius: 0 0 calc(var(--size) / 2) 0;
+    margin: 0 0 calc((var(--size) / 2) * -1) 0;
+    animation-delay: 1s;
+    background-color: green;
+    background: linear-gradient(135deg,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(0, 128, 0, 1) 50%,
+        rgba(0, 128, 0, 0.8) 50%,
+        rgba(0, 128, 0, 0.6) 100%);
+}
+
+#btn-green::after {
+    transform: rotate(30deg);
+    bottom: 10%;
+    right: 10%;
+    animation: greenLoad 0.5s forwards;
+    animation-delay: 2s;
+}
+
+@keyframes greenLoad {
+    0% {transform: rotate(30deg);}
+    90% {transform: rotate(180deg);}
+    100% {transform: rotate(135deg);}
+}
+
 #btn-red {
     border-radius: 0 0 0 calc(var(--size) / 2);
     margin: 0 calc((var(--size) / 2) * -1) 0 calc((var(--size) / 2) * -1);
-    animation-delay: 0.4s;
+    animation-delay: 1.25s;
     background-color: red;
     background: linear-gradient(45deg,
         rgba(255, 0, 0, 0.6) 0%,
@@ -110,16 +150,18 @@
         rgba(255, 255, 255, 1) 100%);
 }
 
-#btn-green {
-    border-radius: 0 0 calc(var(--size) / 2) 0;
-    margin: 0 0 calc((var(--size) / 2) * -1) 0;
-    animation-delay: 0.5s;
-    background-color: green;
-    background: linear-gradient(135deg,
-        rgba(255, 255, 255, 1) 0%,
-        rgba(0, 128, 0, 1) 50%,
-        rgba(0, 128, 0, 0.8) 50%,
-        rgba(0, 128, 0, 0.6) 100%);
+#btn-red::after {
+    transform: rotate(-240deg);
+    bottom: 10%;
+    left: 10%;
+    animation: redLoad 0.5s forwards;
+    animation-delay: 2.25s;
+}
+
+@keyframes redLoad {
+    0% {transform: rotate(-240deg);}
+    90% {transform: rotate(-90deg);}
+    100% {transform: rotate(-135deg);}
 }
 
 #inner-circle {
@@ -145,15 +187,11 @@
             rgba(100, 100, 100, 1) 95%,
             rgba(75, 75, 75, 1) 100%);
     border-radius: 50%;
-    /* border: calc((var(--size) / 50) / 2) solid black; */
+    border: calc((var(--size) / 50) / 2) solid black;
     box-sizing: border-box;
+    transform: scale(0);
     animation: zoomIn 1s forwards;
-    animation-delay: 0.5s;
-}
-
-@keyframes fadeIn {
-    0% {opacity: 0;}
-    100% {opacity: 1;}
+    animation-delay: 2.5s;
 }
 
 @keyframes zoomIn {
