@@ -1,0 +1,185 @@
+@import url("https://fonts.googleapis.com/css?family=Original+Surfer&display=swap");
+
+:root {
+    --fontSurfer: "Original Surfer", cursive;
+    --size: 90vh;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: var(--fontSurfer);
+}
+
+#outer-circle {
+    /* background-color: black; */
+    border-radius: 50%;
+    height: var(--size);
+    width: var(--size);
+    position: relative;
+    /* border: calc(var(--size) / 50) solid black; */
+    border: calc(var(--size) / 50) solid white;
+    margin: calc(var(--size) / 36) auto;
+}
+
+#btn-red, #btn-yellow, #btn-green, #btn-blue {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: calc(var(--size) / 2);
+    width: calc(var(--size) / 2);
+    box-sizing: border-box;
+    /* border: calc((var(--size) / 50) / 2) solid black; */
+    border: calc((var(--size) / 50) / 2) solid white;
+    animation: fadeIn 1s forwards;
+    overflow: hidden;
+}
+
+#btn-yellow {
+    border-radius: calc(var(--size) / 2) 0 0 0;
+    margin: calc((var(--size) / 2) * -1) 0 0 calc((var(--size) / 2) * -1);
+    animation-delay: 0.2s;
+    background-color: yellow;
+    background: linear-gradient(135deg,
+        rgba(255, 255, 0, 0.6) 0%,
+        rgba(255, 255, 0, 0.8) 50%,
+        rgba(255, 255, 0, 1) 50%,
+        rgba(255, 255, 255, 1) 100%);
+}
+
+#btn-yellow::after,
+#btn-blue::after,
+#btn-red::after,
+#btn-green::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 50% 0px, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0) 58%);
+    filter: blur(5px);
+    z-index: 2;
+}
+
+#btn-yellow::after {
+    transform: rotate(-45deg);
+    top: 10%;
+    left: 10%;
+}
+
+#btn-blue::after {
+    transform: rotate(35deg);
+    top: 10%;
+    right: 10%;
+}
+
+#btn-red::after {
+    transform: rotate(-135deg);
+    bottom: 10%;
+    left: 10%;
+}
+
+#btn-green::after {
+    transform: rotate(135deg);
+    bottom: 10%;
+    right: 10%;
+}
+
+#btn-blue {
+    background-color: blue;
+    border-radius: 0 calc(var(--size) / 2) 0 0;
+    margin: calc((var(--size) / 2) * -1) 0 0 0;
+    animation-delay: 0.3s;
+    background-color: blue;
+    background: linear-gradient(45deg,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(0, 0, 255, 1) 50%,
+        rgba(0, 0, 255, 0.8) 50%,
+        rgba(0, 0, 255, 0.6) 100%);
+}
+
+#btn-red {
+    border-radius: 0 0 0 calc(var(--size) / 2);
+    margin: 0 calc((var(--size) / 2) * -1) 0 calc((var(--size) / 2) * -1);
+    animation-delay: 0.4s;
+    background-color: red;
+    background: linear-gradient(45deg,
+        rgba(255, 0, 0, 0.6) 0%,
+        rgba(255, 0, 0, 0.8) 50%,
+        rgba(255, 0, 0, 1) 50%,
+        rgba(255, 255, 255, 1) 100%);
+}
+
+#btn-green {
+    border-radius: 0 0 calc(var(--size) / 2) 0;
+    margin: 0 0 calc((var(--size) / 2) * -1) 0;
+    animation-delay: 0.5s;
+    background-color: green;
+    background: linear-gradient(135deg,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(0, 128, 0, 1) 50%,
+        rgba(0, 128, 0, 0.8) 50%,
+        rgba(0, 128, 0, 0.6) 100%);
+}
+
+#inner-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: calc(var(--size) / 1.5);
+    /* height: calc(var(--size) / 2); */
+    width: calc(var(--size) / 1.5);
+    /* width: calc(var(--size) / 2); */
+    margin: calc((var(--size) / 3) * -1) 0 0 calc((var(--size) / 3) * -1);
+    /* margin: calc((var(--size) / 4) * -1) 0 0 calc((var(--size) / 4) * -1); */
+    background: radial-gradient(ellipse at center,
+            rgba(0, 0, 0, 1) 10%,
+            rgba(255, 255, 255, 1) 11%,
+            rgba(255, 255, 255, 1) 49%,
+            rgba(25, 25, 25, 1) 50%,
+            rgba(50, 50, 50, 1) 51%,
+            rgba(0, 0, 0, 1) 60%,
+            rgba(100, 100, 100, 1) 61%,
+            rgba(50, 50, 50, 1) 62%,
+            rgba(75, 75, 75, 1) 75%,
+            rgba(100, 100, 100, 1) 95%,
+            rgba(75, 75, 75, 1) 100%);
+    border-radius: 50%;
+    /* border: calc((var(--size) / 50) / 2) solid black; */
+    box-sizing: border-box;
+    animation: zoomIn 1s forwards;
+    animation-delay: 0.5s;
+}
+
+@keyframes fadeIn {
+    0% {opacity: 0;}
+    100% {opacity: 1;}
+}
+
+@keyframes zoomIn {
+    0% {transform: scale(0);}
+    50% {transform: scale(1.25);}
+    100% {transform: scale(1);}
+}
+
+.toggle {
+    margin: inherit 20px;
+}
+
+.button {
+    border-radius: 50%;
+    font-size: 1.5em;
+    background-color: lightgrey;
+}
+
+#switches {
+    position: absolute;
+    margin-top: 110px;
+    margin-left: 26px;
+}
+
+#turn span {
+    position: absolute;
+    margin-top: 197px;
+    margin-left: 83px;
+}
