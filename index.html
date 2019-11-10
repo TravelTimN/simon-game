@@ -11,11 +11,35 @@
     <meta name="description" content="Simon Memory Game">
     <!-- <link rel="icon" sizes="192x192" href="" type="image/x-icon"> -->
     <link rel="stylesheet" href="style.css" type="text/css">
+
+    <audio id="audioYellow"><source src="sounds/yellow.mp3" type="audio/mpeg"></audio>
+    <audio id="audioBlue"><source src="sounds/blue.mp3" type="audio/mpeg"></audio>
+    <audio id="audioRed"><source src="sounds/red.mp3" type="audio/mpeg"></audio>
+    <audio id="audioGreen"><source src="sounds/green.mp3" type="audio/mpeg"></audio>
 </head>
 
 <body>
 
-    
+    <div id="outer-circle">
+        <div id="btn-yellow"></div>
+        <div id="btn-blue"></div>
+        <div id="btn-red"></div>
+        <div id="btn-green"></div>
+
+        <div id="inner-circle">
+            <!-- <div id="title">SIMON</div>
+            <div id="switches">
+                <label for="power">POWER</label>
+                <input type="checkbox" name="power" id="power" class="toggle">
+                <button name="start" id="start" class="button">Start</button>
+                <label for="strict">STRICT</label>
+                <input type="checkbox" name="strict" id="strict" class="toggle">
+            </div>
+            <div id="turn">
+                <span>COUNT</span>
+            </div> -->
+        </div>
+    </div>
 
     <script src="script.js"></script>
 
