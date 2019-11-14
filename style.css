@@ -12,29 +12,31 @@
 }
 
 body {
-    background-color: grey;
+    /* background-color: grey; */
+    background-color: black;
 }
 
 #outer-circle {
-    background-color: black;
+    /* background-color: black; */
     border-radius: 50%;
     height: var(--size);
     width: var(--size);
     position: relative;
-    border: calc(var(--size) / 50) solid black;
+    /* border: calc(var(--size) / 50) solid black; */
     /* border: calc(var(--size) / 50) solid white; */
     margin: calc(var(--size) / 36) auto;
 }
 
 #btn-yellow, #btn-blue, #btn-green, #btn-red {
     position: absolute;
+    z-index: 1;
     top: 50%;
     left: 50%;
     opacity: 0;
     height: calc(var(--size) / 2);
     width: calc(var(--size) / 2);
     box-sizing: border-box;
-    border: calc((var(--size) / 50) / 2) solid black;
+    /* border: calc((var(--size) / 50) / 2) solid black; */
     /* border: calc((var(--size) / 50) / 2) solid white; */
     animation: fadeIn 1s forwards;
     overflow: hidden;
@@ -57,10 +59,13 @@ body {
     background: radial-gradient(circle at 50% 0px, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0) 58%);
     filter: blur(5px);
     z-index: 5;
+    overflow: hidden;
 }
 
 #btn-yellow {
     border-radius: calc(var(--size) / 2) 0 0 0;
+    /* border-bottom: calc((var(--size) / 50) / 2) solid black; */
+    /* border-right: calc((var(--size) / 50) / 2) solid black; */
     margin: calc((var(--size) / 2) * -1) 0 0 calc((var(--size) / 2) * -1);
     animation-delay: 0.5s;
     background-color: yellow;
@@ -85,9 +90,18 @@ body {
     100% {transform: rotate(-45deg);}
 }
 
+#btn-yellow:hover {
+    /* background-color: yellow; */
+    box-shadow: 0 0 50px yellow;
+    border: none;
+    transform: scale(0.95);
+    z-index: 0;
+}
+
 #btn-blue {
-    background-color: blue;
     border-radius: 0 calc(var(--size) / 2) 0 0;
+    /* border-left: calc((var(--size) / 50) / 2) solid black; */
+    /* border-bottom: calc((var(--size) / 50) / 2) solid black; */
     margin: calc((var(--size) / 2) * -1) 0 0 0;
     animation-delay: 0.75s;
     background-color: blue;
@@ -112,8 +126,18 @@ body {
     100% {transform: rotate(35deg);}
 }
 
+#btn-blue:hover {
+    /* background-color: blue; */
+    box-shadow: 0 0 50px blue;
+    border: none;
+    transform: scale(0.95);
+    z-index: 0;
+}
+
 #btn-green {
     border-radius: 0 0 calc(var(--size) / 2) 0;
+    /* border-top: calc((var(--size) / 50) / 2) solid black; */
+    /* border-left: calc((var(--size) / 50) / 2) solid black; */
     margin: 0 0 calc((var(--size) / 2) * -1) 0;
     animation-delay: 1s;
     background-color: green;
@@ -138,8 +162,18 @@ body {
     100% {transform: rotate(135deg);}
 }
 
+#btn-green:hover {
+    /* background-color: green; */
+    box-shadow: 0 0 50px green;
+    border: none;
+    transform: scale(0.95);
+    z-index: 0;
+}
+
 #btn-red {
     border-radius: 0 0 0 calc(var(--size) / 2);
+    /* border-top: calc((var(--size) / 50) / 2) solid black; */
+    /* border-right: calc((var(--size) / 50) / 2) solid black; */
     margin: 0 calc((var(--size) / 2) * -1) 0 calc((var(--size) / 2) * -1);
     animation-delay: 1.25s;
     background-color: red;
@@ -164,8 +198,17 @@ body {
     100% {transform: rotate(-135deg);}
 }
 
+#btn-red:hover {
+    /* background-color: red; */
+    box-shadow: 0 0 50px red;
+    border: none;
+    transform: scale(0.95);
+    z-index: 0;
+}
+
 #inner-circle {
     position: absolute;
+    z-index: 10;
     top: 50%;
     left: 50%;
     height: calc(var(--size) / 1.5);
@@ -187,7 +230,7 @@ body {
             rgba(100, 100, 100, 1) 95%,
             rgba(75, 75, 75, 1) 100%);
     border-radius: 50%;
-    border: calc((var(--size) / 50) / 2) solid black;
+    /* border: calc((var(--size) / 50) / 2) solid black; */
     box-sizing: border-box;
     transform: scale(0);
     animation: zoomIn 1s forwards;
