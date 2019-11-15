@@ -27,6 +27,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function yellowClick() {
         yellow.classList.add("active");
+        yellowAudio.currentTime = 0;
         yellowAudio.play();
         setTimeout(function() {
             yellow.classList.remove("active");
@@ -36,6 +37,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function blueClick() {
         blue.classList.add("active");
+        blueAudio.currentTime = 0;
         blueAudio.play();
         setTimeout(function() {
             blue.classList.remove("active");
@@ -45,6 +47,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function greenClick() {
         green.classList.add("active");
+        greenAudio.currentTime = 0;
         greenAudio.play();
         setTimeout(function() {
             green.classList.remove("active");
@@ -54,6 +57,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function redClick() {
         red.classList.add("active");
+        redAudio.currentTime = 0;
         redAudio.play();
         setTimeout(function() {
             red.classList.remove("active");
