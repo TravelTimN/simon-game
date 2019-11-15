@@ -40,6 +40,7 @@ body {
     /* border: calc((var(--size) / 50) / 2) solid white; */
     animation: fadeIn 1s forwards;
     overflow: hidden;
+    transition: all 0.05s ease-in-out;
 }
 
 @keyframes fadeIn {
@@ -60,6 +61,14 @@ body {
     filter: blur(5px);
     z-index: 5;
     overflow: hidden;
+}
+
+#btn-yellow.active,
+#btn-blue.active,
+#btn-green.active,
+#btn-red.active {
+    transform: scale(0.95);
+    z-index: 0;
 }
 
 #btn-yellow {
@@ -90,12 +99,8 @@ body {
     100% {transform: rotate(-45deg);}
 }
 
-#btn-yellow:hover {
-    /* background-color: yellow; */
+#btn-yellow.active {
     box-shadow: 0 0 50px yellow;
-    border: none;
-    transform: scale(0.95);
-    z-index: 0;
 }
 
 #btn-blue {
@@ -126,12 +131,8 @@ body {
     100% {transform: rotate(35deg);}
 }
 
-#btn-blue:hover {
-    /* background-color: blue; */
+#btn-blue.active {
     box-shadow: 0 0 50px blue;
-    border: none;
-    transform: scale(0.95);
-    z-index: 0;
 }
 
 #btn-green {
@@ -162,12 +163,8 @@ body {
     100% {transform: rotate(135deg);}
 }
 
-#btn-green:hover {
-    /* background-color: green; */
+#btn-green.active {
     box-shadow: 0 0 50px green;
-    border: none;
-    transform: scale(0.95);
-    z-index: 0;
 }
 
 #btn-red {
@@ -198,12 +195,8 @@ body {
     100% {transform: rotate(-135deg);}
 }
 
-#btn-red:hover {
-    /* background-color: red; */
+#btn-red.active {
     box-shadow: 0 0 50px red;
-    border: none;
-    transform: scale(0.95);
-    z-index: 0;
 }
 
 #inner-circle {
