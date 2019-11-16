@@ -24,7 +24,7 @@ body {
     position: relative;
     /* border: calc(var(--size) / 50) solid black; */
     /* border: calc(var(--size) / 50) solid white; */
-    margin: calc(var(--size) / 36) auto;
+    margin: calc(var(--size) / 20) auto;
 }
 
 #btn-yellow, #btn-blue, #btn-green, #btn-red {
