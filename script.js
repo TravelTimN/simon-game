@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
 
     let order = [];
     let playerOrder = [];
@@ -17,52 +17,31 @@ document.addEventListener("DOMContentLoaded", function() {
     const blue = document.querySelector("#btn-blue");
     const green = document.querySelector("#btn-green");
     const red = document.querySelector("#btn-red");
-    const yellowAudio = document.querySelector("#yellowAudio");
-    const blueAudio = document.querySelector("#blueAudio");
-    const greenAudio = document.querySelector("#greenAudio");
-    const redAudio = document.querySelector("#redAudio");
     const strictButton = document.querySelector("#strict");
     const powerButton = document.querySelector("#power");
     const startButton = document.querySelector("#start");
 
-    function yellowClick() {
-        yellow.classList.add("active");
-        yellowAudio.currentTime = 0;
-        yellowAudio.play();
-        setTimeout(function() {
-            yellow.classList.remove("active");
+    function pushButton(e) {
+        let btnKey = "";
+        if (e instanceof KeyboardEvent) {
+            btnKey = e.keyCode;
+        } else if (e instanceof MouseEvent) {
+            btnKey = this.dataset.key;
+        }
+        const audio = document.querySelector(`audio[data-key="${btnKey}"]`);
+        const btn = document.querySelector(`.btn[data-key="${btnKey}"]`);
+        if (!audio) return;
+        audio.currentTime = 0;
+        audio.play();
+        btn.classList.add("active");
+        setTimeout(function () {
+            btn.classList.remove("active");
         }, 100);
     }
-    yellow.addEventListener("click", yellowClick);
-
-    function blueClick() {
-        blue.classList.add("active");
-        blueAudio.currentTime = 0;
-        blueAudio.play();
-        setTimeout(function() {
-            blue.classList.remove("active");
-        }, 100);
-    }
-    blue.addEventListener("click", blueClick);
-
-    function greenClick() {
-        green.classList.add("active");
-        greenAudio.currentTime = 0;
-        greenAudio.play();
-        setTimeout(function() {
-            green.classList.remove("active");
-        }, 100);
-    }
-    green.addEventListener("click", greenClick);
-
-    function redClick() {
-        red.classList.add("active");
-        redAudio.currentTime = 0;
-        redAudio.play();
-        setTimeout(function() {
-            red.classList.remove("active");
-        }, 100);
-    }
-    red.addEventListener("click", redClick);
+    window.addEventListener("keydown", pushButton);
+    yellow.addEventListener("click", pushButton);
+    blue.addEventListener("click", pushButton);
+    green.addEventListener("click", pushButton);
+    red.addEventListener("click", pushButton);
 
 });

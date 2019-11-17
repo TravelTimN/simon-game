@@ -48,6 +48,16 @@ body {
     100% {opacity: 1;}
 }
 
+#btn-yellow::before,
+#btn-blue::before,
+#btn-green::before,
+#btn-red::before {
+    position: absolute;
+    font-size: 5em;
+	text-shadow: -1px -1px 1px white, 1px 1px 1px black;
+    opacity: 0;
+}
+
 #btn-yellow::after,
 #btn-blue::after,
 #btn-green::after,
@@ -85,6 +95,21 @@ body {
         rgba(255, 255, 255, 1) 100%);
 }
 
+#btn-yellow::before {
+    content: "Y";
+    left: 30%;
+    top: 22.5%;
+    color: yellow;
+    transform: rotate(-45deg);
+    animation: yellowText 1s forwards;
+    animation-delay: 3.5s;
+}
+
+@keyframes yellowText {
+    0% {opacity: 0; transform: rotate(-45deg) scale(0.5);}
+    100% {opacity: 0.5; transform: rotate(-45deg) scale(1);}
+}
+
 #btn-yellow::after {
     transform: rotate(-150deg);
     top: 10%;
@@ -115,6 +140,21 @@ body {
         rgba(0, 0, 255, 1) 50%,
         rgba(0, 0, 255, 0.8) 50%,
         rgba(0, 0, 255, 0.6) 100%);
+}
+
+#btn-blue::before {
+    content: "B";
+    right: 27%;
+    top: 25%;
+    color: blue;
+    transform: rotate(-45deg);
+    animation: blueText 1s forwards;
+    animation-delay: 3.75s;
+}
+
+@keyframes blueText {
+    0% {opacity: 0; transform: rotate(45deg) scale(0.5);}
+    100% {opacity: 0.5; transform: rotate(45deg) scale(1);}
 }
 
 #btn-blue::after {
@@ -149,6 +189,21 @@ body {
         rgba(0, 128, 0, 0.6) 100%);
 }
 
+#btn-green::before {
+    content: "G";
+    right: 25%;
+    bottom: 27%;
+    color: green;
+    transform: rotate(-45deg);
+    animation: greenText 1s forwards;
+    animation-delay: 4s;
+}
+
+@keyframes greenText {
+    0% {opacity: 0; transform: rotate(-45deg) scale(0.5);}
+    100% {opacity: 0.5; transform: rotate(-45deg) scale(1);}
+}
+
 #btn-green::after {
     transform: rotate(30deg);
     bottom: 10%;
@@ -179,6 +234,21 @@ body {
         rgba(255, 0, 0, 0.8) 50%,
         rgba(255, 0, 0, 1) 50%,
         rgba(255, 255, 255, 1) 100%);
+}
+
+#btn-red::before {
+    content: "R";
+    left: 25%;
+    bottom: 27%;
+    color: red;
+    transform: rotate(45deg);
+    animation: redText 1s forwards;
+    animation-delay: 4.25s;
+}
+
+@keyframes redText {
+    0% {opacity: 0; transform: rotate(45deg) scale(0.5);}
+    100% {opacity: 0.5; transform: rotate(45deg) scale(1);}
 }
 
 #btn-red::after {
