@@ -13,10 +13,10 @@ document.addEventListener("DOMContentLoaded", function () {
     let win;
 
     const turnCounter = document.querySelector("#turn");
-    const yellow = document.querySelector("#btn-yellow");
-    const blue = document.querySelector("#btn-blue");
     const green = document.querySelector("#btn-green");
     const red = document.querySelector("#btn-red");
+    const blue = document.querySelector("#btn-blue");
+    const yellow = document.querySelector("#btn-yellow");
     const strictButton = document.querySelector("#strict");
     const powerButton = document.querySelector("#power");
     const startButton = document.querySelector("#start");
@@ -39,9 +39,9 @@ document.addEventListener("DOMContentLoaded", function () {
         }, 100);
     }
     window.addEventListener("keydown", pushButton);
-    yellow.addEventListener("click", pushButton);
-    blue.addEventListener("click", pushButton);
     green.addEventListener("click", pushButton);
     red.addEventListener("click", pushButton);
+    blue.addEventListener("click", pushButton);
+    yellow.addEventListener("click", pushButton);
 
 });

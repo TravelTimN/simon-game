@@ -1,11 +1,12 @@
-@import url("https://fonts.googleapis.com/css?family=Original+Surfer&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Original+Surfer|Press+Start+2P&display=swap");
 
 :root {
-    --fontSurfer: "Original Surfer", cursive;
-    --yellow: 255, 255, 0;
-    --blue: 0, 0, 255;
+    --fontOriginalSurfer: "Original Surfer", sans-serif, cursive;
+    --fontPressStart: "Press Start 2P", sans-serif, cursive;
     --green: 0, 128, 0;
     --red: 255, 0, 0;
+    --blue: 0, 0, 255;
+    --yellow: 255, 255, 0;
     --white: 255, 255, 255;
     --lightGrey: 211, 211, 211;
     --grey: 128, 128, 128;
@@ -20,7 +21,7 @@
 * {
     margin: 0;
     padding: 0;
-    font-family: var(--fontSurfer);
+    font-family: var(--fontOriginalSurfer);
 }
 
 body {
@@ -38,10 +39,11 @@ body {
     margin: calc((100vh - var(--size)) / 2) auto;
 }
 
-#btn-yellow,
-#btn-blue,
+
 #btn-green,
-#btn-red {
+#btn-red,
+#btn-blue,
+#btn-yellow {
     position: absolute;
     z-index: 1;
     top: 50%;
@@ -61,20 +63,21 @@ body {
     100% {opacity: 1;}
 }
 
-#btn-yellow::before,
-#btn-blue::before,
 #btn-green::before,
-#btn-red::before {
+#btn-red::before,
+#btn-blue::before,
+#btn-yellow::before {
     position: absolute;
-    font-size: 5em;
+    font-size: 4em;
 	text-shadow: -1px -1px 1px rgba(var(--white), 1), 1px 1px 1px rgba(var(--black), 1);
     opacity: 0;
+    font-family: var(--fontPressStart);
 }
 
-#btn-yellow::after,
-#btn-blue::after,
 #btn-green::after,
-#btn-red::after {
+#btn-red::after,
+#btn-blue::after,
+#btn-yellow::after {
     content: "";
     position: absolute;
     border-radius: 50%;
@@ -86,70 +89,117 @@ body {
     overflow: hidden;
 }
 
-#btn-yellow.active,
-#btn-blue.active,
 #btn-green.active,
-#btn-red.active {
+#btn-red.active,
+#btn-blue.active,
+#btn-yellow.active {
     transform: scale(0.95);
     z-index: 0;
     border-color: transparent;
 }
 
-#btn-yellow {
+#btn-green {
     border-radius: calc(var(--size) / 2) 0 0 0;
     border-bottom: calc((var(--size) / 50) / 2) solid rgba(var(--black), 1);
     border-right: calc((var(--size) / 50) / 2) solid rgba(var(--black), 1);
     margin: calc((var(--size) / 2) * -1) 0 0 calc((var(--size) / 2) * -1);
     animation-delay: 0.5s;
-    background-color: rgba(var(--yellow), 1);
+    background-color: rgba(var(--green), 1);
     background: linear-gradient(135deg,
-        rgba(var(--yellow), 0.6) 0%,
-        rgba(var(--yellow), 0.8) 50%,
-        rgba(var(--yellow), 1) 50%,
+        rgba(var(--green), 0.6) 0%,
+        rgba(var(--green), 0.8) 50%,
+        rgba(var(--green), 1) 50%,
         rgba(var(--white), 1) 100%);
 }
 
-#btn-yellow::before {
-    content: "Y";
+#btn-green::before {
+    content: "G";
     left: 30%;
-    top: 22.5%;
-    color: rgba(var(--yellow), 1);
+    top: 30%;
+    color: rgba(var(--green), 1);
     transform: rotate(-45deg);
-    animation: yellowText 1s forwards;
+    animation: greenText 1s forwards;
     animation-delay: 3.5s;
 }
 
-@keyframes yellowText {
+@keyframes greenText {
     0% {opacity: 0; transform: rotate(-45deg) scale(0.5);}
-    100% {opacity: 0.5; transform: rotate(-45deg) scale(1);}
+    100% {opacity: 0.75; transform: rotate(-45deg) scale(1);}
 }
 
-#btn-yellow::after {
+#btn-green::after {
     transform: rotate(-150deg);
     top: 10%;
     left: 10%;
-    animation: yellowLoad 0.5s forwards;
+    animation: greenLoad 0.5s forwards;
     animation-delay: 1.5s;
 }
 
-@keyframes yellowLoad {
+@keyframes greenLoad {
     0% {transform: rotate(-150deg);}
     90% {transform: rotate(0deg);}
     100% {transform: rotate(-45deg);}
 }
 
-#btn-yellow.active {
-    box-shadow: 0 0 50px rgba(var(--yellow), 1);
+#btn-green.active {
+    box-shadow: 0 0 50px rgba(var(--green), 1);
 }
 
-#btn-blue {
+#btn-red {
     border-radius: 0 calc(var(--size) / 2) 0 0;
     border-left: calc((var(--size) / 50) / 2) solid rgba(var(--black), 1);
     border-bottom: calc((var(--size) / 50) / 2) solid rgba(var(--black), 1);
     margin: calc((var(--size) / 2) * -1) 0 0 0;
     animation-delay: 0.75s;
-    background-color: rgba(var(--blue), 1);
+    background-color: rgba(var(--red), 1);
     background: linear-gradient(45deg,
+        rgba(var(--white), 1) 0%,
+        rgba(var(--red), 1) 50%,
+        rgba(var(--red), 0.8) 50%,
+        rgba(var(--red), 0.6) 100%);
+}
+
+#btn-red::before {
+    content: "R";
+    right: 30%;
+    top: 30%;
+    color: rgba(var(--red), 1);
+    transform: rotate(-45deg);
+    animation: redText 1s forwards;
+    animation-delay: 3.75s;
+}
+
+@keyframes redText {
+    0% {opacity: 0; transform: rotate(45deg) scale(0.5);}
+    100% {opacity: 0.75; transform: rotate(45deg) scale(1);}
+}
+
+#btn-red::after {
+    transform: rotate(-45deg);
+    top: 10%;
+    right: 10%;
+    animation: redLoad 0.5s forwards;
+    animation-delay: 1.75s;
+}
+
+@keyframes redLoad {
+    0% {transform: rotate(-70deg);}
+    90% {transform: rotate(80deg);}
+    100% {transform: rotate(35deg);}
+}
+
+#btn-red.active {
+    box-shadow: 0 0 50px rgba(var(--red), 1);
+}
+
+#btn-blue {
+    border-radius: 0 0 calc(var(--size) / 2) 0;
+    border-top: calc((var(--size) / 50) / 2) solid rgba(var(--black), 1);
+    border-left: calc((var(--size) / 50) / 2) solid rgba(var(--black), 1);
+    margin: 0 0 calc((var(--size) / 2) * -1) 0;
+    animation-delay: 1s;
+    background-color: rgba(var(--blue), 1);
+    background: linear-gradient(135deg,
         rgba(var(--white), 1) 0%,
         rgba(var(--blue), 1) 50%,
         rgba(var(--blue), 0.8) 50%,
@@ -158,129 +208,82 @@ body {
 
 #btn-blue::before {
     content: "B";
-    right: 27%;
-    top: 25%;
+    right: 25%;
+    bottom: 30%;
     color: rgba(var(--blue), 1);
     transform: rotate(-45deg);
     animation: blueText 1s forwards;
-    animation-delay: 3.75s;
+    animation-delay: 4s;
 }
 
 @keyframes blueText {
-    0% {opacity: 0; transform: rotate(45deg) scale(0.5);}
-    100% {opacity: 0.5; transform: rotate(45deg) scale(1);}
+    0% {opacity: 0; transform: rotate(-45deg) scale(0.5);}
+    100% {opacity: 0.75; transform: rotate(-45deg) scale(1);}
 }
 
 #btn-blue::after {
-    transform: rotate(-45deg);
-    top: 10%;
+    transform: rotate(30deg);
+    bottom: 10%;
     right: 10%;
     animation: blueLoad 0.5s forwards;
-    animation-delay: 1.75s;
+    animation-delay: 2s;
 }
 
 @keyframes blueLoad {
-    0% {transform: rotate(-70deg);}
-    90% {transform: rotate(80deg);}
-    100% {transform: rotate(35deg);}
+    0% {transform: rotate(30deg);}
+    90% {transform: rotate(180deg);}
+    100% {transform: rotate(135deg);}
 }
 
 #btn-blue.active {
     box-shadow: 0 0 50px rgba(var(--blue), 1);
 }
 
-#btn-green {
-    border-radius: 0 0 calc(var(--size) / 2) 0;
-    border-top: calc((var(--size) / 50) / 2) solid rgba(var(--black), 1);
-    border-left: calc((var(--size) / 50) / 2) solid rgba(var(--black), 1);
-    margin: 0 0 calc((var(--size) / 2) * -1) 0;
-    animation-delay: 1s;
-    background-color: rgba(var(--green), 1);
-    background: linear-gradient(135deg,
-        rgba(var(--white), 1) 0%,
-        rgba(var(--green), 1) 50%,
-        rgba(var(--green), 0.8) 50%,
-        rgba(var(--green), 0.6) 100%);
-}
-
-#btn-green::before {
-    content: "G";
-    right: 25%;
-    bottom: 27%;
-    color: rgba(var(--green), 1);
-    transform: rotate(-45deg);
-    animation: greenText 1s forwards;
-    animation-delay: 4s;
-}
-
-@keyframes greenText {
-    0% {opacity: 0; transform: rotate(-45deg) scale(0.5);}
-    100% {opacity: 0.5; transform: rotate(-45deg) scale(1);}
-}
-
-#btn-green::after {
-    transform: rotate(30deg);
-    bottom: 10%;
-    right: 10%;
-    animation: greenLoad 0.5s forwards;
-    animation-delay: 2s;
-}
-
-@keyframes greenLoad {
-    0% {transform: rotate(30deg);}
-    90% {transform: rotate(180deg);}
-    100% {transform: rotate(135deg);}
-}
-
-#btn-green.active {
-    box-shadow: 0 0 50px rgba(var(--green), 1);
-}
-
-#btn-red {
+#btn-yellow {
     border-radius: 0 0 0 calc(var(--size) / 2);
     border-top: calc((var(--size) / 50) / 2) solid rgba(var(--black), 1);
     border-right: calc((var(--size) / 50) / 2) solid rgba(var(--black), 1);
     margin: 0 calc((var(--size) / 2) * -1) 0 calc((var(--size) / 2) * -1);
     animation-delay: 1.25s;
-    background-color: rgba(var(--red), 1);
+    background-color: rgba(var(--yellow), 1);
     background: linear-gradient(45deg,
-        rgba(var(--red), 0.6) 0%,
-        rgba(var(--red), 0.8) 50%,
-        rgba(var(--red), 1) 50%,
+        rgba(var(--yellow), 0.6) 0%,
+        rgba(var(--yellow), 0.8) 50%,
+        rgba(var(--yellow), 1) 50%,
         rgba(var(--white), 1) 100%);
 }
 
-#btn-red::before {
-    content: "R";
+#btn-yellow::before {
+    content: "Y";
     left: 25%;
-    bottom: 27%;
-    color: rgba(var(--red), 1);
+    bottom: 30%;
+    color: rgba(var(--yellow), 1);
     transform: rotate(45deg);
-    animation: redText 1s forwards;
+    animation: yellowText 1s forwards;
     animation-delay: 4.25s;
 }
 
-@keyframes redText {
+@keyframes yellowText {
     0% {opacity: 0; transform: rotate(45deg) scale(0.5);}
-    100% {opacity: 0.5; transform: rotate(45deg) scale(1);}
+    100% {opacity: 0.75; transform: rotate(45deg) scale(1);}
 }
 
-#btn-red::after {
+#btn-yellow::after {
     transform: rotate(-240deg);
     bottom: 10%;
     left: 10%;
-    animation: redLoad 0.5s forwards;
+    animation: yellowLoad 0.5s forwards;
     animation-delay: 2.25s;
 }
 
-@keyframes redLoad {
+@keyframes yellowLoad {
     0% {transform: rotate(-240deg);}
     90% {transform: rotate(-90deg);}
     100% {transform: rotate(-135deg);}
 }
 
-#btn-red.active {
-    box-shadow: 0 0 50px rgba(var(--red), 1);
+#btn-yellow.active {
+    box-shadow: 0 0 50px rgba(var(--yellow), 1);
 }
 
 #inner-circle {
