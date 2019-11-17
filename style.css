@@ -1,8 +1,9 @@
-@import url("https://fonts.googleapis.com/css?family=Original+Surfer|Press+Start+2P&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Original+Surfer|Press+Start+2P|Sarpanch&display=swap");
 
 :root {
     --fontOriginalSurfer: "Original Surfer", sans-serif, cursive;
     --fontPressStart: "Press Start 2P", sans-serif, cursive;
+    --fontSarpanch: "Sarpanch", sans-serif;
     --green: 0, 128, 0;
     --red: 255, 0, 0;
     --blue: 0, 0, 255;
@@ -15,12 +16,14 @@
     --mineShaft: 50, 50, 50;
     --codGrey: 11, 11, 11;
     --black: 0, 0, 0;
-    --size: 90vh;
+    --size: 90vw;
 }
 
 * {
     margin: 0;
     padding: 0;
+    -webkit-tap-highlight-color: rgba(var(--black), 0);
+    -webkit-tap-highlight-color: transparent;
     font-family: var(--fontOriginalSurfer);
 }
 
@@ -52,6 +55,7 @@ body {
     height: calc(var(--size) / 2);
     width: calc(var(--size) / 2);
     box-sizing: border-box;
+    cursor: pointer;
     /* border: calc((var(--size) / 50) / 2) solid rgba(var(--black), 1); */
     animation: fadeIn 1s forwards;
     overflow: hidden;
@@ -68,7 +72,7 @@ body {
 #btn-blue::before,
 #btn-yellow::before {
     position: absolute;
-    font-size: 4em;
+    font-size: 10vw;
 	text-shadow: -1px -1px 1px rgba(var(--white), 1), 1px 1px 1px rgba(var(--black), 1);
     opacity: 0;
     font-family: var(--fontPressStart);
@@ -298,8 +302,8 @@ body {
     /* width: calc(var(--size) / 2); */
     /* margin: calc((var(--size) / 4) * -1) 0 0 calc((var(--size) / 4) * -1); */
     background: radial-gradient(ellipse at center,
-            rgba(var(--black), 1) 10%,
-            rgba(var(--white), 1) 11%,
+            rgba(var(--black), 1) 15%,
+            rgba(var(--white), 1) 16%,
             rgba(var(--white), 1) 49%,
             rgba(var(--codGrey), 1) 50%,
             rgba(var(--mineShaft), 1) 51%,
@@ -323,6 +327,50 @@ body {
     100% {transform: scale(1);}
 }
 
+#title {
+    position: absolute;
+    top: 17%;
+    left: 17.5%;
+    width: 65%;
+    height: 32%;
+    color: rgba(var(--white), 1);
+    background-color: rgba(var(--black), 1);
+    border-top-left-radius: 1000px;
+    border-top-right-radius: 1000px;
+}
+
+#title::after {
+    content: "SIMON";
+    font-size: 8vw;
+    position: absolute;
+    top: 20%;
+    margin: 0 19%;
+    text-align: center;
+    font-family: var(--fontSarpanch);
+    text-shadow:
+        -3px -3px 0 rgba(var(--black), 1),
+        3px -3px 0 rgba(var(--black), 1),
+        -3px 3px 0 rgba(var(--black), 1),
+        3px 3px 0 rgba(var(--black), 1),
+        4px 4px 0 rgba(var(--white), 1);
+}
+
+#title-sub::after {
+    content: "MEMORY GAME";
+    position: absolute;
+    top: 70%;
+    left: 15.5%;
+    letter-spacing: 1vw;
+    font-size: 2.5vw;
+    font-family: var(--fontSarpanch);
+    text-shadow:
+        -2px -2px 0 rgba(var(--black), 1),
+        2px -2px 0 rgba(var(--black), 1),
+        -2px 2px 0 rgba(var(--black), 1),
+        2px 2px 0 rgba(var(--black), 1),
+        2px 2px 0 rgba(var(--white), 1);
+}
+
 .toggle {
     margin: inherit 20px;
 }
@@ -343,4 +391,11 @@ body {
     position: absolute;
     margin-top: 197px;
     margin-left: 83px;
+}
+
+@media (min-width: 600px) {
+    :root {--size: 90vh;}
+    #title::after {font-size: 3em;}
+    #title-sub::after {font-size: 1em; letter-spacing: 4px; top: 65%; left: 19%;}
+    #btn-green::before, #btn-red::before, #btn-blue::before, #btn-yellow::before {font-size: 4em;}
 }
