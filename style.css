@@ -2,6 +2,18 @@
 
 :root {
     --fontSurfer: "Original Surfer", cursive;
+    --yellow: 255, 255, 0;
+    --blue: 0, 0, 255;
+    --green: 0, 128, 0;
+    --red: 255, 0, 0;
+    --white: 255, 255, 255;
+    --lightGrey: 211, 211, 211;
+    --grey: 128, 128, 128;
+    --doveGrey: 109, 108, 108;
+    --tundora: 74, 66, 68;
+    --mineShaft: 50, 50, 50;
+    --codGrey: 11, 11, 11;
+    --black: 0, 0, 0;
     --size: 90vh;
 }
 
@@ -12,22 +24,24 @@
 }
 
 body {
-    /* background-color: grey; */
-    background-color: black;
+    background-color: rgba(var(--black), 1);
 }
 
 #outer-circle {
-    /* background-color: black; */
+    /* background-color: rgba(var(--black), 1); */
+    /* border: calc(var(--size) / 50) solid rgba(var(--black), 1); */
+    /* border: calc(var(--size) / 50) solid rgba(var(--white), 1); */
     border-radius: 50%;
     height: var(--size);
     width: var(--size);
     position: relative;
-    /* border: calc(var(--size) / 50) solid black; */
-    /* border: calc(var(--size) / 50) solid white; */
-    margin: calc(var(--size) / 20) auto;
+    margin: calc((100vh - var(--size)) / 2) auto;
 }
 
-#btn-yellow, #btn-blue, #btn-green, #btn-red {
+#btn-yellow,
+#btn-blue,
+#btn-green,
+#btn-red {
     position: absolute;
     z-index: 1;
     top: 50%;
@@ -36,8 +50,7 @@ body {
     height: calc(var(--size) / 2);
     width: calc(var(--size) / 2);
     box-sizing: border-box;
-    /* border: calc((var(--size) / 50) / 2) solid black; */
-    /* border: calc((var(--size) / 50) / 2) solid white; */
+    /* border: calc((var(--size) / 50) / 2) solid rgba(var(--black), 1); */
     animation: fadeIn 1s forwards;
     overflow: hidden;
     transition: all 0.05s ease-in-out;
@@ -54,7 +67,7 @@ body {
 #btn-red::before {
     position: absolute;
     font-size: 5em;
-	text-shadow: -1px -1px 1px white, 1px 1px 1px black;
+	text-shadow: -1px -1px 1px rgba(var(--white), 1), 1px 1px 1px rgba(var(--black), 1);
     opacity: 0;
 }
 
@@ -67,7 +80,7 @@ body {
     border-radius: 50%;
     width: 200%;
     height: 200%;
-    background: radial-gradient(circle at 50% 0px, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0) 58%);
+    background: radial-gradient(circle at 50% 0px, rgba(var(--white), 0.5), rgba(var(--white), 0) 58%);
     filter: blur(5px);
     z-index: 5;
     overflow: hidden;
@@ -79,27 +92,28 @@ body {
 #btn-red.active {
     transform: scale(0.95);
     z-index: 0;
+    border-color: transparent;
 }
 
 #btn-yellow {
     border-radius: calc(var(--size) / 2) 0 0 0;
-    /* border-bottom: calc((var(--size) / 50) / 2) solid black; */
-    /* border-right: calc((var(--size) / 50) / 2) solid black; */
+    border-bottom: calc((var(--size) / 50) / 2) solid rgba(var(--black), 1);
+    border-right: calc((var(--size) / 50) / 2) solid rgba(var(--black), 1);
     margin: calc((var(--size) / 2) * -1) 0 0 calc((var(--size) / 2) * -1);
     animation-delay: 0.5s;
-    background-color: yellow;
+    background-color: rgba(var(--yellow), 1);
     background: linear-gradient(135deg,
-        rgba(255, 255, 0, 0.6) 0%,
-        rgba(255, 255, 0, 0.8) 50%,
-        rgba(255, 255, 0, 1) 50%,
-        rgba(255, 255, 255, 1) 100%);
+        rgba(var(--yellow), 0.6) 0%,
+        rgba(var(--yellow), 0.8) 50%,
+        rgba(var(--yellow), 1) 50%,
+        rgba(var(--white), 1) 100%);
 }
 
 #btn-yellow::before {
     content: "Y";
     left: 30%;
     top: 22.5%;
-    color: yellow;
+    color: rgba(var(--yellow), 1);
     transform: rotate(-45deg);
     animation: yellowText 1s forwards;
     animation-delay: 3.5s;
@@ -125,28 +139,28 @@ body {
 }
 
 #btn-yellow.active {
-    box-shadow: 0 0 50px yellow;
+    box-shadow: 0 0 50px rgba(var(--yellow), 1);
 }
 
 #btn-blue {
     border-radius: 0 calc(var(--size) / 2) 0 0;
-    /* border-left: calc((var(--size) / 50) / 2) solid black; */
-    /* border-bottom: calc((var(--size) / 50) / 2) solid black; */
+    border-left: calc((var(--size) / 50) / 2) solid rgba(var(--black), 1);
+    border-bottom: calc((var(--size) / 50) / 2) solid rgba(var(--black), 1);
     margin: calc((var(--size) / 2) * -1) 0 0 0;
     animation-delay: 0.75s;
-    background-color: blue;
+    background-color: rgba(var(--blue), 1);
     background: linear-gradient(45deg,
-        rgba(255, 255, 255, 1) 0%,
-        rgba(0, 0, 255, 1) 50%,
-        rgba(0, 0, 255, 0.8) 50%,
-        rgba(0, 0, 255, 0.6) 100%);
+        rgba(var(--white), 1) 0%,
+        rgba(var(--blue), 1) 50%,
+        rgba(var(--blue), 0.8) 50%,
+        rgba(var(--blue), 0.6) 100%);
 }
 
 #btn-blue::before {
     content: "B";
     right: 27%;
     top: 25%;
-    color: blue;
+    color: rgba(var(--blue), 1);
     transform: rotate(-45deg);
     animation: blueText 1s forwards;
     animation-delay: 3.75s;
@@ -172,28 +186,28 @@ body {
 }
 
 #btn-blue.active {
-    box-shadow: 0 0 50px blue;
+    box-shadow: 0 0 50px rgba(var(--blue), 1);
 }
 
 #btn-green {
     border-radius: 0 0 calc(var(--size) / 2) 0;
-    /* border-top: calc((var(--size) / 50) / 2) solid black; */
-    /* border-left: calc((var(--size) / 50) / 2) solid black; */
+    border-top: calc((var(--size) / 50) / 2) solid rgba(var(--black), 1);
+    border-left: calc((var(--size) / 50) / 2) solid rgba(var(--black), 1);
     margin: 0 0 calc((var(--size) / 2) * -1) 0;
     animation-delay: 1s;
-    background-color: green;
+    background-color: rgba(var(--green), 1);
     background: linear-gradient(135deg,
-        rgba(255, 255, 255, 1) 0%,
-        rgba(0, 128, 0, 1) 50%,
-        rgba(0, 128, 0, 0.8) 50%,
-        rgba(0, 128, 0, 0.6) 100%);
+        rgba(var(--white), 1) 0%,
+        rgba(var(--green), 1) 50%,
+        rgba(var(--green), 0.8) 50%,
+        rgba(var(--green), 0.6) 100%);
 }
 
 #btn-green::before {
     content: "G";
     right: 25%;
     bottom: 27%;
-    color: green;
+    color: rgba(var(--green), 1);
     transform: rotate(-45deg);
     animation: greenText 1s forwards;
     animation-delay: 4s;
@@ -219,28 +233,28 @@ body {
 }
 
 #btn-green.active {
-    box-shadow: 0 0 50px green;
+    box-shadow: 0 0 50px rgba(var(--green), 1);
 }
 
 #btn-red {
     border-radius: 0 0 0 calc(var(--size) / 2);
-    /* border-top: calc((var(--size) / 50) / 2) solid black; */
-    /* border-right: calc((var(--size) / 50) / 2) solid black; */
+    border-top: calc((var(--size) / 50) / 2) solid rgba(var(--black), 1);
+    border-right: calc((var(--size) / 50) / 2) solid rgba(var(--black), 1);
     margin: 0 calc((var(--size) / 2) * -1) 0 calc((var(--size) / 2) * -1);
     animation-delay: 1.25s;
-    background-color: red;
+    background-color: rgba(var(--red), 1);
     background: linear-gradient(45deg,
-        rgba(255, 0, 0, 0.6) 0%,
-        rgba(255, 0, 0, 0.8) 50%,
-        rgba(255, 0, 0, 1) 50%,
-        rgba(255, 255, 255, 1) 100%);
+        rgba(var(--red), 0.6) 0%,
+        rgba(var(--red), 0.8) 50%,
+        rgba(var(--red), 1) 50%,
+        rgba(var(--white), 1) 100%);
 }
 
 #btn-red::before {
     content: "R";
     left: 25%;
     bottom: 27%;
-    color: red;
+    color: rgba(var(--red), 1);
     transform: rotate(45deg);
     animation: redText 1s forwards;
     animation-delay: 4.25s;
@@ -266,7 +280,7 @@ body {
 }
 
 #btn-red.active {
-    box-shadow: 0 0 50px red;
+    box-shadow: 0 0 50px rgba(var(--red), 1);
 }
 
 #inner-circle {
@@ -275,25 +289,25 @@ body {
     top: 50%;
     left: 50%;
     height: calc(var(--size) / 1.5);
-    /* height: calc(var(--size) / 2); */
     width: calc(var(--size) / 1.5);
-    /* width: calc(var(--size) / 2); */
     margin: calc((var(--size) / 3) * -1) 0 0 calc((var(--size) / 3) * -1);
+    /* height: calc(var(--size) / 2); */
+    /* width: calc(var(--size) / 2); */
     /* margin: calc((var(--size) / 4) * -1) 0 0 calc((var(--size) / 4) * -1); */
     background: radial-gradient(ellipse at center,
-            rgba(0, 0, 0, 1) 10%,
-            rgba(255, 255, 255, 1) 11%,
-            rgba(255, 255, 255, 1) 49%,
-            rgba(25, 25, 25, 1) 50%,
-            rgba(50, 50, 50, 1) 51%,
-            rgba(0, 0, 0, 1) 60%,
-            rgba(100, 100, 100, 1) 61%,
-            rgba(50, 50, 50, 1) 62%,
-            rgba(75, 75, 75, 1) 75%,
-            rgba(100, 100, 100, 1) 95%,
-            rgba(75, 75, 75, 1) 100%);
+            rgba(var(--black), 1) 10%,
+            rgba(var(--white), 1) 11%,
+            rgba(var(--white), 1) 49%,
+            rgba(var(--codGrey), 1) 50%,
+            rgba(var(--mineShaft), 1) 51%,
+            rgba(var(--black), 1) 60%,
+            rgba(var(--doveGrey), 1) 61%,
+            rgba(var(--mineShaft), 1) 62%,
+            rgba(var(--tundora), 1) 75%,
+            rgba(var(--doveGrey), 1) 95%,
+            rgba(var(--tundora), 1) 100%);
     border-radius: 50%;
-    /* border: calc((var(--size) / 50) / 2) solid black; */
+    /* border: calc((var(--size) / 50) / 2) solid rgba(var(--black), 1); */
     box-sizing: border-box;
     transform: scale(0);
     animation: zoomIn 1s forwards;
@@ -313,7 +327,7 @@ body {
 .button {
     border-radius: 50%;
     font-size: 1.5em;
-    background-color: lightgrey;
+    background-color: rgba(var(--lightGrey), 1);
 }
 
 #switches {
