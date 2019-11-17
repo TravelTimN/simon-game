@@ -34,8 +34,6 @@ body {
 
 #outer-circle {
     /* background-color: rgba(var(--black), 1); */
-    /* border: calc(var(--size) / 50) solid rgba(var(--black), 1); */
-    /* border: calc(var(--size) / 50) solid rgba(var(--white), 1); */
     border-radius: 50%;
     height: var(--size);
     width: var(--size);
@@ -61,7 +59,6 @@ body {
     height: calc(var(--size) / 2);
     width: calc(var(--size) / 2);
     box-sizing: border-box;
-    /* border: calc((var(--size) / 50) / 2) solid rgba(var(--black), 1); */
     animation: fadeIn 1s forwards;
     overflow: hidden;
     transition: all 0.05s ease-in-out;
@@ -303,9 +300,6 @@ body {
     height: calc(var(--size) / 1.5);
     width: calc(var(--size) / 1.5);
     margin: calc((var(--size) / 3) * -1) 0 0 calc((var(--size) / 3) * -1);
-    /* height: calc(var(--size) / 2); */
-    /* width: calc(var(--size) / 2); */
-    /* margin: calc((var(--size) / 4) * -1) 0 0 calc((var(--size) / 4) * -1); */
     background: radial-gradient(ellipse at center,
             rgba(var(--black), 1) 15%,
             rgba(var(--white), 1) 16%,
