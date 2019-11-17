@@ -55,7 +55,6 @@ body {
     height: calc(var(--size) / 2);
     width: calc(var(--size) / 2);
     box-sizing: border-box;
-    cursor: pointer;
     /* border: calc((var(--size) / 50) / 2) solid rgba(var(--black), 1); */
     animation: fadeIn 1s forwards;
     overflow: hidden;
@@ -371,21 +370,70 @@ body {
         2px 2px 0 rgba(var(--white), 1);
 }
 
-.toggle {
-    margin: inherit 20px;
-}
-
 .button {
     border-radius: 50%;
     font-size: 1.5em;
     background-color: rgba(var(--lightGrey), 1);
 }
 
-#switches {
+/* #switches {
     position: absolute;
     margin-top: 110px;
     margin-left: 26px;
+} */
+
+.power {
+    position: absolute;
+    display: inline-block;
+    width: 15%;
+    height: 2em;
+    left: 42.5%;
+    bottom: 25%;
 }
+
+.power input {opacity: 0; width: 0; height: 0;}
+.power-on {position: absolute; top: 10%; left: -65%;}
+.power-on::after {content: "ON";}
+.power-off {position: absolute; top: 10%; left: 110%;}
+.power-off::after {content: "OFF";}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    background-color: rgba(var(--red), 0.75);
+    transition: all 0.5s ease-in-out;
+}
+
+.slider::before {
+    position: absolute;
+    content: "";
+    height: 17px;
+    width: 17px;
+    left: 3px;
+    bottom: 3px;
+    background-color: rgba(var(--red), 1);
+    border: 1px rgba(var(--white), 1) outset;
+    box-shadow: 2px 2px 7px 0 rgba(var(--black), 1);
+    transition: all 0.5s ease-in-out;
+}
+
+input:checked+.slider {background-color: rgba(var(--green), 0.75);}
+input:checked+.slider::before {background-color: rgba(var(--green), 1);}
+input:checked+.slider::before {transform: translateX(29px);}
+
+.slider.round {
+    border-radius: 25px;
+    padding: 2px;
+    width: 50px;
+    height: 20px;
+    box-shadow: inset 1px 1px 3px 0 rgba(var(--grey), 1);
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+}
+
+.slider.round::before {border-radius: 50%;}
 
 #turn span {
     position: absolute;

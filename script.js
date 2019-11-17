@@ -21,6 +21,31 @@ document.addEventListener("DOMContentLoaded", function () {
     const powerButton = document.querySelector("#power");
     const startButton = document.querySelector("#start");
 
+    powerButton.addEventListener("click", () => {
+        on = !on;
+        if (on) {
+            green.style.cursor = "pointer";
+            red.style.cursor = "pointer";
+            blue.style.cursor = "pointer";
+            yellow.style.cursor = "pointer";
+            window.addEventListener("keydown", pushButton); // keyCode
+            green.addEventListener("click", pushButton); // click green
+            red.addEventListener("click", pushButton); // click red
+            blue.addEventListener("click", pushButton); // click blue
+            yellow.addEventListener("click", pushButton); // click yellow
+        } else {
+            green.style.cursor = "default";
+            red.style.cursor = "default";
+            blue.style.cursor = "default";
+            yellow.style.cursor = "default";
+            window.removeEventListener("keydown", pushButton); // keyCode
+            green.removeEventListener("click", pushButton); // click green
+            red.removeEventListener("click", pushButton); // click red
+            blue.removeEventListener("click", pushButton); // click blue
+            yellow.removeEventListener("click", pushButton); // click yellow
+        }
+    });
+
     function pushButton(e) {
         let btnKey = "";
         if (e instanceof KeyboardEvent) {
@@ -49,10 +74,5 @@ document.addEventListener("DOMContentLoaded", function () {
             btn.classList.remove("active");
         }, 100);
     }
-    window.addEventListener("keydown", pushButton); // keyCode
-    green.addEventListener("click", pushButton); // click green
-    red.addEventListener("click", pushButton); // click red
-    blue.addEventListener("click", pushButton); // click blue
-    yellow.addEventListener("click", pushButton); // click yellow
 
 });
