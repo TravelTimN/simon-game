@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const strictButton = document.querySelector("#strict");
     const powerButton = document.querySelector("#power");
     const startButton = document.querySelector("#start");
+    const loseAudio = document.querySelector("#loseAudio");
 
     powerButton.addEventListener("click", () => {
         on = !on;
@@ -28,21 +29,22 @@ document.addEventListener("DOMContentLoaded", function () {
             red.style.cursor = "pointer";
             blue.style.cursor = "pointer";
             yellow.style.cursor = "pointer";
-            window.addEventListener("keydown", pushButton); // keyCode
-            green.addEventListener("click", pushButton); // click green
-            red.addEventListener("click", pushButton); // click red
-            blue.addEventListener("click", pushButton); // click blue
-            yellow.addEventListener("click", pushButton); // click yellow
+            window.addEventListener("keydown", pushButton); // enable keyCode press
+            green.addEventListener("click", pushButton); // enable click green
+            red.addEventListener("click", pushButton); // enable click red
+            blue.addEventListener("click", pushButton); // enable click blue
+            yellow.addEventListener("click", pushButton); // enable click yellow
         } else {
+            loseAudio.play(); // play 47Hz 'lose' audio
             green.style.cursor = "default";
             red.style.cursor = "default";
             blue.style.cursor = "default";
             yellow.style.cursor = "default";
-            window.removeEventListener("keydown", pushButton); // keyCode
-            green.removeEventListener("click", pushButton); // click green
-            red.removeEventListener("click", pushButton); // click red
-            blue.removeEventListener("click", pushButton); // click blue
-            yellow.removeEventListener("click", pushButton); // click yellow
+            window.removeEventListener("keydown", pushButton); // disable keyCode press
+            green.removeEventListener("click", pushButton); // disable click green
+            red.removeEventListener("click", pushButton); // disable click red
+            blue.removeEventListener("click", pushButton); // disable click blue
+            yellow.removeEventListener("click", pushButton); // disable click yellow
         }
     });
 

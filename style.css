@@ -29,6 +29,7 @@
 
 body {
     background-color: rgba(var(--black), 1);
+    overflow: hidden;
 }
 
 #outer-circle {
@@ -40,8 +41,13 @@ body {
     width: var(--size);
     position: relative;
     margin: calc((100vh - var(--size)) / 2) auto;
+    animation: spin 2s ease-in-out;
 }
 
+@keyframes spin {
+    0% {transform: rotate(2160deg);}
+    100% {transform: rotate(0);}
+}
 
 #btn-green,
 #btn-red,
@@ -103,8 +109,8 @@ body {
 
 #btn-green {
     border-radius: calc(var(--size) / 2) 0 0 0;
-    border-bottom: calc((var(--size) / 50) / 2) solid rgba(var(--black), 1);
-    border-right: calc((var(--size) / 50) / 2) solid rgba(var(--black), 1);
+    border-bottom: calc((var(--size) / 50) / 1.5) solid rgba(var(--black), 1);
+    border-right: calc((var(--size) / 50) / 1.5) solid rgba(var(--black), 1);
     margin: calc((var(--size) / 2) * -1) 0 0 calc((var(--size) / 2) * -1);
     animation-delay: 0.5s;
     background-color: rgba(var(--green), 1);
@@ -150,8 +156,8 @@ body {
 
 #btn-red {
     border-radius: 0 calc(var(--size) / 2) 0 0;
-    border-left: calc((var(--size) / 50) / 2) solid rgba(var(--black), 1);
-    border-bottom: calc((var(--size) / 50) / 2) solid rgba(var(--black), 1);
+    border-left: calc((var(--size) / 50) / 1.5) solid rgba(var(--black), 1);
+    border-bottom: calc((var(--size) / 50) / 1.5) solid rgba(var(--black), 1);
     margin: calc((var(--size) / 2) * -1) 0 0 0;
     animation-delay: 0.75s;
     background-color: rgba(var(--red), 1);
@@ -197,8 +203,8 @@ body {
 
 #btn-blue {
     border-radius: 0 0 calc(var(--size) / 2) 0;
-    border-top: calc((var(--size) / 50) / 2) solid rgba(var(--black), 1);
-    border-left: calc((var(--size) / 50) / 2) solid rgba(var(--black), 1);
+    border-top: calc((var(--size) / 50) / 1.5) solid rgba(var(--black), 1);
+    border-left: calc((var(--size) / 50) / 1.5) solid rgba(var(--black), 1);
     margin: 0 0 calc((var(--size) / 2) * -1) 0;
     animation-delay: 1s;
     background-color: rgba(var(--blue), 1);
@@ -244,8 +250,8 @@ body {
 
 #btn-yellow {
     border-radius: 0 0 0 calc(var(--size) / 2);
-    border-top: calc((var(--size) / 50) / 2) solid rgba(var(--black), 1);
-    border-right: calc((var(--size) / 50) / 2) solid rgba(var(--black), 1);
+    border-top: calc((var(--size) / 50) / 1.5) solid rgba(var(--black), 1);
+    border-right: calc((var(--size) / 50) / 1.5) solid rgba(var(--black), 1);
     margin: 0 calc((var(--size) / 2) * -1) 0 calc((var(--size) / 2) * -1);
     animation-delay: 1.25s;
     background-color: rgba(var(--yellow), 1);
@@ -313,7 +319,7 @@ body {
             rgba(var(--doveGrey), 1) 95%,
             rgba(var(--tundora), 1) 100%);
     border-radius: 50%;
-    /* border: calc((var(--size) / 50) / 2) solid rgba(var(--black), 1); */
+    border: calc((var(--size) / 50) / 2) solid rgba(var(--black), 1);
     box-sizing: border-box;
     transform: scale(0);
     animation: zoomIn 1s forwards;
