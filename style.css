@@ -386,18 +386,22 @@ body {
 .power {
     position: absolute;
     display: inline-block;
-    /* width: 15%; */
-    width: 50%;
-    height: 2em;
-    /* left: 42.5%; */
+    /* width: 22.5%; */
+    /* width: calc(var(--size) / 8); */
+    /* height: 2em; */
+    /* height: calc(var(--size) / 12); */
+    /* left: 38.5%; */
     bottom: 25%;
+    font-weight: bold;
+    font-size: 0.75em;
     text-align: center;
+    margin: 0 calc((var(--size) / 2.75) - 45px);
 }
 
 .power input {opacity: 0; width: 0; height: 0;}
-.power-on {position: absolute; top: 10%; left: -65%;}
+.power-on {position: absolute; top: 10%; left: -25px;}
 .power-on::after {content: "ON";}
-.power-off {position: absolute; top: 10%; left: 110%;}
+.power-off {position: absolute; top: 10%; left: 57px;}
 .power-off::after {content: "OFF";}
 
 .slider {
@@ -429,8 +433,8 @@ input:checked+.slider::before {transform: translateX(29px);}
 .slider.round {
     border-radius: 25px;
     padding: 2px;
-    /* width: 50px; */
-    width: 10vw;
+    width: 50px;
+    /* width: 40px; */
     height: 20px;
     box-shadow: inset 1px 1px 3px 0 rgba(var(--grey), 1);
     cursor: pointer;
@@ -450,5 +454,6 @@ input:checked+.slider::before {transform: translateX(29px);}
     #title::after {font-size: 3em;}
     #title-sub::after {content: "- MEMORY GAME -"; font-size: 1em; letter-spacing: 4px; top: 65%;}
     #btn-green::before, #btn-red::before, #btn-blue::before, #btn-yellow::before {font-size: 4em;}
-    .slider.round {width: 3em;}
+    .slider.round {width: 50px;}
+    .power {height: calc(var(--size) / 16); margin: 0 calc((var(--size) / 2.75) - 50px);}
 }
