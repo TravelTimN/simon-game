@@ -343,7 +343,7 @@ body {
     font-size: 8vw;
     position: absolute;
     top: 20%;
-    margin: 0 19%;
+    width: 100%;
     text-align: center;
     font-family: var(--fontSarpanch);
     text-shadow:
@@ -358,7 +358,8 @@ body {
     content: "MEMORY GAME";
     position: absolute;
     top: 70%;
-    left: 15.5%;
+    width: 100%;
+    text-align: center;
     letter-spacing: 1vw;
     font-size: 2.5vw;
     font-family: var(--fontSarpanch);
@@ -385,10 +386,12 @@ body {
 .power {
     position: absolute;
     display: inline-block;
-    width: 15%;
+    /* width: 15%; */
+    width: 50%;
     height: 2em;
-    left: 42.5%;
+    /* left: 42.5%; */
     bottom: 25%;
+    text-align: center;
 }
 
 .power input {opacity: 0; width: 0; height: 0;}
@@ -426,7 +429,8 @@ input:checked+.slider::before {transform: translateX(29px);}
 .slider.round {
     border-radius: 25px;
     padding: 2px;
-    width: 50px;
+    /* width: 50px; */
+    width: 10vw;
     height: 20px;
     box-shadow: inset 1px 1px 3px 0 rgba(var(--grey), 1);
     cursor: pointer;
@@ -441,9 +445,10 @@ input:checked+.slider::before {transform: translateX(29px);}
     margin-left: 83px;
 }
 
-@media (min-width: 600px) {
+@media (min-width: 700px) {
     :root {--size: 90vh;}
     #title::after {font-size: 3em;}
-    #title-sub::after {font-size: 1em; letter-spacing: 4px; top: 65%; left: 19%;}
+    #title-sub::after {content: "- MEMORY GAME -"; font-size: 1em; letter-spacing: 4px; top: 65%;}
     #btn-green::before, #btn-red::before, #btn-blue::before, #btn-yellow::before {font-size: 4em;}
+    .slider.round {width: 3em;}
 }
