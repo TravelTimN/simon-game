@@ -371,10 +371,38 @@ body {
         2px 2px 0 rgba(var(--white), 1);
 }
 
-.button {
+/* .button {
     border-radius: 50%;
     font-size: 1.5em;
     background-color: rgba(var(--lightGrey), 1);
+} */
+
+.button {
+    font-family: "Quantico", sans-serif;
+    font-weight: bold;
+    margin-top: 4px;
+    border-width: 1px;
+    border-color: #fff;
+    border-radius: 50px;
+    height: 20px;
+    width: 65px;
+    font-size: 11px;
+    color: #333;
+    cursor: pointer;
+    overflow: hidden;
+    transition: 0.5s;
+    outline: none;
+}
+
+.start {
+    position: absolute;
+    left: 20%;
+    bottom: 40%;
+    background: linear-gradient(to bottom,
+            rgba(183, 222, 237, 1) 0%,
+            rgba(113, 206, 239, 1) 50%,
+            rgba(33, 180, 226, 1) 50%,
+            rgba(183, 222, 237, 1) 100%);
 }
 
 /* #switches {
@@ -386,11 +414,6 @@ body {
 .power {
     position: absolute;
     display: inline-block;
-    /* width: 22.5%; */
-    /* width: calc(var(--size) / 8); */
-    /* height: 2em; */
-    /* height: calc(var(--size) / 12); */
-    /* left: 38.5%; */
     bottom: 25%;
     font-weight: bold;
     font-size: 0.75em;
@@ -399,10 +422,10 @@ body {
 }
 
 .power input {opacity: 0; width: 0; height: 0;}
-.power-on {position: absolute; top: 10%; left: -25px;}
-.power-on::after {content: "ON";}
-.power-off {position: absolute; top: 10%; left: 57px;}
+.power-off {position: absolute; top: 10%; left: -30px;}
 .power-off::after {content: "OFF";}
+.power-on {position: absolute; top: 10%; left: 57px;}
+.power-on::after {content: "ON";}
 
 .slider {
     position: absolute;
@@ -434,7 +457,6 @@ input:checked+.slider::before {transform: translateX(29px);}
     border-radius: 25px;
     padding: 2px;
     width: 50px;
-    /* width: 40px; */
     height: 20px;
     box-shadow: inset 1px 1px 3px 0 rgba(var(--grey), 1);
     cursor: pointer;
