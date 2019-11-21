@@ -20,11 +20,21 @@ document.addEventListener("DOMContentLoaded", function () {
     const strictButton = document.querySelector("#strict");
     const powerButton = document.querySelector("#power");
     const startButton = document.querySelector("#start");
+    const powerOnAudio = document.querySelector("#powerOnAudio");
     const loseAudio = document.querySelector("#loseAudio");
+
+    function stopSounds() {
+        // pause any existing audio elements
+        var sounds = document.getElementsByTagName("audio");
+        for(i=0; i<sounds.length; i++) sounds[i].pause();
+    }
 
     powerButton.addEventListener("click", () => {
         on = !on;
         if (on) {
+            stopSounds();
+            powerOnAudio.currentTime = 0;
+            powerOnAudio.play(); // play power-on music
             green.style.cursor = "pointer";
             red.style.cursor = "pointer";
             blue.style.cursor = "pointer";
@@ -35,6 +45,8 @@ document.addEventListener("DOMContentLoaded", function () {
             blue.addEventListener("click", pushButton); // enable click blue
             yellow.addEventListener("click", pushButton); // enable click yellow
         } else {
+            stopSounds();
+            loseAudio.currentTime = 0;
             loseAudio.play(); // play 47Hz 'lose' audio
             green.style.cursor = "default";
             red.style.cursor = "default";
@@ -64,15 +76,29 @@ document.addEventListener("DOMContentLoaded", function () {
         if (!audio) return;
         // reset audio to 0
         audio.currentTime = 0;
-        // pause any existing audio elements
-        var sounds = document.getElementsByTagName("audio");
-        for(i=0; i<sounds.length; i++) sounds[i].pause();
+        stopSounds();
         // play current audio element
         audio.play();
+        if (count <= 5) {
+            setTimeout(() => {
+                audio.pause();
+                audio.currentTime = 0;
+            }, 420);
+        } else if (count <= 13 && count >= 6) {
+            setTimeout(() => {
+                audio.pause();
+                audio.currentTime = 0;
+            }, 320);
+        } else if (count > 13) {
+            setTimeout(() => {
+                audio.pause();
+                audio.currentTime = 0;
+            }, 220);
+        }
         // add 'active' class
         btn.classList.add("active");
         // timeout to remove 'active' class
-        setTimeout(function () {
+        setTimeout(() => {
             btn.classList.remove("active");
         }, 100);
     }

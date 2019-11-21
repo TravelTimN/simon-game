@@ -1,5 +1,7 @@
+/* ----- IMPORTS ----- */
 @import url("https://fonts.googleapis.com/css?family=Original+Surfer|Press+Start+2P|Quantico|Sarpanch&display=swap");
 
+/* ----- :ROOT VARS ----- */
 :root {
     --fontOriginalSurfer: "Original Surfer", sans-serif;
     --fontPressStart: "Press Start 2P", sans-serif, cursive;
@@ -33,6 +35,7 @@ body {
     font-family: var(--fontOriginalSurfer);
 }
 
+/* ----- OUTER CIRCLE ----- */
 #outer-circle {
     /* background-color: rgba(var(--black), 1); */
     border-radius: 50%;
@@ -48,6 +51,7 @@ body {
     100% {transform: rotate(0);}
 }
 
+/* ----- BUTTONS | GREEN / RED / BLUE / YELLOW ----- */
 #btn-green,
 #btn-red,
 #btn-blue,
@@ -105,6 +109,7 @@ body {
     border-color: transparent;
 }
 
+/* ----- GREEN ----- */
 #btn-green {
     border-radius: calc(var(--size) / 2) 0 0 0;
     border-bottom: calc((var(--size) / 50) / 1.5) solid rgba(var(--black), 1);
@@ -152,6 +157,7 @@ body {
     box-shadow: 0 0 50px rgba(var(--green), 1);
 }
 
+/* ----- RED ----- */
 #btn-red {
     border-radius: 0 calc(var(--size) / 2) 0 0;
     border-left: calc((var(--size) / 50) / 1.5) solid rgba(var(--black), 1);
@@ -199,6 +205,7 @@ body {
     box-shadow: 0 0 50px rgba(var(--red), 1);
 }
 
+/* ----- BLUE ----- */
 #btn-blue {
     border-radius: 0 0 calc(var(--size) / 2) 0;
     border-top: calc((var(--size) / 50) / 1.5) solid rgba(var(--black), 1);
@@ -246,6 +253,7 @@ body {
     box-shadow: 0 0 50px rgba(var(--blue), 1);
 }
 
+/* ----- YELLOW ----- */
 #btn-yellow {
     border-radius: 0 0 0 calc(var(--size) / 2);
     border-top: calc((var(--size) / 50) / 1.5) solid rgba(var(--black), 1);
@@ -293,6 +301,7 @@ body {
     box-shadow: 0 0 50px rgba(var(--yellow), 1);
 }
 
+/* ----- INNER CIRCLE ----- */
 #inner-circle {
     position: absolute;
     z-index: 10;
@@ -327,6 +336,8 @@ body {
     100% {transform: scale(1);}
 }
 
+
+/* ----- GAME LOGO ----- */
 #title {
     position: absolute;
     top: 17%;
@@ -372,24 +383,12 @@ body {
         2px 2px 0 rgba(var(--white), 1);
 }
 
+/* ----- BUTTONS | START + STRICT ----- */
 .checkbox-round {
     position: absolute;
-    bottom: 43%;
+    top: calc(50% + 0.25em);
     font-size: 0.75em;
     font-weight: bold;
-}
-
-.checkbox-round.start {left: 27%;}
-.start::after {content: "START"; position: absolute; left: -15px; bottom: -15px;}
-.checkbox-round.start label {background-color: rgba(var(--yellow), 1);}
-.checkbox-round.start input[type="checkbox"]:checked+label {
-    background: radial-gradient(circle at 0.25em 0.25em, rgba(var(--yellow), 1), rgba(var(--black), 1));
-}
-.checkbox-round.strict {right: 27%;}
-.strict::after {content: "STRICT"; position: absolute; left: -15px; bottom: -15px;}
-.checkbox-round.strict label {background-color: rgba(var(--red), 1);}
-.checkbox-round.strict input[type="checkbox"]:checked+label {
-    background: radial-gradient(circle at 0.25em 0.25em, rgba(var(--red), 1), rgba(var(--black), 1));
 }
 
 .checkbox-round label {
@@ -420,6 +419,29 @@ body {
 .checkbox-round input[type="checkbox"] {visibility: hidden;}
 .checkbox-round input[type="checkbox"]:checked+label::after {opacity: 1;}
 
+/* ----- START ----- */
+.checkbox-round.start {left: 27%;}
+.start::after {content: "START"; position: absolute; left: -15px; bottom: -15px;}
+.checkbox-round.start label {
+    background: radial-gradient(circle at 0.25em 0.25em, rgba(var(--yellow), 1), rgba(var(--black), 1));
+}
+.checkbox-round.start input[type="checkbox"]:checked+label {
+    background: rgba(var(--yellow), 1);
+    box-shadow: 0 0 20px 5px rgba(var(--yellow), 1);
+}
+
+/* ----- STRICT ----- */
+.checkbox-round.strict {right: 27%;}
+.strict::after {content: "STRICT"; position: absolute; left: -15px; bottom: -15px;}
+.checkbox-round.strict label {
+    background: radial-gradient(circle at 0.25em 0.25em, rgba(var(--red), 1), rgba(var(--black), 1));
+}
+.checkbox-round.strict input[type="checkbox"]:checked+label {
+    background: rgba(var(--red), 1);
+    box-shadow: 0 0 20px 5px rgba(var(--red), 1);
+}
+
+/* ----- BUTTON | POWER ----- */
 .power {
     position: absolute;
     display: inline-block;
@@ -478,6 +500,7 @@ input:checked+.slider::before {transform: translateX(29px);}
 
 .slider.round::before {border-radius: 50%;}
 
+/* ----- COUNTER ----- */
 #turn {
     font-family: var(--fontQuantico);
     color: rgba(var(--red), 1);
@@ -489,12 +512,13 @@ input:checked+.slider::before {transform: translateX(29px);}
     text-shadow: 0 0 10px rgba(var(--red), 1);
 }
 
+/* ----- MEDIA QUERIES ----- */
 @media (min-width: 700px) {
     :root {--size: 90vh;}
     #title::after {font-size: 3em;}
     #title-sub::after {content: "- MEMORY GAME -"; font-size: 1em; letter-spacing: 4px; top: 65%;}
     #btn-green::before, #btn-red::before, #btn-blue::before, #btn-yellow::before {font-size: 4em;}
     .slider.round {width: 50px;}
-    .power {height: calc(var(--size) / 16); margin: 0 calc((var(--size) / 2.75) - 50px);}
+    .power {height: calc(var(--size) / 16); margin: 0 calc((var(--size) / 2.75) - 50px); bottom: 22.5%;}
     #turn {font-size: 2.5em; top: calc(50% - 20px); left: calc(50% - 26px);}
 }
