@@ -35,6 +35,8 @@ body {
     font-family: var(--fontOriginalSurfer);
 }
 
+*::selection {background-color: transparent;}
+
 /* ----- OUTER CIRCLE ----- */
 #outer-circle {
     /* background-color: rgba(var(--black), 1); */
@@ -60,10 +62,10 @@ body {
     z-index: 1;
     top: 50%;
     left: 50%;
-    opacity: 0;
     height: calc(var(--size) / 2);
     width: calc(var(--size) / 2);
     box-sizing: border-box;
+    opacity: 0;
     animation: fadeIn 1s forwards;
     overflow: hidden;
     transition: all 0.05s ease-in-out;
@@ -399,7 +401,7 @@ body {
     width: 1em;
     border: 2px solid rgba(var(--black), 1);
     border-radius: 50%;
-    cursor: pointer;
+    /* cursor: pointer; */
     transition: all 0.2s ease-in-out;
 }
 

@@ -50,6 +50,7 @@ document.addEventListener("DOMContentLoaded", function () {
             turnCounter.innerHTML = "";
             clearColor();
             clearInterval(intervalId);
+            stopSounds();
         }
     });
 
@@ -76,7 +77,32 @@ document.addEventListener("DOMContentLoaded", function () {
             order.push(Math.floor(Math.random() * 4) + 1);
         }
         compTurn = true; // computer starts
-        intervalId= setInterval(gameTurn, 800) // pause 0.8s between each round
+        intervalId = setInterval(gameTurn, 800) // pause 0.8s between each round
+    }
+
+    let audioLength = function (audio) {
+        // shorten the audio time the further you play
+        if (turn <= 5) {
+            setTimeout(() => {
+                audio.pause();
+                audio.currentTime = 0;
+            }, 500);
+        } else if (turn >= 6 && turn <= 10) {
+            setTimeout(() => {
+                audio.pause();
+                audio.currentTime = 0;
+            }, 400);
+        } else if (turn >= 11 && turn <= 15) {
+            setTimeout(() => {
+                audio.pause();
+                audio.currentTime = 0;
+            }, 300);
+        } else {
+            setTimeout(() => {
+                audio.pause();
+                audio.currentTime = 0;
+            }, 250);
+        }
     }
 
     function gameTurn() {
@@ -100,57 +126,53 @@ document.addEventListener("DOMContentLoaded", function () {
         if (compTurn) {
             clearColor();
             setTimeout(() => {
-                if (order[flash] == 1) one();
-                if (order[flash] == 2) two();
-                if (order[flash] == 3) three();
-                if (order[flash] == 4) four();
+                if (order[flash] == 1) {
+                    if (noise) {
+                        let audio = document.querySelector("#greenAudio");
+                        stopSounds();
+                        audio.currentTime = 0;
+                        audio.play();
+                        audioLength(audio);
+                    }
+                    noise = true;
+                    green.classList.add("active");
+                }
+                if (order[flash] == 2) {
+                    if (noise) {
+                        let audio = document.querySelector("#redAudio");
+                        stopSounds();
+                        audio.currentTime = 0;
+                        audio.play();
+                        audioLength(audio);
+                    }
+                    noise = true;
+                    red.classList.add("active");
+                }
+                if (order[flash] == 3) {
+                    if (noise) {
+                        let audio = document.querySelector("#yellowAudio");
+                        stopSounds();
+                        audio.currentTime = 0;
+                        audio.play();
+                        audioLength(audio);
+                    }
+                    noise = true;
+                    yellow.classList.add("active");
+                }
+                if (order[flash] == 4) {
+                    if (noise) {
+                        let audio = document.querySelector("#blueAudio");
+                        stopSounds();
+                        audio.currentTime = 0;
+                        audio.play();
+                        audioLength(audio);
+                    }
+                    noise = true;
+                    blue.classList.add("active");
+                }
                 flash++;
             }, 200);
         }
-    }
-
-    function one() {
-        if (noise) {
-            let audio = document.querySelector("#greenAudio");
-            stopSounds();
-            audio.currentTime = 0;
-            audio.play();
-        }
-        noise = true;
-        green.classList.add("active");
-    }
-
-    function two() {
-        if (noise) {
-            let audio = document.querySelector("#redAudio");
-            stopSounds();
-            audio.currentTime = 0;
-            audio.play();
-        }
-        noise = true;
-        red.classList.add("active");
-    }
-
-    function three() {
-        if (noise) {
-            let audio = document.querySelector("#yellowAudio");
-            stopSounds();
-            audio.currentTime = 0;
-            audio.play();
-        }
-        noise = true;
-        yellow.classList.add("active");
-    }
-
-    function four() {
-        if (noise) {
-            let audio = document.querySelector("#blueAudio");
-            stopSounds();
-            audio.currentTime = 0;
-            audio.play();
-        }
-        noise = true;
-        blue.classList.add("active");
     }
 
     function clearColor() {
@@ -167,64 +189,18 @@ document.addEventListener("DOMContentLoaded", function () {
         blue.classList.add("active");
     }
 
-    green.addEventListener("click", () => {
-        if (on) {
-            playerOrder.push(1);
-            check();
-            one();
-            if (!win) {
-                setTimeout(() => {
-                    clearColor();
-                }, 300);
-            }
-        }
-    });
-
-    red.addEventListener("click", () => {
-        if (on) {
-            playerOrder.push(2);
-            check();
-            two();
-            if (!win) {
-                setTimeout(() => {
-                    clearColor();
-                }, 300);
-            }
-        }
-    });
-
-    yellow.addEventListener("click", () => {
-        if (on) {
-            playerOrder.push(3);
-            check();
-            three();
-            if (!win) {
-                setTimeout(() => {
-                    clearColor();
-                }, 300);
-            }
-        }
-    });
-
-    blue.addEventListener("click", () => {
-        if (on) {
-            playerOrder.push(4);
-            check();
-            four();
-            if (!win) {
-                setTimeout(() => {
-                    clearColor();
-                }, 300);
-            }
-        }
-    });
+    window.addEventListener("keydown", pushButton);
+    green.addEventListener("click", pushButton);
+    red.addEventListener("click", pushButton);
+    blue.addEventListener("click", pushButton);
+    yellow.addEventListener("click", pushButton);
 
     function check() {
         if (playerOrder[playerOrder.length - 1] !== order[playerOrder.length - 1]) {
             good = false;
         }
 
-        if (playerOrder.length == 5 && good) {
+        if (playerOrder.length == 31 && good) {
             winGame();
         }
 
@@ -266,7 +242,16 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
                 turnCounter.innerHTML = turn;
             }
-            intervalId = setInterval(gameTurn, 800);
+            // speed up the game the further you get
+            if (turn <= 5) {
+                intervalId = setInterval(gameTurn, 700);
+            } else if (turn >= 6 && turn <= 10) {
+                intervalId = setInterval(gameTurn, 550);
+            } else if (turn >= 11 && turn <= 15) {
+                intervalId = setInterval(gameTurn, 300);
+            } else {
+                intervalId = setInterval(gameTurn, 200);
+            }
         }
     }
 
@@ -283,7 +268,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // pause any existing audio elements
     function stopSounds() {
         var sounds = document.getElementsByTagName("audio");
-        for(i=0; i<sounds.length; i++) sounds[i].pause();
+        for (i = 0; i < sounds.length; i++) sounds[i].pause();
     }
 
     // power button (on|off)
@@ -318,47 +303,98 @@ document.addEventListener("DOMContentLoaded", function () {
     //     }
     // });
 
-    // function pushButton(e) {
-    //     let btnKey = "";
-    //     if (e instanceof KeyboardEvent) {
-    //         // keyboard event (typing 'R', 'G', 'B', 'Y')
-    //         btnKey = e.keyCode;
-    //     } else if (e instanceof MouseEvent) {
-    //         // click event per button
-    //         btnKey = this.dataset.key;
+
+
+
+
+    // green.addEventListener("click", () => {
+    //     if (on) {
+    //         playerOrder.push(1);
+    //         check();
+    //         one();
+    //         if (!win) {
+    //             setTimeout(() => {
+    //                 clearColor();
+    //             }, 300);
+    //         }
     //     }
-    //     // get dataset.key from audio element
-    //     const audio = document.querySelector(`audio[data-key="${btnKey}"]`);
-    //     // get dataset.key from div.btn element
-    //     const btn = document.querySelector(`.btn[data-key="${btnKey}"]`);
-    //     if (!audio) return;
-    //     // reset audio to 0
-    //     audio.currentTime = 0;
-    //     stopSounds();
-    //     // play current audio element
-    //     audio.play();
-    //     // if (turn <= 5) {
-    //     //     setTimeout(() => {
-    //     //         audio.pause();
-    //     //         audio.currentTime = 0;
-    //     //     }, 420);
-    //     // } else if (turn <= 13 && turn >= 6) {
-    //     //     setTimeout(() => {
-    //     //         audio.pause();
-    //     //         audio.currentTime = 0;
-    //     //     }, 320);
-    //     // } else if (turn > 13) {
-    //     //     setTimeout(() => {
-    //     //         audio.pause();
-    //     //         audio.currentTime = 0;
-    //     //     }, 220);
-    //     // }
-    //     // add 'active' class
-    //     btn.classList.add("active");
-    //     // timeout to remove 'active' class
-    //     setTimeout(() => {
-    //         btn.classList.remove("active");
-    //     }, 100);
+    // });
+
+    // function one() {
+    // if (noise) {
+    // let audio = document.querySelector("#greenAudio");
+    // stopSounds();
+    // audio.currentTime = 0;
+    // audio.play();
     // }
+    // noise = true;
+    // green.classList.add("active");
+    // }
+
+    function pushButton(e) {
+        if (on) {
+            let btnKey = "";
+            if (e instanceof KeyboardEvent) {
+                // keyboard event (typing 'R', 'G', 'B', 'Y')
+                btnKey = e.keyCode;
+            } else if (e instanceof MouseEvent) {
+                // click event per button
+                btnKey = this.dataset.key;
+            }
+            switch (btnKey) {
+                case "71":
+                case 71:
+                    playerOrder.push(1);
+                    break;
+                case "82":
+                case 82:
+                    playerOrder.push(2);
+                    break;
+                case "89":
+                case 89:
+                    playerOrder.push(3);
+                    break;
+                case "66":
+                case 66:
+                    playerOrder.push(4);
+                    break;
+            }
+            check();
+            // get dataset.key from audio element
+            const audio = document.querySelector(`audio[data-key="${btnKey}"]`);
+            // get dataset.key from div.btn element
+            const btn = document.querySelector(`.btn[data-key="${btnKey}"]`);
+            if (!audio) return;
+            // reset audio to 0
+            audio.currentTime = 0;
+            stopSounds();
+            // play current audio element
+            audio.play();
+            // if (turn <= 5) {
+            //     setTimeout(() => {
+            //         audio.pause();
+            //         audio.currentTime = 0;
+            //     }, 420);
+            // } else if (turn <= 13 && turn >= 6) {
+            //     setTimeout(() => {
+            //         audio.pause();
+            //         audio.currentTime = 0;
+            //     }, 320);
+            // } else if (turn > 13) {
+            //     setTimeout(() => {
+            //         audio.pause();
+            //         audio.currentTime = 0;
+            //     }, 220);
+            // }
+            // add 'active' class
+            btn.classList.add("active");
+            // timeout to remove 'active' class
+            if (!win) {
+                setTimeout(() => {
+                    btn.classList.remove("active");
+                }, 100);
+            }
+        }
+    }
 
 });
