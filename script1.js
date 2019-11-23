@@ -97,21 +97,21 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let audioLength = function (audio) {
         // shorten the audio time the further you play
-        for (let i = 1; i < 31; i++) {
-            if (i === turn) {
-                setTimeout(() => {
-                    audio.pause();
-                    audio.currentTime = 0;
-                }, soundLength);
-            }
-        }
-    }
-
-    function playSpeed() {
-        for (let i = 1; i < 31; i++) {
-            if (i === turn) {
-                return gameSpeed -= 25;
-            }
+        if (turn <= 5) {
+            setTimeout(() => {
+                audio.pause();
+                audio.currentTime = 0;
+            }, 420);
+        } else if (turn >= 6 && turn <= 13) {
+            setTimeout(() => {
+                audio.pause();
+                audio.currentTime = 0;
+            }, 320);
+        } else {
+            setTimeout(() => {
+                audio.pause();
+                audio.currentTime = 0;
+            }, 220);
         }
     }
 
@@ -244,8 +244,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (turn == playerOrder.length && good && !win) {
             turn++;
-            soundLength = 250;
-            // soundLength -= 10;
             playerOrder = [];
             compTurn = true;
             flash = 0;
@@ -254,19 +252,15 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
                 turnCounter.innerHTML = turn;
             }
-            
-            // intervalId = setInterval(gameTurn, playSpeed());
-            intervalId = setInterval(gameTurn, 500);
+
             // speed up the game the further you get
-            // if (turn <= 5) {
-            //     intervalId = setInterval(gameTurn, 700);
-            // } else if (turn >= 6 && turn <= 10) {
-            //     intervalId = setInterval(gameTurn, 550);
-            // } else if (turn >= 11 && turn <= 15) {
-            //     intervalId = setInterval(gameTurn, 300);
-            // } else {
-            //     intervalId = setInterval(gameTurn, 200);
-            // }
+            if (turn <= 5) {
+                intervalId = setInterval(gameTurn, 500);
+            } else if (turn >= 6 && turn <= 13) {
+                intervalId = setInterval(gameTurn, 400);
+            } else {
+                intervalId = setInterval(gameTurn, 300);
+            }
         }
     }
 
