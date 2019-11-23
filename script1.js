@@ -4,6 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
     let playerOrder = []; // player's order
     let flash; // flash is number of times we've flashed a color
     let turn; // whose turn is it?
+    let soundLength = 500; // length of audio clip
+    let gameSpeed = 800; // speed of the games progress
     let good; // check if any errors
     let compTurn; // computer's turn
     let intervalId; // game counter
@@ -11,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let noise = true; // play noise
     let on = false; // is game on|off?
     let win; // has won?
+    let orderColors = [];
 
     const turnCounter = document.querySelector("#turn");
     const green = document.querySelector("#btn-green");
@@ -74,34 +77,41 @@ document.addEventListener("DOMContentLoaded", function () {
         good = true;
         for (let i = 0; i < 31; i++) {
             // push a random whole number (1-4) onto the 'order' array
-            order.push(Math.floor(Math.random() * 4) + 1);
+            let randNum = Math.floor(Math.random() * 4) + 1;
+            order.push(randNum);
+            // order.push(Math.floor(Math.random() * 4) + 1);
+            if (randNum === 1) {
+                orderColors.push("green");
+            } else if (randNum === 2) {
+                orderColors.push("red");
+            } else if (randNum === 3) {
+                orderColors.push("yellow");
+            } else if (randNum === 4) {
+                orderColors.push("blue");
+            }
         }
+        console.log(orderColors);
         compTurn = true; // computer starts
         intervalId = setInterval(gameTurn, 800) // pause 0.8s between each round
     }
 
     let audioLength = function (audio) {
         // shorten the audio time the further you play
-        if (turn <= 5) {
-            setTimeout(() => {
-                audio.pause();
-                audio.currentTime = 0;
-            }, 500);
-        } else if (turn >= 6 && turn <= 10) {
-            setTimeout(() => {
-                audio.pause();
-                audio.currentTime = 0;
-            }, 400);
-        } else if (turn >= 11 && turn <= 15) {
-            setTimeout(() => {
-                audio.pause();
-                audio.currentTime = 0;
-            }, 300);
-        } else {
-            setTimeout(() => {
-                audio.pause();
-                audio.currentTime = 0;
-            }, 250);
+        for (let i = 1; i < 31; i++) {
+            if (i === turn) {
+                setTimeout(() => {
+                    audio.pause();
+                    audio.currentTime = 0;
+                }, soundLength);
+            }
+        }
+    }
+
+    function playSpeed() {
+        for (let i = 1; i < 31; i++) {
+            if (i === turn) {
+                return gameSpeed -= 25;
+            }
         }
     }
 
@@ -234,6 +244,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         if (turn == playerOrder.length && good && !win) {
             turn++;
+            soundLength = 250;
+            // soundLength -= 10;
             playerOrder = [];
             compTurn = true;
             flash = 0;
@@ -242,16 +254,19 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
                 turnCounter.innerHTML = turn;
             }
+            
+            // intervalId = setInterval(gameTurn, playSpeed());
+            intervalId = setInterval(gameTurn, 500);
             // speed up the game the further you get
-            if (turn <= 5) {
-                intervalId = setInterval(gameTurn, 700);
-            } else if (turn >= 6 && turn <= 10) {
-                intervalId = setInterval(gameTurn, 550);
-            } else if (turn >= 11 && turn <= 15) {
-                intervalId = setInterval(gameTurn, 300);
-            } else {
-                intervalId = setInterval(gameTurn, 200);
-            }
+            // if (turn <= 5) {
+            //     intervalId = setInterval(gameTurn, 700);
+            // } else if (turn >= 6 && turn <= 10) {
+            //     intervalId = setInterval(gameTurn, 550);
+            // } else if (turn >= 11 && turn <= 15) {
+            //     intervalId = setInterval(gameTurn, 300);
+            // } else {
+            //     intervalId = setInterval(gameTurn, 200);
+            // }
         }
     }
 
