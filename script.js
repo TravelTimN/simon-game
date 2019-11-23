@@ -212,18 +212,16 @@ document.addEventListener("DOMContentLoaded", function () {
             good = false;
         }
 
-        if (playerOrder.length == 5 && good) {
+        if (playerOrder.length == 31 && good) {
             winGame();
         }
 
         if (good == false) {
-
             window.removeEventListener("keydown", pushButton);
             green.removeEventListener("click", pushButton);
             red.removeEventListener("click", pushButton);
             blue.removeEventListener("click", pushButton);
             yellow.removeEventListener("click", pushButton);
-
             stopSounds();
             loseAudio.currentTime = 0;
             loseAudio.play(); // play lose sound
@@ -288,8 +286,12 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // pause any existing audio elements
     function stopSounds() {
-        var sounds = document.getElementsByTagName("audio:not(#loseAudio):not(#winAudio)");
-        for (i = 0; i < sounds.length; i++) sounds[i].pause();
+        // var sounds = document.getElementsByTagName("audio:not(#loseAudio):not(#winAudio)");
+        // for (i = 0; i < sounds.length; i++) sounds[i].pause();
+        document.querySelector("#greenAudio").pause();
+        document.querySelector("#redAudio").pause();
+        document.querySelector("#yellowAudio").pause();
+        document.querySelector("#blueAudio").pause();
     }
 
     function pushButton(e) {
@@ -326,7 +328,9 @@ document.addEventListener("DOMContentLoaded", function () {
             audio.currentTime = 0;
             stopSounds();
             // play current audio element
-            audio.play();
+            if (good != false && !win) {
+                audio.play();
+            }
             // add 'active' class
             btn.classList.add("active");
             // timeout to remove 'active' class
