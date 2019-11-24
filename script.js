@@ -189,7 +189,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         break;
                 }
                 flash++;
-            }, 200);
+            }, 800); //
         }
     }
 
@@ -245,14 +245,18 @@ document.addEventListener("DOMContentLoaded", function () {
                     flash = 0;
                     playerOrder = [];
                     good = true;
-                    intervalId = setInterval(gameTurn, 800);
+                    intervalId = setInterval(gameTurn, 500);
                 }
             }, 1500);
-
-            noise = false;
+            // noise = false; // commented-out due to first audio not playing on lose-repeat
         }
 
         if (turn == playerOrder.length && good && !win) {
+            window.removeEventListener("keydown", pushButton);
+            green.removeEventListener("click", pushButton);
+            red.removeEventListener("click", pushButton);
+            blue.removeEventListener("click", pushButton);
+            yellow.removeEventListener("click", pushButton);
             turn++;
             playerOrder = [];
             compTurn = true;
