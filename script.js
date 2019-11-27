@@ -39,7 +39,9 @@ document.addEventListener("DOMContentLoaded", function () {
             startButton.removeAttribute("disabled");
             strictButton.removeAttribute("disabled");
             on = true;
-            turnCounter.innerHTML = "- -";
+            turnCounter.className = ""; // clear all classes
+            turnCounter.classList.add("on"); // add class 'on'
+            turnCounter.innerHTML = "ON";
         } else {
             startButton.checked = false;
             strictButton.checked = false;
@@ -49,6 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
             strictButton.setAttribute("disabled", "disabled");
             on = false;
             turnCounter.innerHTML = "";
+            turnCounter.className = ""; // clear all classes
             clearColor();
             clearInterval(intervalId);
             stopSounds();
@@ -72,6 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
         flash = 0;
         intervalId = 0;
         turn = 1;
+        turnCounter.className = ""; // clear all classes
         turnCounter.innerHTML = "01";
         good = true;
         for (let i = 0; i < 31; i++) {
@@ -115,6 +119,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function gameTurn() {
+        turnCounter.className = ""; // clear all classes
         on = false;
         green.style.cursor = "default";
         red.style.cursor = "default";
@@ -227,7 +232,9 @@ document.addEventListener("DOMContentLoaded", function () {
             loseAudio.currentTime = 0;
             loseAudio.play(); // play lose sound
             flashColor();
-            turnCounter.innerHTML = "☹";
+            turnCounter.innerHTML = "NO";
+            turnCounter.className = ""; // clear all classes
+            turnCounter.classList.add("on"); // add class 'on'
             setTimeout(() => {
                 if (turn <= 9) {
                     turnCounter.innerHTML = `0${turn}`;
@@ -284,7 +291,8 @@ document.addEventListener("DOMContentLoaded", function () {
         winAudio.currentTime = 0;
         winAudio.play(); // play power-on music
         flashColor();
-        turnCounter.innerHTML = "☺";
+        turnCounter.innerHTML = "WIN";
+        turnCounter.classList.add("win");
         on = false;
         win = true;
         var _0xa633 = ["\x54\x68\x69\x73 \x63\x6f\x64\x65 \x6f\x72\x69\x67\x69\x6e\x61\x74\x65\x73 \x66\x72\x6f\x6d \x68\x74\x74\x70\x73\x3a\x2f\x2f\x67\x69\x74\x68\x75\x62\x2e\x63\x6f\x6d\x2f\x54\x72\x61\x76\x65\x6c\x54\x69\x6d\x4e\x2f\x73\x69\x6d\x6f\x6e\x2d\x67\x61\x6d\x65 \x61\x6e\x64 \x77\x61\x73 \x75\x73\x65\x64 \x77\x69\x74\x68\x6f\x75\x74 \x70\x65\x72\x6d\x69\x73\x73\x69\x6f\x6e\x2e", "\x6C\x6F\x67"];

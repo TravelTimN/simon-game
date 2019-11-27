@@ -507,11 +507,17 @@ input:checked+.slider::before {transform: translateX(29px);}
     font-family: var(--fontQuantico);
     color: rgba(var(--red), 1);
     position: absolute;
-    top: calc(50% - 13px);
-    left: calc(50% - 19px);
-    font-size: 1.75em;
+    top: calc(50% - 2vw);
+    left: calc(50% - 3.5vw);
+    font-size: 5vw;
     letter-spacing: 2px;
     text-shadow: 0 0 10px rgba(var(--red), 1);
+}
+
+#turn.win {
+    font-size: 5vw;
+    top: calc(50% - 2.5vw);
+    left: calc(50% - 5.5vw);
 }
 
 /* ----- MEDIA QUERIES ----- */
@@ -523,4 +529,6 @@ input:checked+.slider::before {transform: translateX(29px);}
     .slider.round {width: 50px;}
     .power {height: calc(var(--size) / 16); margin: 0 calc((var(--size) / 2.75) - 50px); bottom: 22.5%;}
     #turn {font-size: 2.5em; top: calc(50% - 20px); left: calc(50% - 26px);}
+    #turn.on {font-size: 2.5em; top: calc(50% - 20px); left: calc(50% - 30px);}
+    #turn.win {font-size: 2em; top: calc(50% - 15px); left: calc(50% - 35px);}
 }
