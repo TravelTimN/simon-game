@@ -4,8 +4,8 @@ document.addEventListener("DOMContentLoaded", function () {
     let playerOrder = []; // player's order
     let flash; // flash is number of times we've flashed a color
     let turn; // whose turn is it?
-    let good; // check if any errors
-    let compTurn; // computer's turn
+    let correct; // check if any errors
+    let simonTurn; // Simon's turn
     let intervalId; // game counter
     let strict = false; // is strict?
     let noise = true; // play noise
@@ -23,79 +23,80 @@ document.addEventListener("DOMContentLoaded", function () {
     const powerButton = document.querySelector("#power");
     const startButton = document.querySelector("#checkbox-start");
     const startButtonLabel = document.querySelector(".start label");
+    const greenAudio = document.querySelector("#greenAudio");
+    const redAudio = document.querySelector("#redAudio");
+    const blueAudio = document.querySelector("#blueAudio");
+    const yellowAudio = document.querySelector("#yellowAudio");
     const winAudio = document.querySelector("#winAudio");
     const loseAudio = document.querySelector("#loseAudio");
 
-    startButton.setAttribute("disabled", "disabled");
-    strictButton.setAttribute("disabled", "disabled");
+    function disableStart() {
+        startButton.setAttribute("disabled", "disabled");
+        startButtonLabel.style.cursor = "default";
+    }
 
-    // toggle strict button true/false
-    strictButton.addEventListener("click", () => strict = strictButton.checked);
+    function enableStart() {
+        startButton.removeAttribute("disabled");
+        startButtonLabel.style.cursor = "pointer";
+    }
 
-    powerButton.addEventListener("click", () => {
-        if (powerButton.checked) {
-            startButtonLabel.style.cursor = "pointer";
-            strictButtonLabel.style.cursor = "pointer";
-            startButton.removeAttribute("disabled");
-            strictButton.removeAttribute("disabled");
-            on = true;
-            turnCounter.className = ""; // clear all classes
-            turnCounter.classList.add("on"); // add class 'on'
-            turnCounter.innerHTML = "ON";
-        } else {
-            startButton.checked = false;
-            strictButton.checked = false;
-            startButtonLabel.style.cursor = "default";
-            strictButtonLabel.style.cursor = "default";
-            startButton.setAttribute("disabled", "disabled");
-            strictButton.setAttribute("disabled", "disabled");
-            on = false;
-            turnCounter.innerHTML = "";
-            turnCounter.className = ""; // clear all classes
-            clearColor();
-            clearInterval(intervalId);
-            stopSounds();
-        }
-    });
+    function disableStrict() {
+        strictButton.setAttribute("disabled", "disabled");
+        strictButtonLabel.style.cursor = "default";
+    }
 
-    // play the game if 'on' or 'win'
-    startButton.addEventListener("click", () => {
-        if (on || win) {
-            play();
-            startButtonLabel.style.cursor = "default";
-            startButton.setAttribute("disabled", "disabled");
-        }
-    });
+    function enableStrict() {
+        strictButton.removeAttribute("disabled");
+        strictButtonLabel.style.cursor = "pointer";
+    }
 
-    function play() {
-        win = false;
-        order = [];
-        orderColors = [];
-        playerOrder = [];
-        flash = 0;
-        intervalId = 0;
-        turn = 1;
-        turnCounter.className = ""; // clear all classes
-        turnCounter.innerHTML = "01";
-        good = true;
-        for (let i = 0; i < 31; i++) {
-            // push a random whole number (1-4) onto the 'order' array
-            let randNum = Math.floor(Math.random() * 4) + 1;
-            order.push(randNum);
-            // order.push(Math.floor(Math.random() * 4) + 1);
-            if (randNum === 1) {
-                orderColors.push("green");
-            } else if (randNum === 2) {
-                orderColors.push("red");
-            } else if (randNum === 3) {
-                orderColors.push("yellow");
-            } else if (randNum === 4) {
-                orderColors.push("blue");
-            }
-        }
-        console.log(orderColors);
-        compTurn = true; // computer starts
-        intervalId = setInterval(gameTurn, 800) // pause 0.8s between each round
+    function disablePlayer() {
+        window.removeEventListener("keydown", pushButton);
+        green.removeEventListener("click", pushButton);
+        red.removeEventListener("click", pushButton);
+        blue.removeEventListener("click", pushButton);
+        yellow.removeEventListener("click", pushButton);
+        green.style.cursor = "default";
+        red.style.cursor = "default";
+        blue.style.cursor = "default";
+        yellow.style.cursor = "default";
+    }
+
+    function enablePlayer() {
+        window.addEventListener("keydown", pushButton);
+        green.addEventListener("click", pushButton);
+        red.addEventListener("click", pushButton);
+        blue.addEventListener("click", pushButton);
+        yellow.addEventListener("click", pushButton);
+        green.style.cursor = "pointer";
+        red.style.cursor = "pointer";
+        blue.style.cursor = "pointer";
+        yellow.style.cursor = "pointer";
+    }
+
+    // pause any existing audio elements
+    function disableSounds() {
+        // var sounds = document.getElementsByTagName("audio:not(#loseAudio):not(#winAudio)");
+        // for (i = 0; i < sounds.length; i++) sounds[i].pause();
+        // only the color buttons, as this causes errors with win/lose sounds
+        greenAudio.pause();
+        redAudio.pause();
+        yellowAudio.pause();
+        blueAudio.pause();
+    }
+
+    function disableColors() {
+        green.classList.remove("active");
+        red.classList.remove("active");
+        yellow.classList.remove("active");
+        blue.classList.remove("active");
+    }
+
+    function enableColors() {
+        green.classList.add("active");
+        red.classList.add("active");
+        yellow.classList.add("active");
+        blue.classList.add("active");
     }
 
     let audioLength = function (audio) {
@@ -118,162 +119,188 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    function gameTurn() {
+    // initial load of page, buttons shouldn't be active until game is on
+    disableStart();
+    disableStrict();
+
+    // toggle strict button true/false
+    strictButton.addEventListener("click", () => strict = strictButton.checked);
+
+    powerButton.addEventListener("click", () => {
+        if (powerButton.checked) {
+            on = true;
+            turnCounter.className = ""; // clear all classes
+            turnCounter.classList.add("on"); // add class 'on'
+            turnCounter.innerHTML = "ON";
+            enableStart();
+            enableStrict();
+        } else {
+            on = false;
+            startButton.checked = false;
+            strictButton.checked = false;
+            turnCounter.innerHTML = "";
+            turnCounter.className = ""; // clear all classes
+            disableStart();
+            disableStrict();
+            disableColors();
+            disableSounds();
+            clearInterval(intervalId);
+        }
+    });
+
+    // play the game if 'on' or 'win'
+    startButton.addEventListener("click", () => {
+        if (on || win) {
+            play();
+            if (!startButton.checked) {
+                startButton.checked = true; // only turn off if game is off
+            }
+        }
+    });
+
+    function play() {
+        simonTurn = true; // Simon starts each round
+        win = false;
+        order = [];
+        orderColors = [];
+        playerOrder = [];
+        flash = 0;
+        intervalId = 0;
+        correct = true;
+        turn = 1;
         turnCounter.className = ""; // clear all classes
+        turnCounter.innerHTML = "01";
+        for (let i = 0; i < 31; i++) {
+            // push a random whole number (1-4) onto the 'order' array
+            let randomNumber = Math.floor(Math.random() * 4) + 1;
+            order.push(randomNumber);
+            // temporarily assign each to a color for console testing
+            if (randomNumber === 1) {
+                orderColors.push("green");
+            } else if (randomNumber === 2) {
+                orderColors.push("red");
+            } else if (randomNumber === 3) {
+                orderColors.push("yellow");
+            } else if (randomNumber === 4) {
+                orderColors.push("blue");
+            }
+        }
+        console.log(orderColors); // temporary on to test higher levels
+        intervalId = setInterval(gameTurn, 800) // pause 0.8s between each round
+    }
+
+    function gameTurn() {
         on = false;
-        green.style.cursor = "default";
-        red.style.cursor = "default";
-        blue.style.cursor = "default";
-        yellow.style.cursor = "default";
+        disablePlayer();
+        enableStart();
+        turnCounter.className = ""; // clear all classes
 
         if (flash == turn) {
-
-            window.addEventListener("keydown", pushButton);
-            green.addEventListener("click", pushButton);
-            red.addEventListener("click", pushButton);
-            blue.addEventListener("click", pushButton);
-            yellow.addEventListener("click", pushButton);
-
-            green.style.cursor = "pointer";
-            red.style.cursor = "pointer";
-            blue.style.cursor = "pointer";
-            yellow.style.cursor = "pointer";
-            clearInterval(intervalId);
-            compTurn = false;
-            clearColor();
             on = true;
+            simonTurn = false;
+            enablePlayer();
+            clearInterval(intervalId);
+            disableColors();
         }
 
-        if (compTurn) {
-            clearColor();
+        if (simonTurn) {
+            disableStart();
+            disableColors();
             setTimeout(() => {
                 switch (order[flash]) {
                     case 1:
                         if (noise) {
-                            let audio = document.querySelector("#greenAudio");
-                            stopSounds();
-                            audio.currentTime = 0;
-                            audio.play();
-                            audioLength(audio);
+                            disableSounds(); // pause all other sounds
+                            greenAudio.currentTime = 0; // start sound from beginning
+                            greenAudio.play(); // play the sound
+                            audioLength(greenAudio); // specify playback length of audio
                         }
                         noise = true;
                         green.classList.add("active");
                         break;
                     case 2:
                         if (noise) {
-                            let audio = document.querySelector("#redAudio");
-                            stopSounds();
-                            audio.currentTime = 0;
-                            audio.play();
-                            audioLength(audio);
+                            disableSounds(); // pause all other sounds
+                            redAudio.currentTime = 0; // start sound from beginning
+                            redAudio.play(); // play the sound
+                            audioLength(redAudio); // specify playback length of audio
                         }
                         noise = true;
                         red.classList.add("active");
                         break;
                     case 3:
                         if (noise) {
-                            let audio = document.querySelector("#yellowAudio");
-                            stopSounds();
-                            audio.currentTime = 0;
-                            audio.play();
-                            audioLength(audio);
+                            disableSounds(); // pause all other sounds
+                            yellowAudio.currentTime = 0; // start sound from beginning
+                            yellowAudio.play(); // play the sound
+                            audioLength(yellowAudio); // specify playback length of audio
                         }
                         noise = true;
                         yellow.classList.add("active");
                         break;
                     case 4:
                         if (noise) {
-                            let audio = document.querySelector("#blueAudio");
-                            stopSounds();
-                            audio.currentTime = 0;
-                            audio.play();
-                            audioLength(audio);
+                            disableSounds(); // pause all other sounds
+                            blueAudio.currentTime = 0; // start sound from beginning
+                            blueAudio.play(); // play the sound
+                            audioLength(blueAudio); // specify playback length of audio
                         }
                         noise = true;
                         blue.classList.add("active");
                         break;
                 }
                 flash++;
-            // }, 800);
+                // }, 800);
             }, 200);
         }
     }
 
-    function clearColor() {
-        green.classList.remove("active");
-        red.classList.remove("active");
-        yellow.classList.remove("active");
-        blue.classList.remove("active");
-    }
-
-    function flashColor() {
-        green.classList.add("active");
-        red.classList.add("active");
-        yellow.classList.add("active");
-        blue.classList.add("active");
-    }
-
     function check() {
+        enableStart(); // option to restart the game
         if (playerOrder[playerOrder.length - 1] !== order[playerOrder.length - 1]) {
-            good = false;
+            correct = false;
         }
 
-        if (playerOrder.length == 3 && good) {
-            winGame();
+        if (playerOrder.length == 31 && correct) {
+            enableWin();
         }
 
-        if (good == false) {
-            window.removeEventListener("keydown", pushButton);
-            green.removeEventListener("click", pushButton);
-            red.removeEventListener("click", pushButton);
-            blue.removeEventListener("click", pushButton);
-            yellow.removeEventListener("click", pushButton);
-            stopSounds();
+        if (correct == false) {
+            disablePlayer();
+            disableStart();
+            disableSounds();
             loseAudio.currentTime = 0;
             loseAudio.play(); // play lose sound
-            flashColor();
-            turnCounter.innerHTML = "NO";
+            enableColors(); // flash all colors
             turnCounter.className = ""; // clear all classes
             turnCounter.classList.add("on"); // add class 'on'
+            turnCounter.innerHTML = "NO";
             setTimeout(() => {
-                if (turn <= 9) {
-                    turnCounter.innerHTML = `0${turn}`;
-                } else {
-                    turnCounter.innerHTML = turn;
-                }
-                clearColor();
+                turnCounter.innerHTML = (turn <= 9) ? `0${turn}` : turn; // add 0 if single digit
+                disableColors();
 
                 if (strict) {
-                    setTimeout(() => {
-                        order
-                        play();
-                    }, 800);
+                    disablePlayer();
+                    enableStart();
+                    startButton.checked = false;
                 } else {
-                    compTurn = true;
+                    simonTurn = true;
                     flash = 0;
                     playerOrder = [];
-                    good = true;
-                    intervalId = setInterval(gameTurn, 500);
+                    correct = true;
+                    intervalId = setInterval(gameTurn, 500); // repeat speed if lose
                 }
             }, 1500);
             // noise = false; // commented-out due to first audio not playing on lose-repeat
         }
 
-        if (turn == playerOrder.length && good && !win) {
-            window.removeEventListener("keydown", pushButton);
-            green.removeEventListener("click", pushButton);
-            red.removeEventListener("click", pushButton);
-            blue.removeEventListener("click", pushButton);
-            yellow.removeEventListener("click", pushButton);
+        if (turn == playerOrder.length && correct && !win) {
+            simonTurn = true;
+            disablePlayer();
             turn++;
             playerOrder = [];
-            compTurn = true;
             flash = 0;
-            if (turn <= 9) {
-                turnCounter.innerHTML = `0${turn}`;
-            } else {
-                turnCounter.innerHTML = turn;
-            }
+            turnCounter.innerHTML = (turn <= 9) ? `0${turn}` : turn; // add 0 if single digit
 
             // speed up the game the further you get
             if (turn <= 5) {
@@ -286,29 +313,19 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    function winGame() {
-        stopSounds();
+    function enableWin() {
+        disableSounds();
         winAudio.currentTime = 0;
         winAudio.play(); // play power-on music
-        flashColor();
+        enableColors();
         turnCounter.innerHTML = "WIN";
         turnCounter.classList.add("win");
         on = false;
         win = true;
         var _0xa633 = ["\x54\x68\x69\x73 \x63\x6f\x64\x65 \x6f\x72\x69\x67\x69\x6e\x61\x74\x65\x73 \x66\x72\x6f\x6d \x68\x74\x74\x70\x73\x3a\x2f\x2f\x67\x69\x74\x68\x75\x62\x2e\x63\x6f\x6d\x2f\x54\x72\x61\x76\x65\x6c\x54\x69\x6d\x4e\x2f\x73\x69\x6d\x6f\x6e\x2d\x67\x61\x6d\x65 \x61\x6e\x64 \x77\x61\x73 \x75\x73\x65\x64 \x77\x69\x74\x68\x6f\x75\x74 \x70\x65\x72\x6d\x69\x73\x73\x69\x6f\x6e\x2e", "\x6C\x6F\x67"];
-        (function initMustStay() {
+        (function showWinMessage() {
             console[_0xa633[1]](_0xa633[0])
         }());
-    }
-
-    // pause any existing audio elements
-    function stopSounds() {
-        // var sounds = document.getElementsByTagName("audio:not(#loseAudio):not(#winAudio)");
-        // for (i = 0; i < sounds.length; i++) sounds[i].pause();
-        document.querySelector("#greenAudio").pause();
-        document.querySelector("#redAudio").pause();
-        document.querySelector("#yellowAudio").pause();
-        document.querySelector("#blueAudio").pause();
     }
 
     function pushButton(e) {
@@ -343,9 +360,9 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!audio) return;
             // reset audio to 0
             audio.currentTime = 0;
-            stopSounds();
+            disableSounds();
             // play current audio element
-            if (good != false && !win) {
+            if (correct != false && !win) {
                 audio.play();
             }
             // add 'active' class
