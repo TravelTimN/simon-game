@@ -7,9 +7,9 @@ document.addEventListener("DOMContentLoaded", function () {
     const yellowButton = document.querySelector("#yellowButton");
     const strictButton = document.querySelector("#checkbox-strict");
     const strictButtonLabel = document.querySelector(".strict label");
-    const powerButton = document.querySelector("#power");
-    const startButton = document.querySelector("#checkbox-start");
-    const startButtonLabel = document.querySelector(".start label");
+    const powerButton = document.querySelector("#powerButton");
+    const startButton = document.querySelector("#startButton");
+    const startButtonLabel = document.querySelector(".startButton label");
     const greenAudio = document.querySelector("#greenAudio");
     const redAudio = document.querySelector("#redAudio");
     const blueAudio = document.querySelector("#blueAudio");
@@ -128,23 +128,25 @@ document.addEventListener("DOMContentLoaded", function () {
 
     powerButton.addEventListener("click", () => {
         if (powerButton.checked) {
-            on = true;
             levelCounter.className = ""; // clear all classes
             levelCounter.classList.add("on"); // add class 'on'
             levelCounter.innerHTML = "ON";
             enableStart();
             enableStrict();
+            on = true;
         } else {
-            on = false;
-            startButton.checked = false;
-            strictButton.checked = false;
-            levelCounter.innerHTML = "";
-            levelCounter.className = ""; // clear all classes
-            disableStart();
-            disableStrict();
-            disableColors();
-            disableSounds();
-            clearInterval(intervalId);
+            setTimeout(() => {
+                startButton.checked = false;
+                strictButton.checked = false;
+                levelCounter.innerHTML = "";
+                levelCounter.className = ""; // clear all classes
+                disableStart();
+                disableStrict();
+                disableColors();
+                disableSounds();
+                clearInterval(intervalId);
+                on = false;
+            }, 1000); // turn off after a second, allow Simon to play last move
         }
     });
 
@@ -211,7 +213,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     case 1:
                         if (noise) {
                             disableSounds(); // pause all other sounds
-                            greenAudio.currentTime = 0; // start sound from beginning
+                            greenAudio.currentTime = 0; // play sound from beginning
                             greenAudio.play(); // play the sound
                             audioLength(greenAudio); // specify playback length of audio
                         }
@@ -221,7 +223,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     case 2:
                         if (noise) {
                             disableSounds(); // pause all other sounds
-                            redAudio.currentTime = 0; // start sound from beginning
+                            redAudio.currentTime = 0; // play sound from beginning
                             redAudio.play(); // play the sound
                             audioLength(redAudio); // specify playback length of audio
                         }
@@ -231,7 +233,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     case 3:
                         if (noise) {
                             disableSounds(); // pause all other sounds
-                            yellowAudio.currentTime = 0; // start sound from beginning
+                            yellowAudio.currentTime = 0; // play sound from beginning
                             yellowAudio.play(); // play the sound
                             audioLength(yellowAudio); // specify playback length of audio
                         }
@@ -241,7 +243,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     case 4:
                         if (noise) {
                             disableSounds(); // pause all other sounds
-                            blueAudio.currentTime = 0; // start sound from beginning
+                            blueAudio.currentTime = 0; // play sound from beginning
                             blueAudio.play(); // play the sound
                             audioLength(blueAudio); // specify playback length of audio
                         }
@@ -257,6 +259,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function check() {
         enableStart(); // option to restart the game
+
         if (playerOrder[playerOrder.length - 1] !== order[playerOrder.length - 1]) {
             correct = false;
         }
@@ -317,7 +320,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function enableWin() {
         disableSounds();
         winAudio.currentTime = 0;
-        winAudio.play(); // play power-on music
+        winAudio.play(); // play 'winner' music
         enableColors();
         levelCounter.innerHTML = "WIN";
         levelCounter.classList.add("win");

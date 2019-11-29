@@ -340,7 +340,7 @@ body {
 
 
 /* ----- GAME LOGO ----- */
-#title {
+#simon {
     position: absolute;
     top: 17%;
     left: 17.5%;
@@ -352,7 +352,7 @@ body {
     border-top-right-radius: 1000px;
 }
 
-#title::after {
+#simon::after {
     content: "SIMON";
     font-size: 8vw;
     position: absolute;
@@ -368,7 +368,7 @@ body {
         4px 4px 0 rgba(var(--white), 1);
 }
 
-#title-sub::after {
+#memoryGame::after {
     content: "MEMORY GAME";
     position: absolute;
     top: 70%;
@@ -422,12 +422,12 @@ body {
 .checkbox-round input[type="checkbox"]:checked+label::after {opacity: 1;}
 
 /* ----- START ----- */
-.checkbox-round.start {left: 27%;}
-.start::after {content: "START"; position: absolute; left: -15px; bottom: -15px;}
-.checkbox-round.start label {
+.startButton {left: 27%;}
+.startButton::after {content: "START"; position: absolute; left: -15px; bottom: -15px;}
+.startButton label {
     background: radial-gradient(circle at 0.25em 0.25em, rgba(var(--yellow), 1), rgba(var(--black), 1));
 }
-.checkbox-round.start input[type="checkbox"]:checked+label {
+#startButton:checked+label {
     background: rgba(var(--yellow), 1);
     box-shadow: 0 0 20px 5px rgba(var(--yellow), 1);
 }
@@ -443,8 +443,8 @@ body {
     box-shadow: 0 0 20px 5px rgba(var(--red), 1);
 }
 
-/* ----- BUTTON | POWER ----- */
-.power {
+/* ----- POWER BUTTON ----- */
+.powerButton {
     position: absolute;
     display: inline-block;
     bottom: 25%;
@@ -454,11 +454,11 @@ body {
     margin: 0 calc((var(--size) / 2.75) - 45px);
 }
 
-.power input {opacity: 0; width: 0; height: 0;}
-.power-off {position: absolute; top: 10%; left: -30px;}
-.power-off::after {content: "OFF";}
-.power-on {position: absolute; top: 10%; left: 57px;}
-.power-on::after {content: "ON";}
+.powerButton input {opacity: 0; width: 0; height: 0;}
+.powerOff {position: absolute; top: 10%; left: -30px;}
+.powerOff::after {content: "OFF";}
+.powerOn {position: absolute; top: 10%; left: 57px;}
+.powerOn::after {content: "ON";}
 
 .slider {
     position: absolute;
@@ -523,11 +523,11 @@ input:checked+.slider::before {transform: translateX(29px);}
 /* ----- MEDIA QUERIES ----- */
 @media (min-width: 700px) {
     :root {--size: 90vh;}
-    #title::after {font-size: 3em;}
-    #title-sub::after {content: "- MEMORY GAME -"; font-size: 1em; letter-spacing: 4px; top: 65%;}
+    #simon::after {font-size: 3em;}
+    #memoryGame::after {content: "- MEMORY GAME -"; font-size: 1em; letter-spacing: 4px; top: 65%;}
     #greenButton::before, #redButton::before, #blueButton::before, #yellowButton::before {font-size: 4em;}
     .slider.round {width: 50px;}
-    .power {height: calc(var(--size) / 16); margin: 0 calc((var(--size) / 2.75) - 50px); bottom: 22.5%;}
+    .powerButton {height: calc(var(--size) / 16); margin: 0 calc((var(--size) / 2.75) - 50px); bottom: 22.5%;}
     #levelCounter {font-size: 2.5em; top: calc(50% - 20px); left: calc(50% - 26px);}
     #levelCounter.on {font-size: 2.5em; top: calc(50% - 20px); left: calc(50% - 30px);}
     #levelCounter.win {font-size: 2em; top: calc(50% - 15px); left: calc(50% - 35px);}
