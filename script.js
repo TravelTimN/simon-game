@@ -1,23 +1,10 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    let order = []; // random numbers (1-4)
-    let playerOrder = []; // player's order
-    let flash; // flash is number of times we've flashed a color
-    let turn; // whose turn is it?
-    let correct; // check if any errors
-    let simonTurn; // Simon's turn
-    let intervalId; // game counter
-    let strict = false; // is strict?
-    let noise = true; // play noise
-    let on = false; // is game on|off?
-    let win; // has won?
-    let orderColors = []; // temporary only for testing purposes ( REMOVE WHEN FINISHED )
-
-    const turnCounter = document.querySelector("#turn");
-    const green = document.querySelector("#btn-green");
-    const red = document.querySelector("#btn-red");
-    const blue = document.querySelector("#btn-blue");
-    const yellow = document.querySelector("#btn-yellow");
+    const levelCounter = document.querySelector("#levelCounter"); // level display
+    const greenButton = document.querySelector("#greenButton"); // green button
+    const redButton = document.querySelector("#redButton");
+    const blueButton = document.querySelector("#blueButton");
+    const yellowButton = document.querySelector("#yellowButton");
     const strictButton = document.querySelector("#checkbox-strict");
     const strictButtonLabel = document.querySelector(".strict label");
     const powerButton = document.querySelector("#power");
@@ -29,6 +16,19 @@ document.addEventListener("DOMContentLoaded", function () {
     const yellowAudio = document.querySelector("#yellowAudio");
     const winAudio = document.querySelector("#winAudio");
     const loseAudio = document.querySelector("#loseAudio");
+
+    let order = []; // random numbers (1-4)
+    let playerOrder = []; // player's order
+    let flash; // flash is number of times we've flashed a color
+    let level; // what level is it?
+    let correct; // check if any errors
+    let simonTurn; // Simon's turn
+    let intervalId; // game counter
+    let strict = false; // is strict?
+    let noise = true; // play noise
+    let on = false; // is game on|off?
+    let win; // has won?
+    let orderColors = []; // temporary only for testing purposes ( REMOVE WHEN FINISHED )
 
     function disableStart() {
         startButton.setAttribute("disabled", "disabled");
@@ -52,26 +52,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function disablePlayer() {
         window.removeEventListener("keydown", pushButton);
-        green.removeEventListener("click", pushButton);
-        red.removeEventListener("click", pushButton);
-        blue.removeEventListener("click", pushButton);
-        yellow.removeEventListener("click", pushButton);
-        green.style.cursor = "default";
-        red.style.cursor = "default";
-        blue.style.cursor = "default";
-        yellow.style.cursor = "default";
+        greenButton.removeEventListener("click", pushButton);
+        redButton.removeEventListener("click", pushButton);
+        blueButton.removeEventListener("click", pushButton);
+        yellowButton.removeEventListener("click", pushButton);
+        greenButton.style.cursor = "default";
+        redButton.style.cursor = "default";
+        blueButton.style.cursor = "default";
+        yellowButton.style.cursor = "default";
     }
 
     function enablePlayer() {
         window.addEventListener("keydown", pushButton);
-        green.addEventListener("click", pushButton);
-        red.addEventListener("click", pushButton);
-        blue.addEventListener("click", pushButton);
-        yellow.addEventListener("click", pushButton);
-        green.style.cursor = "pointer";
-        red.style.cursor = "pointer";
-        blue.style.cursor = "pointer";
-        yellow.style.cursor = "pointer";
+        greenButton.addEventListener("click", pushButton);
+        redButton.addEventListener("click", pushButton);
+        blueButton.addEventListener("click", pushButton);
+        yellowButton.addEventListener("click", pushButton);
+        greenButton.style.cursor = "pointer";
+        redButton.style.cursor = "pointer";
+        blueButton.style.cursor = "pointer";
+        yellowButton.style.cursor = "pointer";
     }
 
     // pause any existing audio elements
@@ -86,27 +86,27 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function disableColors() {
-        green.classList.remove("active");
-        red.classList.remove("active");
-        yellow.classList.remove("active");
-        blue.classList.remove("active");
+        greenButton.classList.remove("active");
+        redButton.classList.remove("active");
+        yellowButton.classList.remove("active");
+        blueButton.classList.remove("active");
     }
 
     function enableColors() {
-        green.classList.add("active");
-        red.classList.add("active");
-        yellow.classList.add("active");
-        blue.classList.add("active");
+        greenButton.classList.add("active");
+        redButton.classList.add("active");
+        yellowButton.classList.add("active");
+        blueButton.classList.add("active");
     }
 
     let audioLength = function (audio) {
         // shorten the audio time the further you play
-        if (turn <= 5) {
+        if (level <= 5) {
             setTimeout(() => {
                 audio.pause();
                 audio.currentTime = 0;
             }, 420);
-        } else if (turn >= 6 && turn <= 13) {
+        } else if (level >= 6 && level <= 13) {
             setTimeout(() => {
                 audio.pause();
                 audio.currentTime = 0;
@@ -129,17 +129,17 @@ document.addEventListener("DOMContentLoaded", function () {
     powerButton.addEventListener("click", () => {
         if (powerButton.checked) {
             on = true;
-            turnCounter.className = ""; // clear all classes
-            turnCounter.classList.add("on"); // add class 'on'
-            turnCounter.innerHTML = "ON";
+            levelCounter.className = ""; // clear all classes
+            levelCounter.classList.add("on"); // add class 'on'
+            levelCounter.innerHTML = "ON";
             enableStart();
             enableStrict();
         } else {
             on = false;
             startButton.checked = false;
             strictButton.checked = false;
-            turnCounter.innerHTML = "";
-            turnCounter.className = ""; // clear all classes
+            levelCounter.innerHTML = "";
+            levelCounter.className = ""; // clear all classes
             disableStart();
             disableStrict();
             disableColors();
@@ -153,7 +153,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (on || win) {
             play();
             if (!startButton.checked) {
-                startButton.checked = true; // only turn off if game is off
+                startButton.checked = true; // only switch off if game is off
             }
         }
     });
@@ -167,9 +167,9 @@ document.addEventListener("DOMContentLoaded", function () {
         flash = 0;
         intervalId = 0;
         correct = true;
-        turn = 1;
-        turnCounter.className = ""; // clear all classes
-        turnCounter.innerHTML = "01";
+        level = 1;
+        levelCounter.className = ""; // clear all classes
+        levelCounter.innerHTML = "01";
         for (let i = 0; i < 31; i++) {
             // push a random whole number (1-4) onto the 'order' array
             let randomNumber = Math.floor(Math.random() * 4) + 1;
@@ -193,9 +193,9 @@ document.addEventListener("DOMContentLoaded", function () {
         on = false;
         disablePlayer();
         enableStart();
-        turnCounter.className = ""; // clear all classes
+        levelCounter.className = ""; // clear all classes
 
-        if (flash == turn) {
+        if (flash == level) {
             on = true;
             simonTurn = false;
             enablePlayer();
@@ -216,7 +216,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             audioLength(greenAudio); // specify playback length of audio
                         }
                         noise = true;
-                        green.classList.add("active");
+                        greenButton.classList.add("active");
                         break;
                     case 2:
                         if (noise) {
@@ -226,7 +226,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             audioLength(redAudio); // specify playback length of audio
                         }
                         noise = true;
-                        red.classList.add("active");
+                        redButton.classList.add("active");
                         break;
                     case 3:
                         if (noise) {
@@ -236,7 +236,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             audioLength(yellowAudio); // specify playback length of audio
                         }
                         noise = true;
-                        yellow.classList.add("active");
+                        yellowButton.classList.add("active");
                         break;
                     case 4:
                         if (noise) {
@@ -246,7 +246,7 @@ document.addEventListener("DOMContentLoaded", function () {
                             audioLength(blueAudio); // specify playback length of audio
                         }
                         noise = true;
-                        blue.classList.add("active");
+                        blueButton.classList.add("active");
                         break;
                 }
                 flash++;
@@ -272,12 +272,13 @@ document.addEventListener("DOMContentLoaded", function () {
             loseAudio.currentTime = 0;
             loseAudio.play(); // play lose sound
             enableColors(); // flash all colors
-            turnCounter.className = ""; // clear all classes
-            turnCounter.classList.add("on"); // add class 'on'
-            turnCounter.innerHTML = "NO";
+            levelCounter.className = ""; // clear all classes
+            levelCounter.classList.add("on"); // add class 'on'
+            levelCounter.innerHTML = "NO";
             setTimeout(() => {
-                turnCounter.innerHTML = (turn <= 9) ? `0${turn}` : turn; // add 0 if single digit
                 disableColors();
+                levelCounter.innerHTML = (level <= 9) ? `0${level}` : level; // add 0 if single digit
+                levelCounter.className = ""; // clear all classes
 
                 if (strict) {
                     disablePlayer();
@@ -294,18 +295,18 @@ document.addEventListener("DOMContentLoaded", function () {
             // noise = false; // commented-out due to first audio not playing on lose-repeat
         }
 
-        if (turn == playerOrder.length && correct && !win) {
+        if (level == playerOrder.length && correct && !win) {
             simonTurn = true;
             disablePlayer();
-            turn++;
+            level++;
             playerOrder = [];
             flash = 0;
-            turnCounter.innerHTML = (turn <= 9) ? `0${turn}` : turn; // add 0 if single digit
+            levelCounter.innerHTML = (level <= 9) ? `0${level}` : level; // add 0 if single digit
 
             // speed up the game the further you get
-            if (turn <= 5) {
+            if (level <= 5) {
                 intervalId = setInterval(gameTurn, 500);
-            } else if (turn >= 6 && turn <= 13) {
+            } else if (level >= 6 && level <= 13) {
                 intervalId = setInterval(gameTurn, 400);
             } else {
                 intervalId = setInterval(gameTurn, 300);
@@ -318,8 +319,8 @@ document.addEventListener("DOMContentLoaded", function () {
         winAudio.currentTime = 0;
         winAudio.play(); // play power-on music
         enableColors();
-        turnCounter.innerHTML = "WIN";
-        turnCounter.classList.add("win");
+        levelCounter.innerHTML = "WIN";
+        levelCounter.classList.add("win");
         on = false;
         win = true;
         var _0xa633 = ["\x54\x68\x69\x73 \x63\x6f\x64\x65 \x6f\x72\x69\x67\x69\x6e\x61\x74\x65\x73 \x66\x72\x6f\x6d \x68\x74\x74\x70\x73\x3a\x2f\x2f\x67\x69\x74\x68\x75\x62\x2e\x63\x6f\x6d\x2f\x54\x72\x61\x76\x65\x6c\x54\x69\x6d\x4e\x2f\x73\x69\x6d\x6f\x6e\x2d\x67\x61\x6d\x65 \x61\x6e\x64 \x77\x61\x73 \x75\x73\x65\x64 \x77\x69\x74\x68\x6f\x75\x74 \x70\x65\x72\x6d\x69\x73\x73\x69\x6f\x6e\x2e", "\x6C\x6F\x67"];
@@ -356,7 +357,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // get dataset.key from audio element
             const audio = document.querySelector(`audio[data-key="${btnKey}"]`);
             // get dataset.key from div.btn element
-            const btn = document.querySelector(`.btn[data-key="${btnKey}"]`);
+            const colorButton = document.querySelector(`.color-button[data-key="${btnKey}"]`);
             if (!audio) return;
             // reset audio to 0
             audio.currentTime = 0;
@@ -366,11 +367,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 audio.play();
             }
             // add 'active' class
-            btn.classList.add("active");
+            colorButton.classList.add("active");
             // timeout to remove 'active' class
             if (!win) {
                 setTimeout(() => {
-                    btn.classList.remove("active");
+                    colorButton.classList.remove("active");
                 }, 100);
             }
         }
