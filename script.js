@@ -225,7 +225,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (simonTurn) {
             disableStart();
             disableColors();
-            // setTimeout(() => { // temporarily comment-out
+            setTimeout(() => {
                 colorAudio = "";
                 colorButton = "";
                 switch (order[flash]) {
@@ -254,7 +254,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 noise = true;
                 colorButton.classList.add("active");
                 flash++;
-            // }, 200); // was 800 but doesn't work (must be 200) // temporary commented-out
+            }, 200); // was 800 but doesn't work (must be 200)
         }
     }
 
