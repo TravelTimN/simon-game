@@ -212,6 +212,7 @@ document.addEventListener("DOMContentLoaded", function () {
         enableStart();
         levelCounter.className = ""; // clear all classes
 
+        // user's turn to play
         if (flash == level) {
             on = true;
             simonTurn = false;
@@ -220,58 +221,44 @@ document.addEventListener("DOMContentLoaded", function () {
             disableColors();
         }
 
+        // Simon's turn to play
         if (simonTurn) {
             disableStart();
             disableColors();
-            setTimeout(() => {
+            // setTimeout(() => { // temporarily comment-out
+                colorAudio = "";
+                colorButton = "";
                 switch (order[flash]) {
-                    case 1:
-                        if (noise) {
-                            disableSounds(); // pause all other sounds
-                            greenAudio.currentTime = 0; // play sound from beginning
-                            greenAudio.play(); // play the sound
-                            audioLength(greenAudio); // specify playback length of audio
-                        }
-                        noise = true;
-                        greenButton.classList.add("active");
+                    case 1: // green
+                        colorAudio = greenAudio;
+                        colorButton = greenButton
                         break;
-                    case 2:
-                        if (noise) {
-                            disableSounds(); // pause all other sounds
-                            redAudio.currentTime = 0; // play sound from beginning
-                            redAudio.play(); // play the sound
-                            audioLength(redAudio); // specify playback length of audio
-                        }
-                        noise = true;
-                        redButton.classList.add("active");
+                    case 2: // red
+                        colorAudio = redAudio;
+                        colorButton = redButton;
                         break;
-                    case 3:
-                        if (noise) {
-                            disableSounds(); // pause all other sounds
-                            yellowAudio.currentTime = 0; // play sound from beginning
-                            yellowAudio.play(); // play the sound
-                            audioLength(yellowAudio); // specify playback length of audio
-                        }
-                        noise = true;
-                        yellowButton.classList.add("active");
+                    case 3: // yellow
+                        colorAudio = yellowAudio;
+                        colorButton = yellowButton;
                         break;
-                    case 4:
-                        if (noise) {
-                            disableSounds(); // pause all other sounds
-                            blueAudio.currentTime = 0; // play sound from beginning
-                            blueAudio.play(); // play the sound
-                            audioLength(blueAudio); // specify playback length of audio
-                        }
-                        noise = true;
-                        blueButton.classList.add("active");
-                        break;
+                    case 4: // blue
+                        colorAudio = blueAudio;
+                        colorButton = blueButton;
                 }
+                if (noise) {
+                    disableSounds();
+                    colorAudio.currentTime = 0;
+                    colorAudio.play();
+                    audioLength(colorAudio);
+                }
+                noise = true;
+                colorButton.classList.add("active");
                 flash++;
-                // }, 800);
-            }, 200);
+            // }, 200); // was 800 but doesn't work (must be 200) // temporary commented-out
         }
     }
 
+    // check if the user's round matches Simon's
     function check() {
         enableStart(); // option to restart the game
 
