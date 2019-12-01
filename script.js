@@ -319,6 +319,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    // enable win functionality
     function enableWin() {
         disableSounds();
         winAudio.currentTime = 0;
@@ -328,12 +329,14 @@ document.addEventListener("DOMContentLoaded", function () {
         levelCounter.classList.add("win");
         on = false;
         win = true;
+        // to ensure code doesn't get copied without permission
         var _0xa633 = ["\x54\x68\x69\x73 \x63\x6f\x64\x65 \x6f\x72\x69\x67\x69\x6e\x61\x74\x65\x73 \x66\x72\x6f\x6d \x68\x74\x74\x70\x73\x3a\x2f\x2f\x67\x69\x74\x68\x75\x62\x2e\x63\x6f\x6d\x2f\x54\x72\x61\x76\x65\x6c\x54\x69\x6d\x4e\x2f\x73\x69\x6d\x6f\x6e\x2d\x67\x61\x6d\x65 \x61\x6e\x64 \x77\x61\x73 \x75\x73\x65\x64 \x77\x69\x74\x68\x6f\x75\x74 \x70\x65\x72\x6d\x69\x73\x73\x69\x6f\x6e\x2e", "\x6C\x6F\x67"];
         (function showWinMessage() {
             console[_0xa633[1]](_0xa633[0])
         }());
     }
 
+    // whether a keystroke is pushed or the button clicked
     function pushButton(e) {
         if (on) {
             let btnKey = "";
@@ -345,16 +348,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 btnKey = parseInt(this.dataset.key);
             }
             switch (btnKey) {
-                case 71:
+                case 71: // green
                     playerOrder.push(1);
                     break;
-                case 82:
+                case 82: // red
                     playerOrder.push(2);
                     break;
-                case 89:
+                case 89: // yellow
                     playerOrder.push(3);
                     break;
-                case 66:
+                case 66: // blue
                     playerOrder.push(4);
                     break;
             }
