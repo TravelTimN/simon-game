@@ -348,16 +348,16 @@ document.addEventListener("DOMContentLoaded", function () {
                 btnKey = parseInt(this.dataset.key);
             }
             switch (btnKey) {
-                case 71: // green
+                case 71: // green (G)
                     playerOrder.push(1);
                     break;
-                case 82: // red
+                case 82: // red (R)
                     playerOrder.push(2);
                     break;
-                case 89: // yellow
+                case 89: // yellow (Y)
                     playerOrder.push(3);
                     break;
-                case 66: // blue
+                case 66: // blue (B)
                     playerOrder.push(4);
                     break;
             }
