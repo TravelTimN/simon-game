@@ -259,88 +259,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // check if the user's round matches Simon's
-    function check() {
-        enableStart(); // option to restart the game
-
-        // player was correct - advance to next round
-        if (level == playerOrder.length && correct && !win) {
-            setTimeout(() => {
-                simonTurn = true; // wait 800ms between each turn
-            }, 800);
-            disablePlayer();
-            level++;
-            playerOrder = [];
-            flash = 0;
-            levelCounter.innerHTML = (level <= 9) ? `0${level}` : level; // add 0 if single digit
-            // speed up the game the further you get
-            if (level <= 5) {
-                intervalId = setInterval(gameTurn, 500);
-            } else if (level >= 6 && level <= 13) {
-                intervalId = setInterval(gameTurn, 400);
-            } else {
-                intervalId = setInterval(gameTurn, 300);
-            }
-        }
-
-        // player made and error
-        if (playerOrder[playerOrder.length - 1] !== order[playerOrder.length - 1]) {
-            correct = false;
-        }
-        // what happens when player makes error
-        if (correct == false) {
-            disablePlayer();
-            disableStart();
-            disableSounds();
-            loseAudio.currentTime = 0;
-            loseAudio.play(); // play lose sound
-            enableColors(); // flash all colors
-            levelCounter.className = ""; // clear all classes
-            levelCounter.classList.add("on"); // add class 'on'
-            levelCounter.innerHTML = "NO";
-            setTimeout(() => {
-                disableColors();
-                levelCounter.innerHTML = (level <= 9) ? `0${level}` : level; // add 0 if single digit
-                levelCounter.className = ""; // clear all classes
-
-                if (strict) {
-                    disablePlayer();
-                    enableStart();
-                    startButton.checked = false;
-                } else {
-                    simonTurn = true;
-                    flash = 0;
-                    playerOrder = [];
-                    correct = true;
-                    intervalId = setInterval(gameTurn, 500); // repeat speed if lose
-                }
-            }, 1500);
-            // noise = false; // commented-out due to first audio not playing on lose-repeat
-        }
-
-        // player finished all 31 rounds - WINNER!
-        if (playerOrder.length == 31 && correct) {
-            enableWin();
-        }
-    }
-
-    // enable win functionality
-    function enableWin() {
-        disableSounds();
-        winAudio.currentTime = 0;
-        winAudio.play(); // play 'winner' music
-        enableColors();
-        levelCounter.innerHTML = "WIN";
-        levelCounter.classList.add("win");
-        on = false;
-        win = true;
-        // to ensure code doesn't get copied without permission
-        var _0xa633 = ["\x54\x68\x69\x73 \x63\x6f\x64\x65 \x6f\x72\x69\x67\x69\x6e\x61\x74\x65\x73 \x66\x72\x6f\x6d \x68\x74\x74\x70\x73\x3a\x2f\x2f\x67\x69\x74\x68\x75\x62\x2e\x63\x6f\x6d\x2f\x54\x72\x61\x76\x65\x6c\x54\x69\x6d\x4e\x2f\x73\x69\x6d\x6f\x6e\x2d\x67\x61\x6d\x65 \x61\x6e\x64 \x77\x61\x73 \x75\x73\x65\x64 \x77\x69\x74\x68\x6f\x75\x74 \x70\x65\x72\x6d\x69\x73\x73\x69\x6f\x6e\x2e", "\x6C\x6F\x67"];
-        (function showWinMessage() {
-            console[_0xa633[1]](_0xa633[0]);
-        }());
-    }
-
     // whether a keystroke is pushed or the button clicked
     function pushButton(e) {
         if (on) {
@@ -376,18 +294,98 @@ document.addEventListener("DOMContentLoaded", function () {
             audio.currentTime = 0;
             disableSounds();
             // play current audio element
-            if (correct != false && !win) {
+            if (correct && !win) {
                 audio.play();
             }
             // add 'active' class
             colorButton.classList.add("active");
             // timeout to remove 'active' class
-            if (!win) {
+            if (!win && correct) {
                 setTimeout(() => {
                     colorButton.classList.remove("active");
                 }, 100);
             }
         }
+    }
+
+    // check if the user's round matches Simon's
+    function check() {
+        enableStart(); // option to restart the game
+
+        // player was correct - advance to next round
+        if (level == playerOrder.length && correct && !win) {
+            setTimeout(() => {
+                simonTurn = true; // wait 800ms between each turn
+            }, 800);
+            disablePlayer();
+            level++;
+            playerOrder = [];
+            flash = 0;
+            levelCounter.innerHTML = (level <= 9) ? `0${level}` : level; // add 0 if single digit
+            // speed up the game the further you get
+            if (level <= 5) {
+                intervalId = setInterval(gameTurn, 500);
+            } else if (level >= 6 && level <= 13) {
+                intervalId = setInterval(gameTurn, 400);
+            } else {
+                intervalId = setInterval(gameTurn, 300);
+            }
+        }
+
+        // player made and error
+        if (playerOrder[playerOrder.length - 1] !== order[playerOrder.length - 1]) {
+            correct = false;
+        }
+        // what happens when player makes error
+        if (!correct) {
+            disablePlayer();
+            disableStart();
+            disableSounds();
+            loseAudio.currentTime = 0;
+            loseAudio.play(); // play lose sound
+            enableColors(); // flash all colors
+            levelCounter.className = ""; // clear all classes
+            levelCounter.classList.add("on"); // add class 'on'
+            levelCounter.innerHTML = "NO";
+            setTimeout(() => {
+                disableColors();
+                levelCounter.innerHTML = (level <= 9) ? `0${level}` : level; // add 0 if single digit
+                levelCounter.className = ""; // clear all classes
+                if (strict) { // strict mode - don't repeat level
+                    disablePlayer();
+                    enableStart();
+                    startButton.checked = false;
+                } else { // normal mode - repeat mode at lower speed
+                    simonTurn = true;
+                    flash = 0;
+                    playerOrder = [];
+                    correct = true;
+                    intervalId = setInterval(gameTurn, 500); // repeat speed if lose
+                }
+            }, 1500);
+        }
+
+        // player finished all 31 rounds - WINNER!
+        if (playerOrder.length == 31 && correct) {
+            enableWin();
+        }
+    }
+
+    // enable win functionality
+    function enableWin() {
+        disableSounds();
+        winAudio.currentTime = 0;
+        winAudio.play(); // play 'winner' music
+        enableColors();
+        levelCounter.innerHTML = "WIN";
+        levelCounter.classList.add("win");
+        on = false;
+        win = true;
+        // to ensure code doesn't get copied without permission
+        var _0xa633 = ["\x54\x68\x69\x73 \x63\x6f\x64\x65 \x6f\x72\x69\x67\x69\x6e\x61\x74\x65\x73 \x66\x72\x6f\x6d \x68\x74\x74\x70\x73\x3a\x2f\x2f\x67\x69\x74\x68\x75\x62\x2e\x63\x6f\x6d\x2f\x54\x72\x61\x76\x65\x6c\x54\x69\x6d\x4e\x2f\x73\x69\x6d\x6f\x6e\x2d\x67\x61\x6d\x65 \x61\x6e\x64 \x77\x61\x73 \x75\x73\x65\x64 \x77\x69\x74\x68\x6f\x75\x74 \x70\x65\x72\x6d\x69\x73\x73\x69\x6f\x6e\x2e", "\x6C\x6F\x67"];
+        (function showWinMessage() {
+            console[_0xa633[1]](_0xa633[0]);
+        }());
     }
 
 });
