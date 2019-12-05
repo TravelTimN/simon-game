@@ -156,7 +156,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 disableSounds();
                 clearInterval(intervalId);
                 on = false;
-            }, 500); // turn off after a second, allow Simon to play last move
+            }, 500); // delay power-off - allow Simon to play last move
         }
     });
 
@@ -225,36 +225,37 @@ document.addEventListener("DOMContentLoaded", function () {
         if (simonTurn) {
             disableStart();
             disableColors();
+            colorAudio = "";
+            colorButton = "";
+            switch (order[flash]) {
+                case 1: // green
+                    colorAudio = greenAudio;
+                    colorButton = greenButton
+                    break;
+                case 2: // red
+                    colorAudio = redAudio;
+                    colorButton = redButton;
+                    break;
+                case 3: // yellow
+                    colorAudio = yellowAudio;
+                    colorButton = yellowButton;
+                    break;
+                case 4: // blue
+                    colorAudio = blueAudio;
+                    colorButton = blueButton;
+            }
+            if (noise) {
+                disableSounds();
+                colorAudio.currentTime = 0;
+                colorAudio.play();
+                audioLength(colorAudio);
+            }
+            noise = true;
+            colorButton.classList.add("active");
             setTimeout(() => {
-                colorAudio = "";
-                colorButton = "";
-                switch (order[flash]) {
-                    case 1: // green
-                        colorAudio = greenAudio;
-                        colorButton = greenButton
-                        break;
-                    case 2: // red
-                        colorAudio = redAudio;
-                        colorButton = redButton;
-                        break;
-                    case 3: // yellow
-                        colorAudio = yellowAudio;
-                        colorButton = yellowButton;
-                        break;
-                    case 4: // blue
-                        colorAudio = blueAudio;
-                        colorButton = blueButton;
-                }
-                if (noise) {
-                    disableSounds();
-                    colorAudio.currentTime = 0;
-                    colorAudio.play();
-                    audioLength(colorAudio);
-                }
-                noise = true;
-                colorButton.classList.add("active");
-                flash++;
-            }, 200); // was 800 but doesn't work (must be 200)
+                colorButton.classList.remove("active");
+            }, 100);
+            flash++;
         }
     }
 
@@ -262,14 +263,31 @@ document.addEventListener("DOMContentLoaded", function () {
     function check() {
         enableStart(); // option to restart the game
 
+        // player was correct - advance to next round
+        if (level == playerOrder.length && correct && !win) {
+            setTimeout(() => {
+                simonTurn = true; // wait 800ms between each turn
+            }, 800);
+            disablePlayer();
+            level++;
+            playerOrder = [];
+            flash = 0;
+            levelCounter.innerHTML = (level <= 9) ? `0${level}` : level; // add 0 if single digit
+            // speed up the game the further you get
+            if (level <= 5) {
+                intervalId = setInterval(gameTurn, 500);
+            } else if (level >= 6 && level <= 13) {
+                intervalId = setInterval(gameTurn, 400);
+            } else {
+                intervalId = setInterval(gameTurn, 300);
+            }
+        }
+
+        // player made and error
         if (playerOrder[playerOrder.length - 1] !== order[playerOrder.length - 1]) {
             correct = false;
         }
-
-        if (playerOrder.length == 31 && correct) {
-            enableWin();
-        }
-
+        // what happens when player makes error
         if (correct == false) {
             disablePlayer();
             disableStart();
@@ -300,22 +318,9 @@ document.addEventListener("DOMContentLoaded", function () {
             // noise = false; // commented-out due to first audio not playing on lose-repeat
         }
 
-        if (level == playerOrder.length && correct && !win) {
-            simonTurn = true;
-            disablePlayer();
-            level++;
-            playerOrder = [];
-            flash = 0;
-            levelCounter.innerHTML = (level <= 9) ? `0${level}` : level; // add 0 if single digit
-
-            // speed up the game the further you get
-            if (level <= 5) {
-                intervalId = setInterval(gameTurn, 500);
-            } else if (level >= 6 && level <= 13) {
-                intervalId = setInterval(gameTurn, 400);
-            } else {
-                intervalId = setInterval(gameTurn, 300);
-            }
+        // player finished all 31 rounds - WINNER!
+        if (playerOrder.length == 31 && correct) {
+            enableWin();
         }
     }
 
@@ -332,7 +337,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // to ensure code doesn't get copied without permission
         var _0xa633 = ["\x54\x68\x69\x73 \x63\x6f\x64\x65 \x6f\x72\x69\x67\x69\x6e\x61\x74\x65\x73 \x66\x72\x6f\x6d \x68\x74\x74\x70\x73\x3a\x2f\x2f\x67\x69\x74\x68\x75\x62\x2e\x63\x6f\x6d\x2f\x54\x72\x61\x76\x65\x6c\x54\x69\x6d\x4e\x2f\x73\x69\x6d\x6f\x6e\x2d\x67\x61\x6d\x65 \x61\x6e\x64 \x77\x61\x73 \x75\x73\x65\x64 \x77\x69\x74\x68\x6f\x75\x74 \x70\x65\x72\x6d\x69\x73\x73\x69\x6f\x6e\x2e", "\x6C\x6F\x67"];
         (function showWinMessage() {
-            console[_0xa633[1]](_0xa633[0])
+            console[_0xa633[1]](_0xa633[0]);
         }());
     }
 
