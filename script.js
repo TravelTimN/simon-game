@@ -269,7 +269,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // player finished all 31 rounds - WINNER!
-        if (playerOrder.length == 3 && correct) {
+        if (playerOrder.length == 31 && correct) {
             enableWin();
         }
 
