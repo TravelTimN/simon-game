@@ -17,17 +17,17 @@ document.addEventListener("DOMContentLoaded", function () {
     const winAudio = document.querySelector("#winAudio"); // win audio file
     const loseAudio = document.querySelector("#loseAudio"); // lose audio file
 
-    let on = false; // is game on|off?
-    let strict = false; // is strict mode?
+    let isOn = false; // game begins powered off
+    let isStrict = false; // game begins in normal mode
     let order = []; // random numbers (1-4)
-    let level; // what level is it?
-    let intervalId; // game speed
-    let simonTurn; // Simon's turn
-    // let noise = true; // play noise
+    let level; // level increases as you play
+    let gameSpeed; // game speed
+    let simonTurn; // Simon's turn to play
+    // let noise = true; // play noise // not needed?
     let flash; // flash is number of times we've flashed a color
     let playerOrder = []; // player's order
-    let correct; // check if any errors
-    let win; // has won?
+    let isCorrect; // check if player is correct
+    let hasWon; // has the player won?
     let orderColors = []; // temporary only for testing purposes ( REMOVE WHEN FINISHED )
 
     // disables the start button
@@ -132,7 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
     disableStrict();
 
     // toggle strict button true/false
-    strictButton.addEventListener("click", () => strict = strictButton.checked);
+    strictButton.addEventListener("click", () => isStrict = strictButton.checked);
 
     // power the game on|off with appropriate functions
     powerButton.addEventListener("click", () => {
@@ -142,7 +142,7 @@ document.addEventListener("DOMContentLoaded", function () {
             levelCounter.innerHTML = "ON";
             enableStart();
             enableStrict();
-            on = true;
+            isOn = true;
         } else {
             simonTurn = false; // stop Simon if playing current round
             setTimeout(() => {
@@ -154,15 +154,15 @@ document.addEventListener("DOMContentLoaded", function () {
                 disableStrict();
                 disableColors();
                 disableSounds();
-                clearInterval(intervalId);
-                on = false;
+                clearInterval(gameSpeed);
+                isOn = false;
             }, 500); // delay power-off - allow Simon to play last move
         }
     });
 
-    // play the game if 'on' or 'win'
+    // play the game if 'isOn' or 'hasWon'
     startButton.addEventListener("click", () => {
-        if (on || win) {
+        if (isOn || hasWon) {
             enablePlay();
             if (!startButton.checked) startButton.checked = true; // only switch off if game is not active
         }
@@ -171,13 +171,13 @@ document.addEventListener("DOMContentLoaded", function () {
     // the game play
     function enablePlay() {
         simonTurn = true; // Simon starts each round
-        win = false;
+        hasWon = false;
         order = [];
         orderColors = []; // temporary testing only in console
         playerOrder = [];
         flash = 0;
-        intervalId = 0;
-        correct = true;
+        // gameSpeed = 0; // not needed?
+        isCorrect = true;
         level = 1;
         levelCounter.className = ""; // clear all classes
         levelCounter.innerHTML = "01";
@@ -202,22 +202,22 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         }
         console.log(orderColors); // temporary on to test higher levels
-        intervalId = setInterval(gameTurn, 800) // start the game after 0.8s
+        gameSpeed = setInterval(gameTurn, 800) // start the game after 0.8s
     }
 
     // handle whose turn it is (Simon or user)
     function gameTurn() {
-        on = false;
+        isOn = false;
         disablePlayer();
         enableStart();
         levelCounter.className = ""; // clear all classes
 
         // user's turn to play
         if (flash == level) {
-            on = true;
+            isOn = true;
             simonTurn = false;
             enablePlayer();
-            clearInterval(intervalId);
+            clearInterval(gameSpeed);
             disableColors();
         }
 
@@ -265,16 +265,16 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // player made an error
         if (playerOrder[playerOrder.length - 1] !== order[playerOrder.length - 1]) {
-            correct = false;
+            isCorrect = false;
         }
 
         // player finished all 31 rounds - WINNER!
-        if (playerOrder.length == 31 && correct) {
+        if (playerOrder.length == 4 && isCorrect) {
             enableWin();
         }
 
         // player made an error
-        if (!correct) {
+        if (!isCorrect) {
             disablePlayer();
             disableStart();
             disableSounds();
@@ -288,7 +288,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 disableColors();
                 levelCounter.innerHTML = (level <= 9) ? `0${level}` : level; // add 0 if single digit
                 levelCounter.className = ""; // clear all classes
-                if (strict) { // strict mode - don't repeat level
+                if (isStrict) { // strict mode - don't repeat level
                     disablePlayer();
                     enableStart();
                     startButton.checked = false;
@@ -296,15 +296,15 @@ document.addEventListener("DOMContentLoaded", function () {
                     simonTurn = true;
                     flash = 0;
                     playerOrder = [];
-                    correct = true;
-                    intervalId = setInterval(gameTurn, 500); // repeat speed if lose
+                    isCorrect = true;
+                    gameSpeed = setInterval(gameTurn, 500); // repeat speed if lose
                 }
             }, 1500);
             // noise = false; // commented-out due to first audio not playing on lose-repeat
         }
 
         // player was correct - advance to next round
-        if (level == playerOrder.length && correct && !win) {
+        if (level == playerOrder.length && isCorrect && !hasWon) {
             setTimeout(() => {
                 simonTurn = true; // wait 800ms between each turn
             }, 800);
@@ -316,11 +316,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
             // speed up the game the further you get
             if (level <= 5) {
-                intervalId = setInterval(gameTurn, 500);
+                gameSpeed = setInterval(gameTurn, 500);
             } else if (level >= 6 && level <= 13) {
-                intervalId = setInterval(gameTurn, 400);
+                gameSpeed = setInterval(gameTurn, 400);
             } else {
-                intervalId = setInterval(gameTurn, 300);
+                gameSpeed = setInterval(gameTurn, 300);
             }
         }
     }
@@ -334,8 +334,8 @@ document.addEventListener("DOMContentLoaded", function () {
         enableColors();
         levelCounter.innerHTML = "WIN";
         levelCounter.classList.add("win");
-        on = false;
-        win = true;
+        isOn = false;
+        hasWon = true;
         // to ensure code doesn't get copied without permission
         var _0xa633 = ["\x54\x68\x69\x73 \x63\x6f\x64\x65 \x6f\x72\x69\x67\x69\x6e\x61\x74\x65\x73 \x66\x72\x6f\x6d \x68\x74\x74\x70\x73\x3a\x2f\x2f\x67\x69\x74\x68\x75\x62\x2e\x63\x6f\x6d\x2f\x54\x72\x61\x76\x65\x6c\x54\x69\x6d\x4e\x2f\x73\x69\x6d\x6f\x6e\x2d\x67\x61\x6d\x65 \x61\x6e\x64 \x77\x61\x73 \x75\x73\x65\x64 \x77\x69\x74\x68\x6f\x75\x74 \x70\x65\x72\x6d\x69\x73\x73\x69\x6f\x6e\x2e", "\x6C\x6F\x67"];
         (function showWinMessage() {
@@ -350,7 +350,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // whether a keystroke is pushed or the button clicked
     function pushButton(e) {
-        if (on) {
+        if (isOn) {
             let btnKey = "";
             if (e instanceof KeyboardEvent) {
                 // keyboard event (typing 'R', 'G', 'B', 'Y')
@@ -382,14 +382,11 @@ document.addEventListener("DOMContentLoaded", function () {
             // reset audio to 0
             audio.currentTime = 0;
             disableSounds();
-            // play current audio element
-            if (correct && !win) {
-                audio.play();
-            }
             // add 'active' class
             colorButton.classList.add("active");
             // timeout to remove 'active' class
-            if (!win && correct) {
+            if (!hasWon && isCorrect) {
+                audio.play(); // play current audio element only if correct and not a win yet
                 setTimeout(() => {
                     colorButton.classList.remove("active");
                 }, 100);
