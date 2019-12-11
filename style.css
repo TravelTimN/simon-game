@@ -7,18 +7,22 @@
     --fontPressStart: "Press Start 2P", sans-serif, cursive;
     --fontSarpanch: "Sarpanch", sans-serif;
     --fontQuantico: "Quantico", sans-serif;
-    --green: 0, 128, 0;
-    --red: 255, 0, 0;
-    --blue: 0, 0, 255;
-    --yellow: 255, 255, 0;
-    --white: 255, 255, 255;
-    --lightGrey: 211, 211, 211;
-    --grey: 128, 128, 128;
-    --doveGrey: 109, 108, 108;
-    --tundora: 74, 66, 68;
-    --mineShaft: 50, 50, 50;
-    --codGrey: 11, 11, 11;
-    --black: 0, 0, 0;
+    --green: 0, 128, 0; /* #008000 */
+    --greenActive: 64, 192, 64; /* #40C040 */
+    --red: 255, 0, 0; /* #FF0000 */
+    --redActive: 255, 64, 64; /* #FF4040 */
+    --blue: 0, 0, 255; /* #0000FF */
+    --blueActive: 64, 64, 255; /* #4040FF */
+    --yellow: 255, 255, 0; /* #FFFF00 */
+    --yellowActive: 255, 255, 64; /* #FFFF40 */
+    --white: 255, 255, 255; /* #FFFFFF */
+    --lightGrey: 211, 211, 211; /* #D3D3D3 */
+    --grey: 128, 128, 128; /* #808080 */
+    --doveGrey: 109, 108, 108; /* #6D6C6C */
+    --tundora: 74, 66, 68; /* #4A4244 */
+    --mineShaft: 50, 50, 50; /* #323232 */
+    --codGrey: 11, 11, 11; /* #0B0B0B */
+    --black: 0, 0, 0; /* #000000 */
     --size: 90vw;
 }
 
@@ -156,7 +160,13 @@ body {
 }
 
 #greenButton.active {
-    box-shadow: 0 0 50px rgba(var(--green), 1);
+    box-shadow: 0 0 50px rgba(var(--greenActive), 1);
+    background-color: rgba(var(--greenActive), 1);
+    background: linear-gradient(135deg,
+        rgba(var(--greenActive), 0.6) 0%,
+        rgba(var(--greenActive), 0.8) 50%,
+        rgba(var(--greenActive), 1) 50%,
+        rgba(var(--white), 1) 100%);
 }
 
 /* ----- RED ----- */
@@ -204,7 +214,13 @@ body {
 }
 
 #redButton.active {
-    box-shadow: 0 0 50px rgba(var(--red), 1);
+    box-shadow: 0 0 50px rgba(var(--redActive), 1);
+    background-color: rgba(var(--redActive), 1);
+    background: linear-gradient(45deg,
+        rgba(var(--white), 1) 0%,
+        rgba(var(--redActive), 1) 50%,
+        rgba(var(--redActive), 0.8) 50%,
+        rgba(var(--redActive), 0.6) 100%);
 }
 
 /* ----- BLUE ----- */
@@ -252,7 +268,13 @@ body {
 }
 
 #blueButton.active {
-    box-shadow: 0 0 50px rgba(var(--blue), 1);
+    box-shadow: 0 0 50px rgba(var(--blueActive), 1);
+    background-color: rgba(var(--blueActive), 1);
+    background: linear-gradient(135deg,
+        rgba(var(--white), 1) 0%,
+        rgba(var(--blueActive), 1) 50%,
+        rgba(var(--blueActive), 0.8) 50%,
+        rgba(var(--blueActive), 0.6) 100%);
 }
 
 /* ----- YELLOW ----- */
@@ -300,7 +322,13 @@ body {
 }
 
 #yellowButton.active {
-    box-shadow: 0 0 50px rgba(var(--yellow), 1);
+    box-shadow: 0 0 50px rgba(var(--yellowActive), 1);
+    background-color: rgba(var(--yellowActive), 1);
+    background: linear-gradient(45deg,
+        rgba(var(--yellowActive), 0.6) 0%,
+        rgba(var(--yellowActive), 0.8) 50%,
+        rgba(var(--yellowActive), 1) 50%,
+        rgba(var(--white), 1) 100%);
 }
 
 /* ----- INNER CIRCLE ----- */
