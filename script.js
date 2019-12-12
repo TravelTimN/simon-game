@@ -23,7 +23,6 @@ document.addEventListener("DOMContentLoaded", function () {
     let level; // level increases as you play
     let gameSpeed; // game speed
     let simonTurn; // Simon's turn to play
-    // let noise = true; // play noise // not needed?
     let flash; // flash is number of times we've flashed a color
     let playerOrder = []; // player's order
     let isCorrect; // check if player is correct
@@ -111,18 +110,21 @@ document.addEventListener("DOMContentLoaded", function () {
             setTimeout(() => {
                 audio.pause();
                 audio.currentTime = 0;
+                colorButton.classList.remove("active");
             }, 420);
         } else if (level >= 6 && level <= 13) {
             // levels 6-13 play for 0.32 seconds
             setTimeout(() => {
                 audio.pause();
                 audio.currentTime = 0;
+                colorButton.classList.remove("active");
             }, 320);
         } else {
             // levels 13+ play for 0.22 seconds
             setTimeout(() => {
                 audio.pause();
                 audio.currentTime = 0;
+                colorButton.classList.remove("active");
             }, 220);
         }
     }
@@ -244,17 +246,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     colorAudio = blueAudio;
                     colorButton = blueButton;
             }
-            // if (noise) {
-                disableSounds();
-                colorAudio.currentTime = 0;
-                colorAudio.play();
-                audioLength(colorAudio);
-            // }
-            // noise = true;
+            disableSounds();
+            colorAudio.currentTime = 0;
+            colorAudio.play();
             colorButton.classList.add("active");
-            setTimeout(() => {
-                colorButton.classList.remove("active");
-            }, 100);
+            audioLength(colorAudio);
             flash++;
         }
     }
@@ -269,7 +265,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
 
         // player finished all 31 rounds - WINNER!
-        if (playerOrder.length == 4 && isCorrect) {
+        if (playerOrder.length == 31 && isCorrect) {
             enableWin();
         }
 
@@ -300,7 +296,6 @@ document.addEventListener("DOMContentLoaded", function () {
                     gameSpeed = setInterval(gameTurn, 500); // repeat speed if lose
                 }
             }, 1500);
-            // noise = false; // commented-out due to first audio not playing on lose-repeat
         }
 
         // player was correct - advance to next round
@@ -389,7 +384,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 audio.play(); // play current audio element only if correct and not a win yet
                 setTimeout(() => {
                     colorButton.classList.remove("active");
-                }, 100);
+                }, 150);
             }
         }
     }
