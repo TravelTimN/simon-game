@@ -43,7 +43,6 @@ body {
 
 /* ----- OUTER CIRCLE ----- */
 #outer-circle {
-    /* background-color: rgba(var(--black), 1); */
     border-radius: 50%;
     height: var(--size);
     width: var(--size);
@@ -429,7 +428,6 @@ body {
     width: 1em;
     border: 2px solid rgba(var(--black), 1);
     border-radius: 50%;
-    /* cursor: pointer; */
     transition: all 0.2s ease-in-out;
 }
 
