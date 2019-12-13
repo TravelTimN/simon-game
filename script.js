@@ -19,7 +19,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     let isOn = false; // game begins powered off
     let isStrict = false; // game begins in normal mode
-    let order = []; // random numbers (1-4)
+    let simonOrder = []; // random numbers (1-4)
+    let colors = ["green", "red", "yellow", "blue"]; // array of colors
     let rounds = 31; // number of rounds to win
     let easy = 5; // levels 1-5 are 'easy'
     let medium = 13; // levels 6-13 are 'medium' // levels 13-31 are 'hard'
@@ -30,7 +31,6 @@ document.addEventListener("DOMContentLoaded", function () {
     let playerOrder = []; // player's order
     let isCorrect; // check if player is correct
     let hasWon; // has the player won?
-    let orderColors = []; // temporary only for testing purposes ( REMOVE WHEN FINISHED )
 
     // disables the start button
     function disableStart() {
@@ -177,7 +177,7 @@ document.addEventListener("DOMContentLoaded", function () {
     function enablePlay() {
         simonTurn = true; // Simon starts each round
         hasWon = false;
-        order = [];
+        simonOrder = [];
         orderColors = []; // temporary testing only in console
         playerOrder = [];
         flash = 0;
@@ -187,26 +187,11 @@ document.addEventListener("DOMContentLoaded", function () {
         levelCounter.className = ""; // clear all classes
         levelCounter.innerHTML = "01";
         for (let i = 0; i < rounds; i++) {
-            // push a random whole number (1-4) onto the 'order' array
-            let randomNumber = Math.floor(Math.random() * 4) + 1;
-            order.push(randomNumber);
-            // temporarily assign each to a color for console testing higher rounds
-            switch (randomNumber) {
-                case 1:
-                    orderColors.push("green");
-                    break;
-                case 2:
-                    orderColors.push("red");
-                    break;
-                case 3:
-                    orderColors.push("yellow");
-                    break;
-                case 4:
-                    orderColors.push("blue");
-                    break;
-            }
+            // push a random color into the 'simonOrder' array
+            let randomColor = colors[Math.floor(Math.random() * colors.length)];
+            simonOrder.push(randomColor);
         }
-        console.log(orderColors); // temporary on to test higher levels
+        console.log(simonOrder); // temporarily on to test higher levels ( DELETE LATER )
         gameSpeed = setInterval(gameTurn, 800) // start the game after 0.8s
     }
 
@@ -232,20 +217,20 @@ document.addEventListener("DOMContentLoaded", function () {
             disableColors();
             colorAudio = "";
             colorButton = "";
-            switch (order[flash]) {
-                case 1: // green
+            switch (simonOrder[flash]) {
+                case "green":
                     colorAudio = greenAudio;
                     colorButton = greenButton
                     break;
-                case 2: // red
+                case "red":
                     colorAudio = redAudio;
                     colorButton = redButton;
                     break;
-                case 3: // yellow
+                case "yellow":
                     colorAudio = yellowAudio;
                     colorButton = yellowButton;
                     break;
-                case 4: // blue
+                case "blue":
                     colorAudio = blueAudio;
                     colorButton = blueButton;
             }
@@ -263,7 +248,7 @@ document.addEventListener("DOMContentLoaded", function () {
         enableStart(); // option to restart the game
 
         // player made an error
-        if (playerOrder[playerOrder.length - 1] !== order[playerOrder.length - 1]) {
+        if (playerOrder[playerOrder.length - 1] !== simonOrder[playerOrder.length - 1]) {
             isCorrect = false;
         }
 
@@ -337,7 +322,7 @@ document.addEventListener("DOMContentLoaded", function () {
         isOn = false;
         hasWon = true;
         // to ensure code doesn't get copied without permission
-        var _0xa633 = ["\x54\x68\x69\x73 \x63\x6f\x64\x65 \x6f\x72\x69\x67\x69\x6e\x61\x74\x65\x73 \x66\x72\x6f\x6d \x68\x74\x74\x70\x73\x3a\x2f\x2f\x67\x69\x74\x68\x75\x62\x2e\x63\x6f\x6d\x2f\x54\x72\x61\x76\x65\x6c\x54\x69\x6d\x4e\x2f\x73\x69\x6d\x6f\x6e\x2d\x67\x61\x6d\x65 \x61\x6e\x64 \x77\x61\x73 \x75\x73\x65\x64 \x77\x69\x74\x68\x6f\x75\x74 \x70\x65\x72\x6d\x69\x73\x73\x69\x6f\x6e\x2e", "\x6C\x6F\x67"];
+        const _0xa633 = ["\x54\x68\x69\x73 \x63\x6f\x64\x65 \x6f\x72\x69\x67\x69\x6e\x61\x74\x65\x73 \x66\x72\x6f\x6d \x68\x74\x74\x70\x73\x3a\x2f\x2f\x67\x69\x74\x68\x75\x62\x2e\x63\x6f\x6d\x2f\x54\x72\x61\x76\x65\x6c\x54\x69\x6d\x4e\x2f\x73\x69\x6d\x6f\x6e\x2d\x67\x61\x6d\x65 \x61\x6e\x64 \x77\x61\x73 \x75\x73\x65\x64 \x77\x69\x74\x68\x6f\x75\x74 \x70\x65\x72\x6d\x69\x73\x73\x69\x6f\x6e\x2e", "\x6C\x6F\x67"];
         (function showWinMessage() {
             console[_0xa633[1]](_0xa633[0]);
         }());
@@ -361,16 +346,16 @@ document.addEventListener("DOMContentLoaded", function () {
             }
             switch (btnKey) {
                 case 71: // green (G)
-                    playerOrder.push(1);
+                    playerOrder.push("green");
                     break;
                 case 82: // red (R)
-                    playerOrder.push(2);
+                    playerOrder.push("red");
                     break;
                 case 89: // yellow (Y)
-                    playerOrder.push(3);
+                    playerOrder.push("yellow");
                     break;
                 case 66: // blue (B)
-                    playerOrder.push(4);
+                    playerOrder.push("blue");
                     break;
             }
             check();
