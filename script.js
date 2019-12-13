@@ -20,6 +20,9 @@ document.addEventListener("DOMContentLoaded", function () {
     let isOn = false; // game begins powered off
     let isStrict = false; // game begins in normal mode
     let order = []; // random numbers (1-4)
+    let rounds = 31; // number of rounds to win
+    let easy = 5; // levels 1-5 are 'easy'
+    let medium = 13; // levels 6-13 are 'medium' // levels 13-31 are 'hard'
     let level; // level increases as you play
     let gameSpeed; // game speed
     let simonTurn; // Simon's turn to play
@@ -105,14 +108,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // shorten the audio length the further you play (per original Simon game)
     let audioLength = function (audio) {
-        if (level <= 5) {
+        if (level <= easy) {
             // levels 1-5 play for 0.42 seconds
             setTimeout(() => {
                 audio.pause();
                 audio.currentTime = 0;
                 colorButton.classList.remove("active");
             }, 420);
-        } else if (level >= 6 && level <= 13) {
+        } else if (level > easy && level <= medium) {
             // levels 6-13 play for 0.32 seconds
             setTimeout(() => {
                 audio.pause();
@@ -183,7 +186,7 @@ document.addEventListener("DOMContentLoaded", function () {
         level = 1;
         levelCounter.className = ""; // clear all classes
         levelCounter.innerHTML = "01";
-        for (let i = 0; i < 31; i++) {
+        for (let i = 0; i < rounds; i++) {
             // push a random whole number (1-4) onto the 'order' array
             let randomNumber = Math.floor(Math.random() * 4) + 1;
             order.push(randomNumber);
@@ -264,8 +267,8 @@ document.addEventListener("DOMContentLoaded", function () {
             isCorrect = false;
         }
 
-        // player finished all 31 rounds - WINNER!
-        if (playerOrder.length == 31 && isCorrect) {
+        // player finished all rounds - WINNER!
+        if (playerOrder.length == rounds && isCorrect) {
             enableWin();
         }
 
@@ -302,17 +305,17 @@ document.addEventListener("DOMContentLoaded", function () {
         if (level == playerOrder.length && isCorrect && !hasWon) {
             setTimeout(() => {
                 simonTurn = true; // wait 800ms between each turn
+                levelCounter.innerHTML = (level <= 9) ? `0${level}` : level; // add 0 if single digit
             }, 800);
             disablePlayer();
             level++;
             playerOrder = [];
             flash = 0;
-            levelCounter.innerHTML = (level <= 9) ? `0${level}` : level; // add 0 if single digit
 
             // speed up the game the further you get
-            if (level <= 5) {
+            if (level <= easy) {
                 gameSpeed = setInterval(gameTurn, 500);
-            } else if (level >= 6 && level <= 13) {
+            } else if (level > easy && level <= medium) {
                 gameSpeed = setInterval(gameTurn, 400);
             } else {
                 gameSpeed = setInterval(gameTurn, 300);
@@ -324,9 +327,11 @@ document.addEventListener("DOMContentLoaded", function () {
     function enableWin() {
         disableSounds();
         disablePlayer();
-        winAudio.currentTime = 0;
-        winAudio.play(); // play 'winner' music
-        enableColors();
+        setTimeout(() => {
+            winAudio.currentTime = 0;
+            winAudio.play(); // play 'winner' music
+            enableColors();
+        }, 2500); // allow delay for final color to flash as winner
         levelCounter.innerHTML = "WIN";
         levelCounter.classList.add("win");
         isOn = false;
@@ -340,7 +345,7 @@ document.addEventListener("DOMContentLoaded", function () {
             disableColors();
             enableStart();
             startButton.checked = false;
-        }, 1500);
+        }, 4000); // allow delay for final color and winning music to play first
     }
 
     // whether a keystroke is pushed or the button clicked
@@ -385,6 +390,21 @@ document.addEventListener("DOMContentLoaded", function () {
                 setTimeout(() => {
                     colorButton.classList.remove("active");
                 }, 150);
+            } else if (hasWon && isCorrect) {
+                // play a winning pulse of the final color
+                gameWin = setInterval(() => {
+                    audio.play();
+                    colorButton.classList.add("active");
+                    setTimeout(() => {
+                        audio.pause();
+                        audio.currentTime = 0;
+                        colorButton.classList.remove("active");
+                    }, 350);
+                }, 100);
+                // stop winning pulse and play the winning razz music
+                setTimeout(() => {
+                    clearInterval(gameWin);
+                }, 2000);
             }
         }
     }
