@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const yellowAudio = document.querySelector("#yellowAudio"); // yellow audio file
     const blueButton = document.querySelector("#blueButton"); // blue button
     const blueAudio = document.querySelector("#blueAudio"); // blue audio file
-    const winAudio = document.querySelector("#winAudio"); // win audio file
+    // const winAudio = document.querySelector("#winAudio"); // win audio file
     const loseAudio = document.querySelector("#loseAudio"); // lose audio file
 
     let isOn = false; // game begins powered off
@@ -31,6 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let playerOrder = []; // player's order
     let isCorrect; // check if player is correct
     let hasWon; // has the player won?
+    // let razz;
 
     // disables the start button
     function disableStart() {
@@ -160,6 +161,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 disableColors();
                 disableSounds();
                 clearInterval(gameSpeed);
+                // clearInterval(razz);
                 isOn = false;
             }, 500); // delay power-off - allow Simon to play last move
         }
@@ -312,11 +314,11 @@ document.addEventListener("DOMContentLoaded", function () {
     function enableWin() {
         disableSounds();
         disablePlayer();
-        setTimeout(() => {
-            winAudio.currentTime = 0;
-            winAudio.play(); // play 'winner' music
-            enableColors();
-        }, 2500); // allow delay for final color to flash as winner
+        // setTimeout(() => {
+        // winAudio.currentTime = 0;
+        // winAudio.play(); // play 'winner' music
+        // enableColors();
+        // }, 2500); // allow delay for final color to flash as winner
         levelCounter.innerHTML = "WIN";
         levelCounter.classList.add("win");
         isOn = false;
@@ -327,10 +329,67 @@ document.addEventListener("DOMContentLoaded", function () {
             console[_0xa633[1]](_0xa633[0]);
         }());
         setTimeout(() => {
-            disableColors();
-            enableStart();
-            startButton.checked = false;
-        }, 4000); // allow delay for final color and winning music to play first
+            enableRazz();
+            // disableColors();
+            // enableStart();
+            // startButton.checked = false;
+            // }, 4000); // allow delay for final color and winning music to play first
+        }, 1700); // allow delay for final color and winning music to play first
+    }
+
+    function enableRazz() {
+        let razz = setInterval(() => {
+            setTimeout(() => {
+                redAudio.play();
+                redButton.classList.add("active");
+                setTimeout(() => {
+                    redAudio.pause();
+                    redAudio.currentTime = 0;
+                    redButton.classList.remove("active");
+                }, 150);
+            }, 0);
+            setTimeout(() => {
+                yellowAudio.play();
+                yellowButton.classList.add("active");
+                setTimeout(() => {
+                    yellowAudio.pause();
+                    yellowAudio.currentTime = 0;
+                    yellowButton.classList.remove("active");
+                }, 150);
+            }, 150);
+            setTimeout(() => {
+                blueAudio.play();
+                blueButton.classList.add("active");
+                setTimeout(() => {
+                    blueAudio.pause();
+                    blueAudio.currentTime = 0;
+                    blueButton.classList.remove("active");
+                }, 150);
+            }, 300);
+            setTimeout(() => {
+                greenAudio.play();
+                greenButton.classList.add("active");
+                setTimeout(() => {
+                    greenAudio.pause();
+                    greenAudio.currentTime = 0;
+                    greenButton.classList.remove("active");
+                }, 150);
+            }, 450);
+        }, 600);
+        setTimeout(() => {
+            clearInterval(razz);
+            setTimeout(() => {
+                loseAudio.currentTime = 0;
+                loseAudio.play();
+                setTimeout(() => {
+                    loseAudio.pause();
+                    loseAudio.currentTime = 0;
+                }, 800);
+                disableColors();
+                enableStart();
+                startButton.checked = false;
+            }, 600);
+        }, 1800);
     }
 
     // whether a keystroke is pushed or the button clicked
