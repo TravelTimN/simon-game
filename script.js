@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
 
+
     const powerButton = document.querySelector("#powerButton"); // power button
     const startButton = document.querySelector("#startButton"); // start button
     const startButtonLabel = document.querySelector(".startButton label"); // start button cursor
@@ -14,8 +15,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const yellowAudio = document.querySelector("#yellowAudio"); // yellow audio file
     const blueButton = document.querySelector("#blueButton"); // blue button
     const blueAudio = document.querySelector("#blueAudio"); // blue audio file
-    // const winAudio = document.querySelector("#winAudio"); // win audio file
     const loseAudio = document.querySelector("#loseAudio"); // lose audio file
+
 
     let isOn = false; // game begins powered off
     let isStrict = false; // game begins in normal mode
@@ -24,14 +25,19 @@ document.addEventListener("DOMContentLoaded", function () {
     let rounds = 31; // number of rounds to win
     let easy = 5; // levels 1-5 are 'easy'
     let medium = 13; // levels 6-13 are 'medium' // levels 13-31 are 'hard'
-    let level; // level increases as you play
+    let level = 0; // level increases as you play
     let gameSpeed; // game speed
     let simonTurn; // Simon's turn to play
     let flash; // flash is number of times we've flashed a color
     let playerOrder = []; // player's order
     let isCorrect; // check if player is correct
     let hasWon; // has the player won?
-    // let razz;
+
+
+    // initial load of page, buttons shouldn't be active until game is on
+    disableStart();
+    disableStrict();
+
 
     // disables the start button
     function disableStart() {
@@ -39,11 +45,13 @@ document.addEventListener("DOMContentLoaded", function () {
         startButtonLabel.style.cursor = "default";
     }
 
+
     // enables the start button
     function enableStart() {
         startButton.removeAttribute("disabled");
         startButtonLabel.style.cursor = "pointer";
     }
+
 
     // disable the strict button
     function disableStrict() {
@@ -51,11 +59,13 @@ document.addEventListener("DOMContentLoaded", function () {
         strictButtonLabel.style.cursor = "default";
     }
 
+
     // enable the strict button
     function enableStrict() {
         strictButton.removeAttribute("disabled");
         strictButtonLabel.style.cursor = "pointer";
     }
+
 
     // disallow the player from making any moves
     function disablePlayer() {
@@ -70,6 +80,7 @@ document.addEventListener("DOMContentLoaded", function () {
         yellowButton.style.cursor = "default";
     }
 
+
     // allow the user to make moves
     function enablePlayer() {
         window.addEventListener("keydown", pushButton);
@@ -83,6 +94,7 @@ document.addEventListener("DOMContentLoaded", function () {
         yellowButton.style.cursor = "pointer";
     }
 
+
     // pause the colored buttons' audio so another audio can play (no echoing)
     function disableSounds() {
         greenAudio.pause();
@@ -90,6 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
         yellowAudio.pause();
         blueAudio.pause();
     }
+
 
     // disable 'active' class for colored buttons flashing
     function disableColors() {
@@ -99,6 +112,7 @@ document.addEventListener("DOMContentLoaded", function () {
         blueButton.classList.remove("active");
     }
 
+
     // enable 'active' class for colored buttons flashing
     function enableColors() {
         greenButton.classList.add("active");
@@ -107,38 +121,43 @@ document.addEventListener("DOMContentLoaded", function () {
         blueButton.classList.add("active");
     }
 
+
     // shorten the audio length the further you play (per original Simon game)
     let audioLength = function (audio) {
         if (level <= easy) {
             // levels 1-5 play for 0.42 seconds
             setTimeout(() => {
+                setTimeout(() => {
+                    colorButton.classList.remove("active");
+                }, 410);
                 audio.pause();
                 audio.currentTime = 0;
-                colorButton.classList.remove("active");
             }, 420);
         } else if (level > easy && level <= medium) {
             // levels 6-13 play for 0.32 seconds
             setTimeout(() => {
+                setTimeout(() => {
+                    colorButton.classList.remove("active");
+                }, 310);
                 audio.pause();
                 audio.currentTime = 0;
-                colorButton.classList.remove("active");
             }, 320);
         } else {
             // levels 13+ play for 0.22 seconds
             setTimeout(() => {
+                setTimeout(() => {
+                    colorButton.classList.remove("active");
+                }, 210);
                 audio.pause();
                 audio.currentTime = 0;
-                colorButton.classList.remove("active");
             }, 220);
         }
     }
 
-    // initial load of page, buttons shouldn't be active until game is on
-    disableStart();
-    disableStrict();
 
     // toggle strict button true/false
     strictButton.addEventListener("click", () => isStrict = strictButton.checked);
+
 
     // power the game on|off with appropriate functions
     powerButton.addEventListener("click", () => {
@@ -161,11 +180,11 @@ document.addEventListener("DOMContentLoaded", function () {
                 disableColors();
                 disableSounds();
                 clearInterval(gameSpeed);
-                // clearInterval(razz);
                 isOn = false;
             }, 500); // delay power-off - allow Simon to play last move
         }
     });
+
 
     // play the game if 'isOn' or 'hasWon'
     startButton.addEventListener("click", () => {
@@ -175,6 +194,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+
     // the game play
     function enablePlay() {
         simonTurn = true; // Simon starts each round
@@ -183,7 +203,6 @@ document.addEventListener("DOMContentLoaded", function () {
         orderColors = []; // temporary testing only in console
         playerOrder = [];
         flash = 0;
-        // gameSpeed = 0; // not needed?
         isCorrect = true;
         level = 1;
         levelCounter.className = ""; // clear all classes
@@ -194,8 +213,9 @@ document.addEventListener("DOMContentLoaded", function () {
             simonOrder.push(randomColor);
         }
         console.log(simonOrder); // temporarily on to test higher levels ( DELETE LATER )
-        gameSpeed = setInterval(gameTurn, 800) // start the game after 0.8s
+        gameSpeed = setInterval(gameTurn, 500) // start the game after 0.5s
     }
+
 
     // handle whose turn it is (Simon or user)
     function gameTurn() {
@@ -244,6 +264,7 @@ document.addEventListener("DOMContentLoaded", function () {
             flash++;
         }
     }
+
 
     // check if the user's round matches Simon's
     function check() {
@@ -310,15 +331,11 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+
     // enable win functionality
     function enableWin() {
         disableSounds();
         disablePlayer();
-        // setTimeout(() => {
-        // winAudio.currentTime = 0;
-        // winAudio.play(); // play 'winner' music
-        // enableColors();
-        // }, 2500); // allow delay for final color to flash as winner
         levelCounter.innerHTML = "WIN";
         levelCounter.classList.add("win");
         isOn = false;
@@ -330,67 +347,65 @@ document.addEventListener("DOMContentLoaded", function () {
         }());
         setTimeout(() => {
             enableRazz();
-            // disableColors();
-            // enableStart();
-            // startButton.checked = false;
-            // }, 4000); // allow delay for final color and winning music to play first
-        }, 1700); // allow delay for final color and winning music to play first
+        }, 1500); // allow delay for final color to pulse first
     }
 
+
     function enableRazz() {
+        // razz: RYBG x3 followed by 0.8s lose buzzer
         let razz = setInterval(() => {
+            redAudio.play(); // play red
+            redButton.classList.add("active");
             setTimeout(() => {
-                redAudio.play();
-                redButton.classList.add("active");
-                setTimeout(() => {
-                    redAudio.pause();
-                    redAudio.currentTime = 0;
-                    redButton.classList.remove("active");
-                }, 150);
-            }, 0);
+                redAudio.pause();
+                redAudio.currentTime = 0;
+                redButton.classList.remove("active");
+            }, 150); // stop after 0.15s
             setTimeout(() => {
-                yellowAudio.play();
+                yellowAudio.play(); // play yellow
                 yellowButton.classList.add("active");
                 setTimeout(() => {
                     yellowAudio.pause();
                     yellowAudio.currentTime = 0;
                     yellowButton.classList.remove("active");
-                }, 150);
-            }, 150);
+                }, 150); // stop after 0.15s
+            }, 150); // delay yellow until after red plays (+0.15s)
             setTimeout(() => {
-                blueAudio.play();
+                blueAudio.play(); // play blue
                 blueButton.classList.add("active");
                 setTimeout(() => {
                     blueAudio.pause();
                     blueAudio.currentTime = 0;
                     blueButton.classList.remove("active");
-                }, 150);
-            }, 300);
+                }, 150); // stop after 0.15s
+            }, 300); // delay blue until after red and yellow play (+0.3s)
             setTimeout(() => {
-                greenAudio.play();
+                greenAudio.play(); // play green
                 greenButton.classList.add("active");
                 setTimeout(() => {
                     greenAudio.pause();
                     greenAudio.currentTime = 0;
                     greenButton.classList.remove("active");
-                }, 150);
-            }, 450);
-        }, 600);
+                }, 150); // stop after 0.15s
+            }, 450); // delay green until after red, yellow, and blue play (+0.45s)
+        }, 600); // total 'razz' cycle takes 0.6s
         setTimeout(() => {
-            clearInterval(razz);
+            clearInterval(razz); // stop the 'razz'
             setTimeout(() => {
+                enableColors();
                 loseAudio.currentTime = 0;
                 loseAudio.play();
                 setTimeout(() => {
                     loseAudio.pause();
                     loseAudio.currentTime = 0;
-                }, 800);
-                disableColors();
-                enableStart();
-                startButton.checked = false;
-            }, 600);
-        }, 1800);
+                    disableColors();
+                }, 800); // play lose buzzer for 0.8s
+                startButton.checked = false; // turn start button off
+                enableStart(); // allow the user to play again
+            }, 700); // wait 0.7s after 'razz' to play lose buzzer
+        }, 3000); // wait to stop 'razz' after 5x RGBA (0.6s * 5 = 3s)
     }
+
 
     // whether a keystroke is pushed or the button clicked
     function pushButton(e) {
@@ -445,12 +460,13 @@ document.addEventListener("DOMContentLoaded", function () {
                         colorButton.classList.remove("active");
                     }, 350);
                 }, 100);
-                // stop winning pulse and play the winning razz music
+                // stop winning pulse and then play the winning razz music
                 setTimeout(() => {
                     clearInterval(gameWin);
                 }, 2000);
             }
         }
     }
+
 
 });
