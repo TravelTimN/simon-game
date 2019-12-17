@@ -22,9 +22,12 @@ document.addEventListener("DOMContentLoaded", function () {
     let isStrict = false; // game begins in normal mode
     let simonOrder = []; // random numbers (1-4)
     let colors = ["green", "red", "yellow", "blue"]; // array of colors
-    let rounds = 31; // number of rounds to win
+    let rounds = 1; // number of rounds to win
     let easy = 5; // levels 1-5 are 'easy'
+    let easySpeed = 420; // levels 1-5 play at 0.42s
     let medium = 13; // levels 6-13 are 'medium' // levels 13-31 are 'hard'
+    let mediumSpeed = 320; // levels 6-13 play at 0.32s
+    let hardSpeed = 220; // levels 13+ play at 0.22s
     let level = 0; // level increases as you play
     let gameSpeed; // game speed
     let simonTurn; // Simon's turn to play
@@ -126,31 +129,16 @@ document.addEventListener("DOMContentLoaded", function () {
     let audioLength = function (audio) {
         if (level <= easy) {
             // levels 1-5 play for 0.42 seconds
-            setTimeout(() => {
-                setTimeout(() => {
-                    colorButton.classList.remove("active");
-                }, 410);
-                audio.pause();
-                audio.currentTime = 0;
-            }, 420);
+            setTimeout(disableColors, easySpeed - 50);
+            setTimeout(disableSounds, easySpeed);
         } else if (level > easy && level <= medium) {
             // levels 6-13 play for 0.32 seconds
-            setTimeout(() => {
-                setTimeout(() => {
-                    colorButton.classList.remove("active");
-                }, 310);
-                audio.pause();
-                audio.currentTime = 0;
-            }, 320);
+            setTimeout(disableColors, mediumSpeed - 50);
+            setTimeout(disableSounds, mediumSpeed);
         } else {
             // levels 13+ play for 0.22 seconds
-            setTimeout(() => {
-                setTimeout(() => {
-                    colorButton.classList.remove("active");
-                }, 210);
-                audio.pause();
-                audio.currentTime = 0;
-            }, 220);
+            setTimeout(disableColors, hardSpeed - 50);
+            setTimeout(disableSounds, hardSpeed);
         }
     }
 
@@ -345,14 +333,12 @@ document.addEventListener("DOMContentLoaded", function () {
         (function showWinMessage() {
             console[_0xa633[1]](_0xa633[0]);
         }());
-        setTimeout(() => {
-            enableRazz();
-        }, 1500); // allow delay for final color to pulse first
+        setTimeout(enableRazz, 1500); // allow delay for final color to pulse first
     }
 
 
     function enableRazz() {
-        // razz: RYBG x3 followed by 0.8s lose buzzer
+        // razz: RYBG x5 followed by 0.8s lose buzzer
         let razz = setInterval(() => {
             redAudio.play(); // play red
             redButton.classList.add("active");
