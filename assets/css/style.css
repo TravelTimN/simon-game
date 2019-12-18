@@ -548,12 +548,13 @@ input:checked+.slider::before {transform: translateX(29px);}
 }
 
 #announce.announce {
-    animation: announce 0.5s forwards;
+    left: calc(50% - 6vw);
+    animation: announce 2s forwards;
 }
 
 @keyframes announce {
     0% {transform: scale(1); opacity: 1;}
-    99% {transform: scale(10); opacity: 0;}
+    99% {transform: scale(8); opacity: 0;}
     100% {transform: scale(1); opacity: 0;}
 }
 

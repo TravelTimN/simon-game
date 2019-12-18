@@ -251,19 +251,6 @@ document.addEventListener("DOMContentLoaded", function () {
             colorButton.classList.add("active");
             audioLength(colorAudio);
             flash++;
-
-            // announce that the game is going faster after easy and medium completed
-            switch (level) {
-                case easy + 1:
-                case medium + 1:
-                    announce.classList.add("announce");
-                    announce.innerHTML = "FASTER";
-                    break;
-                default:
-                    announce.classList.remove("announce");
-                    announce.innerHTML = "";
-                    break;
-            }
         }
     }
 
@@ -329,6 +316,19 @@ document.addEventListener("DOMContentLoaded", function () {
                 gameSpeed = setInterval(gameTurn, 400);
             } else {
                 gameSpeed = setInterval(gameTurn, 300);
+            }
+
+            // announce that the game is going faster after easy and medium completed
+            switch (level) {
+                case easy + 1:
+                case medium + 1:
+                    announce.classList.add("announce");
+                    announce.innerHTML = "FASTER";
+                    break;
+                default:
+                    announce.classList.remove("announce");
+                    announce.innerHTML = "";
+                    break;
             }
         }
     }
