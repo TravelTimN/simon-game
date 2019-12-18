@@ -23,10 +23,10 @@ document.addEventListener("DOMContentLoaded", function () {
     let isStrict = false; // game begins in normal mode
     let simonOrder = []; // random numbers (1-4)
     let colors = ["green", "red", "yellow", "blue"]; // array of colors
-    let rounds = 5; // number of rounds to win
-    let easy = 1; // levels 1-5 are 'easy'
+    let rounds = 31; // number of rounds to win
+    let easy = 5; // levels 1-5 are 'easy'
     let easySpeed = 420; // levels 1-5 play at 0.42s
-    let medium = 3; // levels 6-13 are 'medium' // levels 13-31 are 'hard'
+    let medium = 13; // levels 6-13 are 'medium' // levels 13-31 are 'hard'
     let mediumSpeed = 320; // levels 6-13 play at 0.32s
     let hardSpeed = 220; // levels 13+ play at 0.22s
     let level = 0; // level increases as you play
