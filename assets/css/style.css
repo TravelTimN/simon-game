@@ -529,7 +529,8 @@ input:checked+.slider::before {transform: translateX(29px);}
 .slider.round::before {border-radius: 50%;}
 
 /* ----- COUNTER ----- */
-#levelCounter {
+#levelCounter,
+#announce {
     font-family: var(--fontQuantico);
     color: rgba(var(--red), 1);
     position: absolute;
@@ -544,6 +545,15 @@ input:checked+.slider::before {transform: translateX(29px);}
     font-size: 5vw;
     top: calc(50% - 2.5vw);
     left: calc(50% - 5.5vw);
+}
+
+#announce.announce {
+    animation: announce 0.5s forwards;
+}
+
+@keyframes announce {
+    0% {transform: scale(1); opacity: 1;}
+    100% {transform: scale(10); opacity: 0;}
 }
 
 /* ----- MEDIA QUERIES ----- */

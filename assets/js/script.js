@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const strictButton = document.querySelector("#checkbox-strict"); // strict button
     const strictButtonLabel = document.querySelector(".strict label"); // strict button cursor
     const levelCounter = document.querySelector("#levelCounter"); // level display
+    const announce = document.querySelector("#announce"); // announce "faster" animation
     const greenButton = document.querySelector("#greenButton"); // green button
     const greenAudio = document.querySelector("#greenAudio"); // green audio file
     const redButton = document.querySelector("#redButton"); // red button
@@ -223,6 +224,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Simon's turn to play
         if (simonTurn) {
+
+            // announce that the game is going faster after easy and medium completed
+            switch (level) {
+                case easy + 1:
+                case medium + 1:
+                    announce.classList.add("announce");
+                    announce.innerHTML = "FASTER";
+                    break;
+                default:
+                    announce.classList.remove("announce");
+                    announce.innerHTML = "";
+                    break;
+            }
+
             disableStart();
             disableColors();
             colorAudio = "";
