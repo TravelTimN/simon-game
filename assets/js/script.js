@@ -23,10 +23,10 @@ document.addEventListener("DOMContentLoaded", function () {
     let isStrict = false; // game begins in normal mode
     let simonOrder = []; // random numbers (1-4)
     let colors = ["green", "red", "yellow", "blue"]; // array of colors
-    let rounds = 31; // number of rounds to win
-    let easy = 5; // levels 1-5 are 'easy'
+    let rounds = 5; // number of rounds to win
+    let easy = 1; // levels 1-5 are 'easy'
     let easySpeed = 420; // levels 1-5 play at 0.42s
-    let medium = 13; // levels 6-13 are 'medium' // levels 13-31 are 'hard'
+    let medium = 3; // levels 6-13 are 'medium' // levels 13-31 are 'hard'
     let mediumSpeed = 320; // levels 6-13 play at 0.32s
     let hardSpeed = 220; // levels 13+ play at 0.22s
     let level = 0; // level increases as you play
@@ -224,20 +224,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Simon's turn to play
         if (simonTurn) {
-
-            // announce that the game is going faster after easy and medium completed
-            switch (level) {
-                case easy + 1:
-                case medium + 1:
-                    announce.classList.add("announce");
-                    announce.innerHTML = "FASTER";
-                    break;
-                default:
-                    announce.classList.remove("announce");
-                    announce.innerHTML = "";
-                    break;
-            }
-
             disableStart();
             disableColors();
             colorAudio = "";
@@ -265,6 +251,19 @@ document.addEventListener("DOMContentLoaded", function () {
             colorButton.classList.add("active");
             audioLength(colorAudio);
             flash++;
+
+            // announce that the game is going faster after easy and medium completed
+            switch (level) {
+                case easy + 1:
+                case medium + 1:
+                    announce.classList.add("announce");
+                    announce.innerHTML = "FASTER";
+                    break;
+                default:
+                    announce.classList.remove("announce");
+                    announce.innerHTML = "";
+                    break;
+            }
         }
     }
 
@@ -337,6 +336,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // enable win functionality
     function enableWin() {
+        announce.classList.add("announce");
+        announce.innerHTML = "WINNER!";
         disableSounds();
         disablePlayer();
         levelCounter.innerHTML = "WIN";
@@ -400,6 +401,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     loseAudio.pause();
                     loseAudio.currentTime = 0;
                     disableColors();
+                    announce.classList.remove("announce");
+                    announce.innerHTML = "";
                 }, 800); // play lose buzzer for 0.8s
                 startButton.checked = false; // turn start button off
                 enableStart(); // allow the user to play again
