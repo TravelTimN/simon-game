@@ -65,7 +65,10 @@
 
 #### Color Scheme
 
-![#000000](https://placehold.it/15/000000/000000)
+- ![#008000](https://placehold.it/15/008000/008000) green button
+- ![#FF0000](https://placehold.it/15/FF0000/FF0000) red button
+- ![#FFFF00](https://placehold.it/15/FFFF00/FFFF00) yellow button
+- ![#0000FF](https://placehold.it/15/0000FF/0000FF) blue button
 
 
 All of these colors are set at `:root` level within my [style.css](assets/css/styles.css) file. This also allows me to reuse my colors as a `class` across the site, instead of having to assign the colors each and every time.
@@ -248,16 +251,15 @@ Congratulations! Your project should be completely setup and ready for remote de
 
 ### Content
 
-- *"[How to Write a Git Commit Message](https://chris.beams.io/posts/git-commit/)"* by Chris Beams *(as recommended by Code Institute assessors on previous projects)*
-- [TinyPNG](https://tinypng.com/) - Used to compress images for faster loading.
-- [Shields.io](https://shields.io) - Used to create markdown badges for my README.
-- [Techsini](https://techsini.com/multi-mockup/) - Used to create the README mockup image.
+- [WaitingForFriday](https://www.waitingforfriday.com/?p=586) - Reverse Engineering a Simon Game.
+- *"[How to Write a Git Commit Message](https://chris.beams.io/posts/git-commit/)"* by Chris Beams *(as recommended by Code Institute assessors)*
 
 ### Media
 
-- []() - xxxxx.
-- []() - xxxxx.
-- []() - xxxxx.
+- [Szynalski](https://www.szynalski.com/tone-generator/) - Online Tone Generator to create all sounds.
+- [Techsini](https://techsini.com/multi-mockup/) - Mock-up Image for README.
+- [TinyPNG](https://tinypng.com/) - Online Image Compressor.
+- [Shields.io](https://shields.io) - Markdown badges for README.
 
 ### Code
 
