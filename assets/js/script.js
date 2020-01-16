@@ -127,7 +127,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     // shorten the audio length the further you play (per original Simon game)
-    let audioLength = function (audio) {
+    function audioLength() {
         if (level <= easy) {
             // levels 1-5 play for 0.42 seconds
             setTimeout(disableColors, easySpeed - 50);
@@ -249,7 +249,7 @@ document.addEventListener("DOMContentLoaded", function () {
             colorAudio.currentTime = 0;
             colorAudio.play();
             colorButton.classList.add("active");
-            audioLength(colorAudio);
+            audioLength();
             flash++;
         }
     }
@@ -416,9 +416,26 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
+    // function enableTimer() {
+    //     let time;
+    //     // document.onmousemove = resetTimer;
+    //     // document.onkeypress = resetTimer;
+    //     greenButton.addEventListener("click", resetTimer);
+    //     redButton.addEventListener("click", resetTimer);
+    //     yellowButton.addEventListener("click", resetTimer);
+    //     blueButton.addEventListener("click", resetTimer);
+
+    //     function resetTimer() {
+    //         clearTimeout(time);
+    //         time = setTimeout(enableLose, 3000);
+    //     }
+    // }
+
+
     // whether a keystroke is pushed or the button clicked
     function pushButton(e) {
         if (isOn) {
+            // enableTimer();
             let btnKey = "";
             if (e instanceof KeyboardEvent) {
                 // keyboard event (typing 'R', 'G', 'B', 'Y')
@@ -440,6 +457,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 case 66: // blue (B)
                     playerOrder.push("blue");
                     break;
+                // default:
+                //     playerOrder.push("error");
+                    // break;
             }
             check();
             // get dataset.key from audio element
