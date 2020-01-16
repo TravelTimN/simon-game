@@ -271,31 +271,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // player made an error
         if (!isCorrect) {
-            disablePlayer();
-            disableStart();
-            disableSounds();
-            loseAudio.currentTime = 0;
-            loseAudio.play(); // play lose sound
-            enableColors(); // flash all colors
-            levelCounter.className = ""; // clear all classes
-            levelCounter.classList.add("on"); // add class 'on'
-            levelCounter.innerHTML = "NO";
-            setTimeout(() => {
-                disableColors();
-                levelCounter.innerHTML = (level <= 9) ? `0${level}` : level; // add 0 if single digit
-                levelCounter.className = ""; // clear all classes
-                if (isStrict) { // strict mode - don't repeat level
-                    disablePlayer();
-                    enableStart();
-                    startButton.checked = false;
-                } else { // normal mode - repeat mode at lower speed
-                    simonTurn = true;
-                    flash = 0;
-                    playerOrder = [];
-                    isCorrect = true;
-                    gameSpeed = setInterval(gameTurn, 500); // repeat speed if lose
-                }
-            }, 1500);
+            enableLose();
         }
 
         // player was correct - advance to next round
@@ -331,6 +307,35 @@ document.addEventListener("DOMContentLoaded", function () {
                     break;
             }
         }
+    }
+
+
+    function enableLose() {
+        disablePlayer();
+        disableStart();
+        disableSounds();
+        loseAudio.currentTime = 0;
+        loseAudio.play(); // play lose sound
+        enableColors(); // flash all colors
+        levelCounter.className = ""; // clear all classes
+        levelCounter.classList.add("on"); // add class 'on'
+        levelCounter.innerHTML = "NO";
+        setTimeout(() => {
+            disableColors();
+            levelCounter.innerHTML = (level <= 9) ? `0${level}` : level; // add 0 if single digit
+            levelCounter.className = ""; // clear all classes
+            if (isStrict) { // strict mode - don't repeat level
+                disablePlayer();
+                enableStart();
+                startButton.checked = false;
+            } else { // normal mode - repeat mode at lower speed
+                simonTurn = true;
+                flash = 0;
+                playerOrder = [];
+                isCorrect = true;
+                gameSpeed = setInterval(gameTurn, 500); // repeat speed if lose
+            }
+        }, 1500);
     }
 
 
