@@ -80,11 +80,11 @@ All of these colors are set at `:root` level within my [style.css](assets/css/st
 
 #### Typography
 
-- xx [Google Fonts](https://fonts.google.com/) were used across the site:
-    - []() : xxxxx.
-    - []() : xxxxx.
-    - []() : xxxxx.
-    - []() : xxxxx.
+- 4 [Google Fonts](https://fonts.google.com/) were used across the site:
+    - [Original Surfer](https://fonts.google.com/specimen/Original+Surfer) : main body text.
+    - [Press Start 2P](https://fonts.google.com/specimen/Press+Start+2P) : button letters (RGBY).
+    - [Quantico](https://fonts.google.com/specimen/Quantico) : counter and announcements.
+    - [Sarpanch](https://fonts.google.com/specimen/Sarpanch) : game logo text.
 
 ### Wireframes
 
