@@ -185,9 +185,9 @@ Full details about compatibility tests can be found in my [testing folder](testi
 
 To ensure a broad range of users can successfully use the site, I tested it across the 6 major browsers in both desktop and mobile configuration.
 
-- **Chrome** (*v.75.0.3770.142*)
-- **Edge** (*v.42.17134.1.0*)
-- **Firefox** (*v.68.0.1*)
+- **Chrome** (*v.79.0.3945.117*)
+- **Edge** (*v.44.17763.831.0*)
+- **Firefox** (*v.73.0beta*)
 - **Safari** (*v.12.1.2*)
 - **Opera** (*v.62.0.3331.99*)
 - **Internet Explorer** (*v.11.885.17134.0*)
