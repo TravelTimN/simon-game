@@ -234,12 +234,12 @@ Next, there's a series of steps to take in order to proceed with local deploymen
 
 - Clone this GitHub repository by either clicking the green "*Clone or download*" button above in order to download the project as a zip-file (remember to unzip it first), or by entering the following command into the Git CLI terminal:
     - `git clone https://github.com/TravelTimN/simon-game.git`
-- Navigate to the correct file location after unpacking the files.
-    - `cd <path to folder>`
+
+Congratulations! Your project should be completely setup and ready for local development! :tada:
 
 ### Remote Deployment
 
--
+- XXX
 
 Congratulations! Your project should be completely setup and ready for remote deployment! :tada:
 
