@@ -34,6 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let simonTurn; // Simon's turn to play
     let flash; // flash is number of times we've flashed a color
     let playerOrder = []; // player's order
+    let playerTimer; // player gets 3 seconds to play
     let isCorrect; // check if player is correct
     let hasWon; // has the player won?
 
@@ -96,6 +97,7 @@ document.addEventListener("DOMContentLoaded", function () {
         redButton.style.cursor = "pointer";
         blueButton.style.cursor = "pointer";
         yellowButton.style.cursor = "pointer";
+        resetTimer(); // start the player timer
     }
 
 
@@ -170,6 +172,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 disableSounds();
                 clearInterval(gameSpeed);
                 isOn = false;
+                isStrict = false;
+                clearTimeout(playerTimer); // restart the player timer
             }, 500); // delay power-off - allow Simon to play last move
         }
     });
@@ -224,6 +228,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Simon's turn to play
         if (simonTurn) {
+            clearTimeout(playerTimer); // restart the player timer
             disableStart();
             disableColors();
             colorAudio = "";
@@ -258,6 +263,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // check if the user's round matches Simon's
     function check() {
         enableStart(); // option to restart the game
+        clearTimeout(playerTimer); // restart the player timer
 
         // player made an error
         if (playerOrder[playerOrder.length - 1] !== simonOrder[playerOrder.length - 1]) {
@@ -272,6 +278,8 @@ document.addEventListener("DOMContentLoaded", function () {
         // player made an error
         if (!isCorrect) {
             enableLose();
+        } else {
+            resetTimer(); // start the player timer
         }
 
         // player was correct - advance to next round
@@ -416,26 +424,16 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // function enableTimer() {
-    //     let time;
-    //     // document.onmousemove = resetTimer;
-    //     // document.onkeypress = resetTimer;
-    //     greenButton.addEventListener("click", resetTimer);
-    //     redButton.addEventListener("click", resetTimer);
-    //     yellowButton.addEventListener("click", resetTimer);
-    //     blueButton.addEventListener("click", resetTimer);
-
-    //     function resetTimer() {
-    //         clearTimeout(time);
-    //         time = setTimeout(enableLose, 3000);
-    //     }
-    // }
+    // player's get 3 seconds per move
+    function resetTimer() {
+        clearTimeout(playerTimer);
+        playerTimer = setTimeout(enableLose, 3000);
+    }
 
 
     // whether a keystroke is pushed or the button clicked
     function pushButton(e) {
         if (isOn) {
-            // enableTimer();
             let btnKey = "";
             if (e instanceof KeyboardEvent) {
                 // keyboard event (typing 'R', 'G', 'B', 'Y')
@@ -457,9 +455,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 case 66: // blue (B)
                     playerOrder.push("blue");
                     break;
-                // default:
-                //     playerOrder.push("error");
-                    // break;
             }
             check();
             // get dataset.key from audio element
