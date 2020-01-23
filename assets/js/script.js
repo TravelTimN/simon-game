@@ -236,7 +236,7 @@ document.addEventListener("DOMContentLoaded", () => {
             simonOrder.push(randomColor);
         }
         console.log(simonOrder); // temporarily on to test higher levels ( DELETE LATER )
-        gameSpeed = setInterval(gameTurn, 500) // start the game after 0.5s
+        gameSpeed = setInterval(gameTurn, 500); // start the game after 0.5s
     }
 
 
@@ -273,7 +273,7 @@ document.addEventListener("DOMContentLoaded", () => {
             switch (simonOrder[flash]) {
                 case "green":
                     colorAudio = greenAudio;
-                    colorButton = greenButton
+                    colorButton = greenButton;
                     break;
                 case "red":
                     colorAudio = redAudio;
@@ -355,6 +355,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
+    // enable lose functionality
     function enableLose() {
         disablePlayer();
         disableStart();
@@ -403,6 +404,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
 
+    // enable winning razz functionality
     function enableRazz() {
         // razz: RYBG x5 followed by 0.8s lose buzzer
         let razz = setInterval(() => {
@@ -505,7 +507,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 }, 150);
             } else if (hasWon && isCorrect) {
                 // play a winning pulse of the final color
-                gameWin = setInterval(() => {
+                let gameWin = setInterval(() => {
                     audio.play();
                     colorButton.classList.add("active");
                     setTimeout(() => {
