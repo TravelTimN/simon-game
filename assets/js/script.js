@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
 
 
     const powerButton = document.querySelector("#powerButton"); // power button
@@ -17,6 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const blueButton = document.querySelector("#blueButton"); // blue button
     const blueAudio = document.querySelector("#blueAudio"); // blue audio file
     const loseAudio = document.querySelector("#loseAudio"); // lose audio file
+    const gameConsole = document.querySelector("#outer-circle"); // game console
 
 
     let isOn = false; // game begins powered off
@@ -31,6 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let hardSpeed = 220; // levels 13+ play at 0.22s
     let level = 0; // level increases as you play
     let gameSpeed; // game speed
+    let gameTimer; // 45second inactive power off
     let simonTurn; // Simon's turn to play
     let flash; // flash is number of times we've flashed a color
     let playerOrder = []; // player's order
@@ -150,33 +152,61 @@ document.addEventListener("DOMContentLoaded", function () {
     strictButton.addEventListener("click", () => isStrict = strictButton.checked);
 
 
+    // power on the game console
+    function powerOn() {
+        levelCounter.className = ""; // clear all classes
+        levelCounter.classList.add("on"); // add class 'on'
+        levelCounter.innerHTML = "ON";
+        enableStart();
+        enableStrict();
+        isOn = true;
+        inactiveGame();
+        gameConsole.addEventListener("click", inactiveGame); // game console inactivity
+        window.addEventListener("keydown", inactiveGame); // game console inactivity
+    }
+
+
+    // power off the game console
+    function powerOff() {
+        simonTurn = false; // stop Simon if playing current round
+        disablePlayer();
+        powerButton.disabled = true;
+        setTimeout(() => {
+            powerButton.checked = false;
+            startButton.checked = false;
+            strictButton.checked = false;
+            levelCounter.innerHTML = "";
+            levelCounter.className = ""; // clear all classes
+            disableStart();
+            disableStrict();
+            disableColors();
+            disableSounds();
+            clearInterval(gameSpeed);
+            isOn = false;
+            isStrict = false;
+            clearTimeout(playerTimer); // restart the player timer
+        }, 500); // delay power-off - allow Simon to play last move
+        setTimeout(() => {
+            powerButton.disabled = false; // temporarily disable power button
+        }, 1000);
+    }
+
+
     // power the game on|off with appropriate functions
     powerButton.addEventListener("click", () => {
         if (powerButton.checked) {
-            levelCounter.className = ""; // clear all classes
-            levelCounter.classList.add("on"); // add class 'on'
-            levelCounter.innerHTML = "ON";
-            enableStart();
-            enableStrict();
-            isOn = true;
+            powerOn();
         } else {
-            simonTurn = false; // stop Simon if playing current round
-            setTimeout(() => {
-                startButton.checked = false;
-                strictButton.checked = false;
-                levelCounter.innerHTML = "";
-                levelCounter.className = ""; // clear all classes
-                disableStart();
-                disableStrict();
-                disableColors();
-                disableSounds();
-                clearInterval(gameSpeed);
-                isOn = false;
-                isStrict = false;
-                clearTimeout(playerTimer); // restart the player timer
-            }, 500); // delay power-off - allow Simon to play last move
+            powerOff();
         }
     });
+
+
+    // turn the game off if no interaction within 45seconds
+    function inactiveGame() {
+        clearTimeout(gameTimer);
+        gameTimer = setTimeout(powerOff, 45000);
+    }
 
 
     // play the game if 'isOn' or 'hasWon'
@@ -207,6 +237,13 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         console.log(simonOrder); // temporarily on to test higher levels ( DELETE LATER )
         gameSpeed = setInterval(gameTurn, 500) // start the game after 0.5s
+    }
+
+
+    // player's get 3 seconds per move
+    function resetTimer() {
+        clearTimeout(playerTimer);
+        playerTimer = setTimeout(enableLose, 3000);
     }
 
 
@@ -277,9 +314,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // player made an error
         if (!isCorrect) {
-            enableLose();
-        } else {
-            resetTimer(); // start the player timer
+            enableLose(); // incorrect move by player
+        } else if (isCorrect && !hasWon) {
+            resetTimer(); // start the player timer if player hasn't won yet
         }
 
         // player was correct - advance to next round
@@ -424,13 +461,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // player's get 3 seconds per move
-    function resetTimer() {
-        clearTimeout(playerTimer);
-        playerTimer = setTimeout(enableLose, 3000);
-    }
-
-
     // whether a keystroke is pushed or the button clicked
     function pushButton(e) {
         if (isOn) {
@@ -456,7 +486,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     playerOrder.push("blue");
                     break;
             }
-            check();
+            check(); // check if user is correct
             // get dataset.key from audio element
             const audio = document.querySelector(`audio[data-key="${btnKey}"]`);
             // get dataset.key from div.btn element
