@@ -91,7 +91,12 @@ All of these colors are set at `:root` level within my [style.css](assets/css/st
 I built mockup concept wireframes using [Balsamiq Wireframes](https://balsamiq.com/).
 - Code Institute have provided all students with free access until the end of 2020.
 
-All of my wireframes for this project can be found in the [**wireframes**](wireframes/balsamiq/?raw=true) folder.
+My wireframes for this project can be found in the [**wireframes**](assets/wireframes/?raw=true) folder.
+
+- [Wireframe](assets/wireframes/simon-wireframe.bmpr/?raw=true): original Balsamiq.bmpr file.
+- [Wireframe](assets/wireframes/simon-wireframe.png/?raw=true): visual representation for GitHub.
+
+![Wireframe](assets/wireframes/simon-wireframe.png/?raw=true)
 
 ##### back to [top](#table-of-contents)
 
