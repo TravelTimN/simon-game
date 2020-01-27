@@ -40,28 +40,28 @@
 
 ## UX
 
-
+x
 
 ### User Stories
 
 "**_As a user, I would like to_** _______________"
 
-- 
-- 
-- 
+- x
+- x
+- x
 
 ### Design
 
-
+x
 
 #### Framework
 
-- []()
-    - 
-- []()
-    - 
-- []()
-    - 
+- [x](x)
+    - x
+- [x](x)
+    - x
+- [x](x)
+    - x
 
 #### Color Scheme
 
@@ -76,7 +76,7 @@ All of these colors are set at `:root` level within my [style.css](assets/css/st
 #### Icons
 
 - [Font Awesome](https://fontawesome.com/)
-    - 
+    - used on X
 
 #### Typography
 
@@ -104,28 +104,28 @@ My wireframes for this project can be found in the [**wireframes**](assets/wiref
 
 ## Features
 
-
+x
 
 ### Existing Features
 
-**XXXXX**:
+**X**:
 - 
 
-**XXXXX**:
+**X**:
 - 
 
-**XXXXX**:
+**X**:
 - 
 
 ### Features Left to Implement
 
-**XXXXX**:
+**X**:
 - 
 
-**XXXXX**:
+**X**:
 - 
 
-**XXXXX**:
+**X**:
 - 
 
 ##### back to [top](#table-of-contents)
@@ -164,25 +164,25 @@ A thorough mix of automated and manual testing have gone into building the proje
 
 **HTML**
 - [W3C HTML Validator](https://validator.w3.org)
-    - 
-    - 
-    - 
+    - x
+    - x
+    - x
 
 **CSS**
 - [W3C CSS Validator](https://jigsaw.w3.org/css-validator/)
-    - 
-    - 
-    - 
+    - x
+    - x
+    - x
 
 **JavaScript**
 - [JShint](https://jshint.com/)
-    - 
-    - 
-    - 
+    - x
+    - x
+    - x
 - [Beautify Tools](http://beautifytools.com/javascript-validator.php)
-    - 
-    - 
-    - 
+    - x
+    - x
+    - x
 
 ### Compatibility
 
@@ -212,9 +212,9 @@ I have also created a testing matrix ([raw Excel file here](testing/testing-simo
 
 ### Known Issues
 
-- 
-- 
-- 
+- x
+- x
+- x
 
 ### Automated Testing
 
@@ -226,7 +226,7 @@ I have also created a testing matrix ([raw Excel file here](testing/testing-simo
 
 ## Deployment
 
-- 
+- x
 
 ### Local Deployment
 
@@ -244,7 +244,7 @@ Congratulations! Your project should be completely setup and ready for local dev
 
 ### Remote Deployment
 
-- XXX
+- x
 
 Congratulations! Your project should be completely setup and ready for remote deployment! :tada:
 
@@ -268,14 +268,14 @@ Congratulations! Your project should be completely setup and ready for remote de
 
 ### Code
 
-- []() - xxxxx.
-- []() - xxxxx.
-- []() - xxxxx.
+- []() - x.
+- []() - x.
+- []() - x.
 
 ### Acknowledgements
 
-- []() - xxxxx.
-- []() - xxxxx.
-- []() - xxxxx.
+- []() - x.
+- []() - x.
+- []() - x.
 
 ##### back to [top](#table-of-contents)
