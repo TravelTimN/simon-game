@@ -46,22 +46,28 @@ x
 
 "**_As a user, I would like to_** _______________"
 
-- x
-- x
-- x
+- read the instructions on how to play the game.
+- test my logical memory skills by matching a progressively difficult level of a series of colorful buttons.
+- play the game using either a mouse, the keyboard, or tapping with my finger on a touch screen.
+- play the game with both visual and audio effects from the buttons and sounds.
+- be notified when I've made a mistake from the sound of an error klaxon.
+- continue playing if I've made a mistake, but repeat the previous level a bit slower.
+- play the game in either standard mode, or strict mode (which ends the game immediately if I get one wrong answer).
+- restart the game at any point during my turn.
+- win the game after successfully matching 31 consecutive randomized colors.
+- hear the winning razz once I've completed all 31 levels successfully.
 
 ### Design
 
-x
+A standard layout that is fully responsive on mobile devices and larger screens has been utilized. The constant use of responsive CSS sizing elements such as `vw`, `vh`, `%`, and `calc()` helps to ensure the site responds to the appropriate user device.
 
 #### Framework
 
-- [x](x)
-    - x
-- [x](x)
-    - x
-- [x](x)
-    - x
+There was no need to utilize any particular frameworks or libraries, such as the following, for this project:
+
+- Bootstrap / Materialize
+- CSS Grid / Flexbox
+- jQuery
 
 #### Color Scheme
 
@@ -75,8 +81,7 @@ All of these colors are set at `:root` level within my [style.css](assets/css/st
 
 #### Icons
 
-- [Font Awesome](https://fontawesome.com/)
-    - used on X
+There was no need to utilize any particular set of icons, such as Font Awesome, for this project.
 
 #### Typography
 
@@ -93,7 +98,7 @@ I built mockup concept wireframes using [Balsamiq Wireframes](https://balsamiq.c
 
 My wireframes for this project can be found in the [**wireframes**](assets/wireframes/?raw=true) folder.
 
-- [Wireframe](assets/wireframes/simon-wireframe.bmpr/?raw=true): original Balsamiq.bmpr file.
+- [Wireframe](assets/wireframes/simon-wireframe.bmpr/?raw=true): original `Balsamiq.bmpr` file.
 - [Wireframe](assets/wireframes/simon-wireframe.png/?raw=true): visual representation for GitHub.
 
 ![Wireframe](assets/wireframes/simon-wireframe.png/?raw=true)
@@ -104,29 +109,35 @@ My wireframes for this project can be found in the [**wireframes**](assets/wiref
 
 ## Features
 
-x
+In accordance to the project brief, I have successfully implemented all of the *required* features, as well as a few additional features to improve user experience!
 
 ### Existing Features
 
-**X**:
-- 
+**JavaScript Memory Game**:
+- Build a memory game using JavaScript to execute instructions to perform arithmetic, logic, controlling, and input/output operations to a user.
 
-**X**:
-- 
+**Progressive Difficulty**:
+- Players can progress through multiple levels if successfully matching Simon's moves each round. Levels get harder the further you manage to play.
 
-**X**:
-- 
+**Strict Mode**:
+- To truly test their memory matching skills, players can choose to play in Strict Mode, but one wrong move will immediately end the game!
+
+**Restart Game**:
+- At any point during their turn, player's can opt to restart the game for a new randomized series of colors.
+
+**Player Timeout**:
+- If the player doesn't make a move within 3 seconds, a klaxon will sound to signify an error. This 3 second timer resets after each move. The level will repeat again at a slower playback speed only if *Strict Mode* is not active.
+
+**Automatic Console Shutoff**:
+- If the player does not interact with the game console for a consecutive 45 seconds, the game console will automatically shut itself off. This 45 second timer does not apply when it is Simon's turn; this is to take in consideration when player's are at high levels and have made an error, Simon repeats the round at a slower speed, which nearly exhausts the entire 45 seconds of inactivity.
+
+**Winning Razz**:
+- If the player is successful enough to beat Simon's 31 levels, the traditional winning *'Razz'* will trigger. This is a combination of rapid pulses of the final color, mixed with a round of applause in order from Red, Yellow, Blue, Green on repeat, followed by the losing klaxon to signify the player has won the game!
 
 ### Features Left to Implement
 
-**X**:
-- 
-
-**X**:
-- 
-
-**X**:
-- 
+**Leaderboard**:
+- Ideally, I'd like to implement a leaderboard of session users that have completed all 31 levels successfully.
 
 ##### back to [top](#table-of-contents)
 
@@ -141,7 +152,7 @@ x
 - ![CSS3](https://img.shields.io/static/v1?label=CSS&message=3&color=1572B6&logo=css3&logoColor=ffffff)
     - [CSS3](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS3) - Used as the base for cascading styles.
 - ![JavaScript](https://img.shields.io/static/v1?label=JavaScript&message=ES6&color=F7DF1E&logo=javascript&logoColor=ffffff)
-    - [JavaScript ES6](https://developer.mozilla.org/en-US/docs/Web/JavaScript) - Used as the primary JavaScript functionality.
+    - [JavaScript ES6](https://developer.mozilla.org/en-US/docs/Web/JavaScript) - Used as the base for game interaction.
 
 ### Miscellaneous Technologies
 
@@ -150,7 +161,7 @@ x
 - ![GitHub](https://img.shields.io/static/v1?label=GitHub&message=TravelTimN&color=181717&logo=github&logoColor=ffffff)
     - [GitHub](https://github.com/) - Used as remote storage of my projects online.
 - ![Balsamiq Wireframes](https://img.shields.io/static/v1?label=Balsamiq&message=3.5.17&color=CC0200)
-    - [Balsamiq](https://balsamiq.com/) - Used to bring my wireframe sketches to life.
+    - [Balsamiq](https://balsamiq.com/) - Used to bring my wireframes to life.
 
 ##### back to [top](#table-of-contents)
 
@@ -164,25 +175,28 @@ A thorough mix of automated and manual testing have gone into building the proje
 
 **HTML**
 - [W3C HTML Validator](https://validator.w3.org)
-    - x
-    - x
-    - x
+    - Document checking completed. No errors or warnings to show.
 
 **CSS**
 - [W3C CSS Validator](https://jigsaw.w3.org/css-validator/)
-    - x
-    - x
-    - x
+    - The W3C Jigsaw validator does not yet recognize root variables, and therefore shows 110 **Parse** and **Value** **Errors**. These are used to set/use global CSS variables.
+        - `:root`
+        - `var(--foo)`
+    - I also received 2 **Warnings**:
+        - Imported style sheets are not checked in direct input and file upload modes.
+        - `-webkit-tap-highlight-color` is an unknown vendor extension.
 
 **JavaScript**
 - [JShint](https://jshint.com/)
-    - x
-    - x
-    - x
-- [Beautify Tools](http://beautifytools.com/javascript-validator.php)
-    - x
-    - x
-    - x
+    - METRICS:
+        - There are **45** functions in this file.
+        - Function with the largest signature take **1** arguments, while the median is **0**.
+        - Largest function has **64** statements in it, while the median is **3**.
+        - The most complex function has a cyclomatic complexity value of **11** while the median is **1**.
+    - UNDEFINED VARIABLE:
+        - `KeyboardEvent` (used for keyboard interaction)
+- [Esprima](https://esprima.org/demo/validate.html)
+    - Code is syntactically valid.
 
 ### Compatibility
 
