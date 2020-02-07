@@ -560,7 +560,7 @@ input:checked+.slider::before {transform: translateX(29px);}
 
 /* ----- MEDIA QUERIES ----- */
 @media (min-width: 700px) {
-    :root {--size: 90vh;}
+    :root {--size: 90vh;} /* reset root 'size' variable */
     #simon::after {font-size: 3em;}
     #memoryGame::after {content: "- MEMORY GAME -"; font-size: 1em; letter-spacing: 4px; top: 65%;}
     #greenButton::before, #redButton::before, #blueButton::before, #yellowButton::before {font-size: 4em;}
