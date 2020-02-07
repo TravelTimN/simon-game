@@ -1,3 +1,4 @@
+/* jshint esversion: 6 */
 document.addEventListener("DOMContentLoaded", () => {
 
 
@@ -24,6 +25,8 @@ document.addEventListener("DOMContentLoaded", () => {
     let isStrict = false; // game begins in normal mode
     let simonOrder = []; // random numbers (1-4)
     let colors = ["green", "red", "yellow", "blue"]; // array of colors
+    let colorAudio; // matching color to audio
+    let colorButton; // which button is played
     let rounds = 31; // number of rounds to win
     let easy = 5; // levels 1-5 are 'easy'
     let easySpeed = 420; // levels 1-5 play at 0.42s
@@ -223,7 +226,6 @@ document.addEventListener("DOMContentLoaded", () => {
         simonTurn = true; // Simon starts each round
         hasWon = false;
         simonOrder = [];
-        orderColors = []; // temporary testing only in console
         playerOrder = [];
         flash = 0;
         isCorrect = true;
@@ -268,8 +270,6 @@ document.addEventListener("DOMContentLoaded", () => {
             clearTimeout(playerTimer); // restart the player timer
             disableStart();
             disableColors();
-            colorAudio = "";
-            colorButton = "";
             switch (simonOrder[flash]) {
                 case "green":
                     colorAudio = greenAudio;
@@ -366,10 +366,14 @@ document.addEventListener("DOMContentLoaded", () => {
         levelCounter.className = ""; // clear all classes
         levelCounter.classList.add("on"); // add class 'on'
         levelCounter.innerHTML = "NO";
+        announce.classList.add("announce");
+        announce.innerHTML = "NO";
         setTimeout(() => {
             disableColors();
             levelCounter.innerHTML = (level <= 9) ? `0${level}` : level; // add 0 if single digit
             levelCounter.className = ""; // clear all classes
+            announce.classList.remove("announce");
+            announce.innerHTML = "";
             if (isStrict) { // strict mode - don't repeat level
                 disablePlayer();
                 enableStart();
@@ -387,12 +391,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // enable win functionality
     function enableWin() {
-        announce.classList.add("announce");
-        announce.innerHTML = "WINNER!";
         disableSounds();
         disablePlayer();
         levelCounter.innerHTML = "WIN";
         levelCounter.classList.add("win");
+        announce.classList.add("announce");
+        announce.innerHTML = "WINNER!";
         isOn = false;
         hasWon = true;
         // to ensure code doesn't get copied without permission
@@ -465,54 +469,52 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // whether a keystroke is pushed or the button clicked
     function pushButton(e) {
-        if (isOn) {
+        if (isOn && e.isTrusted) {
             let btnKey = "";
             if (e instanceof KeyboardEvent) {
-                // keyboard event (typing 'R', 'G', 'B', 'Y')
-                btnKey = e.keyCode;
+                // keyboard event only for corresponding colors
+                switch (e.code) {
+                    case "KeyG": // allows "G" or "g"
+                        btnKey = "green";
+                        break;
+                    case "KeyR": // allows "R" or "r"
+                        btnKey = "red";
+                        break;
+                    case "KeyY": // allows "Y" or "y"
+                        btnKey = "yellow";
+                        break;
+                    case "KeyB": // allows "B" or "b"
+                        btnKey = "blue";
+                        break;
+                }
             } else if (e instanceof MouseEvent) {
-                // click event per button (parseInt to match KeyboardEvents)
-                btnKey = parseInt(this.dataset.key);
+                // click event per button color
+                btnKey = this.dataset.color;
             }
-            switch (btnKey) {
-                case 71: // green (G)
-                    playerOrder.push("green");
-                    break;
-                case 82: // red (R)
-                    playerOrder.push("red");
-                    break;
-                case 89: // yellow (Y)
-                    playerOrder.push("yellow");
-                    break;
-                case 66: // blue (B)
-                    playerOrder.push("blue");
-                    break;
-            }
+            playerOrder.push(btnKey); // push color onto playerOrder array
             check(); // check if user is correct
-            // get dataset.key from audio element
-            const audio = document.querySelector(`audio[data-key="${btnKey}"]`);
-            // get dataset.key from div.btn element
-            const colorButton = document.querySelector(`.color-button[data-key="${btnKey}"]`);
-            if (!audio) return;
-            // reset audio to 0
-            audio.currentTime = 0;
+            // get dataset.color from audio element
+            colorAudio = document.querySelector(`audio[data-color="${btnKey}"]`);
+            // get dataset.color from div.btn element
+            colorButton = document.querySelector(`.color-button[data-color="${btnKey}"]`);
+            if (!colorAudio) return;
+            colorAudio.currentTime = 0; // reset colorAudio to 0
             disableSounds();
-            // add 'active' class
-            colorButton.classList.add("active");
+            colorButton.classList.add("active"); // add 'active' class
             // timeout to remove 'active' class
             if (!hasWon && isCorrect) {
-                audio.play(); // play current audio element only if correct and not a win yet
+                colorAudio.play(); // play current audio element only if correct and not a win yet
                 setTimeout(() => {
                     colorButton.classList.remove("active");
                 }, 150);
             } else if (hasWon && isCorrect) {
                 // play a winning pulse of the final color
                 let gameWin = setInterval(() => {
-                    audio.play();
+                    colorAudio.play();
                     colorButton.classList.add("active");
                     setTimeout(() => {
-                        audio.pause();
-                        audio.currentTime = 0;
+                        colorAudio.pause();
+                        colorAudio.currentTime = 0;
                         colorButton.classList.remove("active");
                     }, 350);
                 }, 100);
