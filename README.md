@@ -40,7 +40,7 @@
 
 ## UX
 
-x
+x.
 
 ### User Stories
 
@@ -63,7 +63,7 @@ A standard layout that is fully responsive on mobile devices and larger screens 
 
 #### Framework
 
-There was no need to utilize any particular frameworks or libraries, such as the following, for this project:
+There was no need to utilize any particular frameworks or libraries for this project, such as the following:
 
 - Bootstrap / Materialize
 - CSS Grid / Flexbox
@@ -128,7 +128,7 @@ In accordance to the project brief, I have successfully implemented all of the *
 **Player Timeout**:
 - If the player doesn't make a move within 3 seconds, a klaxon will sound to signify an error. This 3 second timer resets after each move. The level will repeat again at a slower playback speed only if *Strict Mode* is not active.
 
-**Automatic Console Shutoff**:
+**Automatic Console Shut-off**:
 - If the player does not interact with the game console for a consecutive 45 seconds, the game console will automatically shut itself off. This 45 second timer does not apply when it is Simon's turn; this is to take in consideration when player's are at high levels and have made an error, Simon repeats the round at a slower speed, which nearly exhausts the entire 45 seconds of inactivity.
 
 **Winning Razz**:
@@ -137,7 +137,7 @@ In accordance to the project brief, I have successfully implemented all of the *
 ### Features Left to Implement
 
 **Leaderboard**:
-- Ideally, I'd like to implement a leaderboard of session users that have completed all 31 levels successfully.
+- Ideally, I'd like to implement a leaderboard of session users that have completed all 31 levels successfully, which can be displayed to anybody else.
 
 ##### back to [top](#table-of-contents)
 
@@ -218,21 +218,19 @@ I have also created a testing matrix ([raw Excel file here](testing/testing-simo
 
 **Chrome's DevTools Audit Report**
 
-| Performance | Accessibility | Best Practices | SEO |
-| :---: | :---: | :---: | :---: |
-| 100% | 100% | 100% | 100% |
+| Performance | Accessibility | Best Practices | SEO | PWA |
+| :---: | :---: | :---: | :---: | :---: |
+| 100% | 100% | 100% | 100% | - |
 
 ![Chrome DevTools Audit Report](testing/devtools-audit.png?raw=true "Chrome Audit Report")
 
 ### Known Issues
 
-- x
-- x
-- x
+- x.
 
 ### Automated Testing
 
-
+Jasmine Testing will go here eventually.
 
 ##### back to [top](#table-of-contents)
 
@@ -240,7 +238,7 @@ I have also created a testing matrix ([raw Excel file here](testing/testing-simo
 
 ## Deployment
 
-- x
+- x.
 
 ### Local Deployment
 
@@ -283,13 +281,9 @@ Congratulations! Your project should be completely setup and ready for remote de
 ### Code
 
 - []() - x.
-- []() - x.
-- []() - x.
 
 ### Acknowledgements
 
-- []() - x.
-- []() - x.
 - []() - x.
 
 ##### back to [top](#table-of-contents)
