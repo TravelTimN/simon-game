@@ -482,9 +482,9 @@ body {
 
 .powerButton input {opacity: 0; width: 0; height: 0;}
 .powerOff {position: absolute; top: 10%; left: -30px;}
-.powerOff::after {content: "OFF";}
+/* .powerOff::after {content: "OFF";} */
 .powerOn {position: absolute; top: 10%; left: 57px;}
-.powerOn::after {content: "ON";}
+/* .powerOn::after {content: "ON";} */
 
 .slider {
     position: absolute;
