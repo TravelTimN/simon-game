@@ -9,7 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=yes">
     <meta name="author" content="Tim Nelson">
     <meta name="description" content="Simon Memory Game">
+    <meta name="theme-color" content="#000000">
     <link rel="icon" sizes="150x150" href="assets/img/favicon.png" type="image/x-icon">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon.png" type="image/x-icon">
     <link rel="stylesheet" href="assets/css/style.css" type="text/css">
 </head>
 
@@ -25,19 +27,19 @@
             <div id="simon">
                 <div id="memoryGame"></div>
             </div>
-            <label for="powerButton" class="powerButton">
-                <input type="checkbox" name="powerButton" id="powerButton">
+            <label class="powerButton">
+                <input type="checkbox" name="powerButton" id="powerButton" aria-labelledby="powerButton">
                 <span class="slider round"></span>
-                <span class="powerOff"></span>
-                <span class="powerOn"></span>
+                <span class="powerOff">OFF</span>
+                <span class="powerOn">ON</span>
             </label>
             <div class="checkbox-round startButton">
-                <input type="checkbox" id="startButton">
+                <input type="checkbox" id="startButton" aria-labelledby="startButton">
                 <label for="startButton"></label>
             </div>
             <div class="checkbox-round strict">
-                <input type="checkbox" id="checkbox-strict">
-                <label for="checkbox-strict"></label>
+                <input type="checkbox" id="checkboxStrict" aria-labelledby="checkboxStrict">
+                <label for="checkboxStrict"></label>
             </div>
             <div id="levelCounter"></div>
             <div id="announce"></div>
