@@ -211,10 +211,10 @@ To ensure a broad range of users can successfully use the site, I tested it acro
 - **Opera** (*v.62.0.3331.99*)
 - **Internet Explorer** (*v.11.885.17134.0*)
 
-I have also created a testing matrix ([raw Excel file here](testing/testing-simon-matrix.xlsx?raw=true)).
+I have also created a testing matrix ([raw Excel file here](testing/manual-testing-simon-matrix.xlsx?raw=true)).
 
 **Testing Matrix**
-![Testing Matrix](testing/testing-matrix.png "Testing Matrix")
+![Testing Matrix](testing/manual/testing-matrix.png "Testing Matrix")
 
 **Chrome's DevTools Audit Report**
 
@@ -222,7 +222,7 @@ I have also created a testing matrix ([raw Excel file here](testing/testing-simo
 | :---: | :---: | :---: | :---: | :---: |
 | 100% | 100% | 100% | 100% | - |
 
-![Chrome DevTools Audit Report](testing/devtools-audit.png?raw=true "Chrome Audit Report")
+![Chrome DevTools Audit Report](testing/manual/devtools-audit.png?raw=true "Chrome Audit Report")
 
 ### Known Issues
 
