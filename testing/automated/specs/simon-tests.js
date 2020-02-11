@@ -1,4 +1,4 @@
-describe("Game Buttons", ()=> {
+describe("Simon Memory Game Testing", ()=> {
 
     beforeEach(() => {
 
@@ -31,20 +31,22 @@ describe("Game Buttons", ()=> {
                     <div id="announce"></div>
                 </div>
             </div>
-        `)
+        `);
     });
 
-    describe("Power Button", ()=> {
-        it("the power button should exist", ()=> {
+    describe("The Power Button", ()=> {
+        it("should exist", ()=> {
             expect(powerOn).toBeDefined();
         });
-        it("the power button be turned on once clicked", ()=> {
+        it("should trigger the game console to turn on once clicked", ()=> {
             $("#powerButton").click();
             expect($("#powerButton")).toBeChecked();
+            expect($("#startButton")).not.toHaveAttr("disabled");
+            expect($("#strictButton")).not.toHaveAttr("disabled");
+            expect($(isOn)).toBeTruthy();
             // expect($("#levelCounter")).toHaveClass('"on"');
             // expect($("#levelCounter")).toHaveCss({fontSize: "2.5em"});
             // expect($("#levelCounter").text()).toEqual("ON");
-            // expect($("#startButton").not.toHaveAttr("disabled"));
         });
     });
 
@@ -92,4 +94,5 @@ describe("Game Buttons", ()=> {
             expect(blueButton).toBeDefined();
         });
     });
+
 });
