@@ -459,12 +459,12 @@ body {
 }
 
 /* ----- STRICT ----- */
-.checkbox-round.strict {right: 27%;}
-.strict::after {content: "STRICT"; position: absolute; left: -15px; bottom: -15px;}
-.checkbox-round.strict label {
+.strictButton {right: 27%;}
+.strictButton::after {content: "STRICT"; position: absolute; left: -15px; bottom: -15px;}
+.strictButton label {
     background: radial-gradient(circle at 0.25em 0.25em, rgba(var(--red), 1), rgba(var(--black), 1));
 }
-.checkbox-round.strict input[type="checkbox"]:checked+label {
+#strictButton:checked+label {
     background: rgba(var(--red), 1);
     box-shadow: 0 0 20px 5px rgba(var(--red), 1);
 }
