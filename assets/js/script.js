@@ -3,8 +3,8 @@
 const powerButton = document.querySelector("#powerButton"); // power button
 const startButton = document.querySelector("#startButton"); // start button
 const startButtonLabel = document.querySelector(".startButton label"); // start button cursor
-const strictButton = document.querySelector("#checkboxStrict"); // strict button
-const strictButtonLabel = document.querySelector(".strict label"); // strict button cursor
+const strictButton = document.querySelector("#strictButton"); // strict button
+const strictButtonLabel = document.querySelector(".strictButton label"); // strict button cursor
 const levelCounter = document.querySelector("#levelCounter"); // level display
 const announce = document.querySelector("#announce"); // announce "faster" animation
 const greenButton = document.querySelector("#greenButton"); // green button
