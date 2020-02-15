@@ -153,6 +153,12 @@ describe("Simon Memory Game Testing", () => {
             $(".startButton label").css("cursor", "pointer");
             expect($(".startButton label")).toHaveCss({cursor: "pointer"});
         });
+        it("should call the enablePlay() function if 'start' is clicked", () => {
+            $("#startButton").click();
+            spyOn(window, "enablePlay");
+            enablePlay();
+            expect(window.enablePlay).toHaveBeenCalled();
+        });
     });
 
 
@@ -182,7 +188,13 @@ describe("Simon Memory Game Testing", () => {
 
     describe("The Level Counter", () => {
         it("the level counter should exist", () => {
-            expect($("levelCounter")).toBeDefined();
+            expect($("#levelCounter")).toBeDefined();
+        });
+        it("the level counter should show '01' when the game starts", () => {
+            spyOn(window, "enablePlay");
+            enablePlay();
+            $("#levelCounter").text("01");
+            expect($("#levelCounter")).toHaveText("01");
         });
     });
 
