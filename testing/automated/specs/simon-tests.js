@@ -44,7 +44,7 @@ describe("Simon Memory Game Testing", () => {
             let isOn = false;
             expect(isOn).not.toBeTruthy();
         });
-        it("should not be Simon's turn (if power=off)", () => {
+        it("should not trigger Simon's turn (if power=off)", () => {
             let simonTurn = false;
             expect(simonTurn).not.toBeTruthy();
         });
@@ -83,28 +83,28 @@ describe("Simon Memory Game Testing", () => {
             jasmine.clock().uninstall();
         });
         it("should clear the gameSpeed interval after 500ms (during power off)", () => {
-            intervalCallback = jasmine.createSpy("clearInterval", gameSpeed);
+            clearIntervalCallback = jasmine.createSpy("clearInterval", gameSpeed);
             jasmine.clock().install();
             setTimeout(() => {
-                intervalCallback();
+                clearIntervalCallback();
             }, 500);
-            expect(intervalCallback).not.toHaveBeenCalled();
+            expect(clearIntervalCallback).not.toHaveBeenCalled();
             jasmine.clock().tick(501);
-            expect(intervalCallback).toHaveBeenCalled();
+            expect(clearIntervalCallback).toHaveBeenCalled();
             jasmine.clock().uninstall();
         });
         it("should clear the playerTimer timeout after 500ms (during power off)", () => {
-            timeoutCallback = jasmine.createSpy("clearTimeout", playerTimer);
+            clearTimeoutCallback = jasmine.createSpy("clearTimeout", playerTimer);
             jasmine.clock().install();
             setTimeout(() => {
-                timeoutCallback();
+                clearTimeoutCallback();
             }, 500);
-            expect(timeoutCallback).not.toHaveBeenCalled();
+            expect(clearTimeoutCallback).not.toHaveBeenCalled();
             jasmine.clock().tick(501);
-            expect(timeoutCallback).toHaveBeenCalled();
+            expect(clearTimeoutCallback).toHaveBeenCalled();
             jasmine.clock().uninstall();
         });
-        it("should trigger the game console to turn on if clicked", () => {
+        it("should trigger the game console to turn 'on' if clicked", () => {
             let isOn = true;
             expect($("#powerButton")).toBeChecked();
             expect(isOn).toBeTruthy();
@@ -153,7 +153,7 @@ describe("Simon Memory Game Testing", () => {
             $(".startButton label").css("cursor", "pointer");
             expect($(".startButton label")).toHaveCss({cursor: "pointer"});
         });
-        it("should call the enablePlay() function if 'start' is clicked", () => {
+        it("should call the enablePlay() function if clicked", () => {
             $("#startButton").click();
             spyOn(window, "enablePlay");
             enablePlay();
@@ -183,18 +183,49 @@ describe("Simon Memory Game Testing", () => {
             $(".strictButton label").css("cursor", "pointer");
             expect($(".strictButton label")).toHaveCss({cursor: "pointer"});
         });
+        it("should end the game if 'enabled' and player is 'incorrect'", () => {
+            spyOn(window, "enableLose");
+            enableLose();
+            setTimeoutCallback = jasmine.createSpy("setTimeout", disablePlayer, enableStart);
+            jasmine.clock().install();
+            setTimeout(() => {
+                setTimeoutCallback();
+            }, 1500);
+            expect(setTimeoutCallback).not.toHaveBeenCalled();
+            jasmine.clock().tick(1501);
+            expect(setTimeoutCallback).toHaveBeenCalled();
+            jasmine.clock().uninstall();
+        });
     });
 
 
     describe("The Level Counter", () => {
-        it("the level counter should exist", () => {
+        it("should exist", () => {
             expect($("#levelCounter")).toBeDefined();
         });
-        it("the level counter should show '01' when the game starts", () => {
+        it("should show '01' when the game starts", () => {
             spyOn(window, "enablePlay");
             enablePlay();
             $("#levelCounter").text("01");
             expect($("#levelCounter")).toHaveText("01");
+        });
+        it("should show '15' when a player reaches the fastest mode", () => {
+            let level = 15;
+            let isCorrect = true;
+            let hasWon = false;
+            spyOn(window, "check");
+            check();
+            setTimeoutCallback = jasmine.createSpy("setTimeout");
+            jasmine.clock().install();
+            setTimeout(() => {
+                setTimeoutCallback();
+                $("#levelCounter").text("15");
+            }, 800);
+            expect(setTimeoutCallback).not.toHaveBeenCalled();
+            jasmine.clock().tick(801);
+            expect($("#levelCounter")).toHaveText("15");
+            expect(setTimeoutCallback).toHaveBeenCalled();
+            jasmine.clock().uninstall();
         });
     });
 
