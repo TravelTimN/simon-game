@@ -256,7 +256,6 @@ describe("Simon Memory Game Testing", () => {
             expect($("#greenButton")).toBeDefined();
         });
         // it("should not be enabled if the 'disablePlayer()' function is called", () => {
-        //     // https://stackoverflow.com/questions/43489131/jasmine-test-removeeventlistener
         //     spyOn(window, "disablePlayer");
         //     disablePlayer();
         //     method = {
@@ -264,7 +263,7 @@ describe("Simon Memory Game Testing", () => {
         //             console.log('hi!');
         //         }
         //     }
-        //     spyOn(window, pushButton);
+        //     spyOn(window, "pushButton");
         //     $("#greenButton").removeEventListener("click", pushButton);
         //     $("#greenButton").click();
         //     expect(pushButton).not.toHaveBeenCalled();
@@ -307,6 +306,9 @@ describe("Simon Memory Game Testing", () => {
 /* setFixtures */
 // https://lostechies.com/derickbailey/2011/10/14/quick-hack-to-work-around-jasmine-jquery-fixture-limitations/
 
+/* spyOn */
+// https://stackoverflow.com/a/9511646
+
 /* createSpy + createSpyObj */
 // https://scriptverse.academy/tutorials/jasmine-createspy-createspyobj.html
 
@@ -317,3 +319,6 @@ describe("Simon Memory Game Testing", () => {
 /* addEventListener */
 // https://stackoverflow.com/a/32576013
 // even better: use jQuery $("#el").click();
+
+/* removeEventListener */
+// https://stackoverflow.com/questions/43489131/jasmine-test-removeeventlistener
