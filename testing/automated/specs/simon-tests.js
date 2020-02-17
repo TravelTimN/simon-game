@@ -138,7 +138,7 @@ describe("Simon Memory Game Testing", () => {
         });
         it("should be 'disabled' (if power=off)", () => {
             $("#startButton").prop("disabled", true);
-            expect($("#startButton")).toHaveAttr("disabled");
+            expect($("#startButton")).toBeDisabled();
         });
         it("should have a 'default' cursor (if power=off)", () => {
             expect($(".startButton label")).toHaveCss({cursor: "default"});
@@ -147,7 +147,7 @@ describe("Simon Memory Game Testing", () => {
             $("#powerButton").click();
         });
         it("should be 'enabled' (if power=on)", () => {
-            expect($("#startButton")).not.toHaveAttr("disabled");
+            expect($("#startButton")).not.toBeDisabled();
         });
         it("should have a 'pointer' cursor (if power=on)", () => {
             $(".startButton label").css("cursor", "pointer");
@@ -168,7 +168,7 @@ describe("Simon Memory Game Testing", () => {
         });
         it("should be 'disabled' (if power=off)", () => {
             $("#strictButton").prop("disabled", true);
-            expect($("#strictButton")).toHaveAttr("disabled");
+            expect($("#strictButton")).toBeDisabled();
         });
         it("should have a 'default' cursor (if power=off)", () => {
             expect($(".strictButton label")).toHaveCss({cursor: "default"});
@@ -177,7 +177,7 @@ describe("Simon Memory Game Testing", () => {
             $("#powerButton").click();
         });
         it("should be 'enabled' (if power=on)", () => {
-            expect($("#strictButton")).not.toHaveAttr("disabled");
+            expect($("#strictButton")).not.toBeDisabled();
         });
         it("should have a 'pointer' cursor (if power=on)", () => {
             $(".strictButton label").css("cursor", "pointer");
@@ -203,11 +203,24 @@ describe("Simon Memory Game Testing", () => {
         it("should exist", () => {
             expect($("#levelCounter")).toBeDefined();
         });
+        it("should show 'ON' when the game is powered on", () => {
+            spyOn(window, "powerOn");
+            powerOn();
+            $("#levelCounter").text("ON");
+            expect($("#levelCounter")).toHaveText("ON");
+        });
         it("should show '01' when the game starts", () => {
             spyOn(window, "enablePlay");
             enablePlay();
             $("#levelCounter").text("01");
             expect($("#levelCounter")).toHaveText("01");
+        });
+        it("should show 'NO' if a player is 'incorrect'", () => {
+            let isCorrect = false;
+            spyOn(window, "enableLose");
+            enableLose();
+            $("#levelCounter").text("NO");
+            expect($("#levelCounter")).toHaveText("NO");
         });
         it("should show '15' when a player reaches the fastest mode", () => {
             let level = 15;
@@ -227,33 +240,55 @@ describe("Simon Memory Game Testing", () => {
             expect(setTimeoutCallback).toHaveBeenCalled();
             jasmine.clock().uninstall();
         });
-    });
-
-
-    describe("The Green Button", () => {
-        it("the green button should exist", () => {
-            expect($("greenButton")).toBeDefined();
+        it("should show 'WIN' if a player completes all 31 levels", () => {
+            let isCorrect = true;
+            let hasWon = true;
+            spyOn(window, "enableWin");
+            enableWin();
+            $("#levelCounter").text("WIN");
+            expect($("#levelCounter")).toHaveText("WIN");
         });
     });
 
 
+    describe("The Green Button", () => {
+        it("should exist", () => {
+            expect($("#greenButton")).toBeDefined();
+        });
+        // it("should not be enabled if the 'disablePlayer()' function is called", () => {
+        //     // https://stackoverflow.com/questions/43489131/jasmine-test-removeeventlistener
+        //     spyOn(window, "disablePlayer");
+        //     disablePlayer();
+        //     method = {
+        //         test: function() {
+        //             console.log('hi!');
+        //         }
+        //     }
+        //     spyOn(window, pushButton);
+        //     $("#greenButton").removeEventListener("click", pushButton);
+        //     $("#greenButton").click();
+        //     expect(pushButton).not.toHaveBeenCalled();
+        // });
+    });
+
+
     describe("The Red Button", () => {
-        it("the red button should exist", () => {
-            expect($("redButton")).toBeDefined();
+        it("should exist", () => {
+            expect($("#redButton")).toBeDefined();
         });
     });
 
 
     describe("The Yellow Button", () => {
-        it("the yellow button should exist", () => {
-            expect($("yellowButton")).toBeDefined();
+        it("should exist", () => {
+            expect($("#yellowButton")).toBeDefined();
         });
     });
 
 
     describe("The Blue Button", () => {
-        it("the blue button should exist", () => {
-            expect($("blueButton")).toBeDefined();
+        it("should exist", () => {
+            expect($("#blueButton")).toBeDefined();
         });
     });
 
