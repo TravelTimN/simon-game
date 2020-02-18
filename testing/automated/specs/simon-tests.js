@@ -255,25 +255,34 @@ describe("Simon Memory Game Testing", () => {
         it("should exist", () => {
             expect($("#greenButton")).toBeDefined();
         });
-        // it("should not be enabled if the 'disablePlayer()' function is called", () => {
-        //     spyOn(window, "disablePlayer");
-        //     disablePlayer();
-        //     method = {
-        //         test: function() {
-        //             console.log('hi!');
-        //         }
-        //     }
-        //     spyOn(window, "pushButton");
-        //     $("#greenButton").removeEventListener("click", pushButton);
-        //     $("#greenButton").click();
-        //     expect(pushButton).not.toHaveBeenCalled();
-        // });
+        it("should not be enabled if the 'disablePlayer()' function is called", () => {
+            method = {
+                pushButton: () => {
+                    pushButton();
+                }
+            }
+            spyOn(method, "pushButton");
+            $("#greenButton").click(method.pushButton);
+            $("disablePlayer").unbind(method.pushButton);
+            expect(method.pushButton).not.toHaveBeenCalled();
+        });
     });
 
 
     describe("The Red Button", () => {
         it("should exist", () => {
             expect($("#redButton")).toBeDefined();
+        });
+        it("should not be enabled if the 'disablePlayer()' function is called", () => {
+            method = {
+                pushButton: () => {
+                    pushButton();
+                }
+            }
+            spyOn(method, "pushButton");
+            $("#redButton").click(method.pushButton);
+            $("disablePlayer").unbind(method.pushButton);
+            expect(method.pushButton).not.toHaveBeenCalled();
         });
     });
 
@@ -282,12 +291,34 @@ describe("Simon Memory Game Testing", () => {
         it("should exist", () => {
             expect($("#yellowButton")).toBeDefined();
         });
+        it("should not be enabled if the 'disablePlayer()' function is called", () => {
+            method = {
+                pushButton: () => {
+                    pushButton();
+                }
+            }
+            spyOn(method, "pushButton");
+            $("#yellowButton").click(method.pushButton);
+            $("disablePlayer").unbind(method.pushButton);
+            expect(method.pushButton).not.toHaveBeenCalled();
+        });
     });
 
 
     describe("The Blue Button", () => {
         it("should exist", () => {
             expect($("#blueButton")).toBeDefined();
+        });
+        it("should not be enabled if the 'disablePlayer()' function is called", () => {
+            method = {
+                pushButton: () => {
+                    pushButton();
+                }
+            }
+            spyOn(method, "pushButton");
+            $("#blueButton").click(method.pushButton);
+            $("disablePlayer").unbind(method.pushButton);
+            expect(method.pushButton).not.toHaveBeenCalled();
         });
     });
 
