@@ -266,6 +266,44 @@ describe("Simon Memory Game Testing", () => {
             $("disablePlayer").unbind(method.pushButton);
             expect(method.pushButton).not.toHaveBeenCalled();
         });
+        it("should call the 'pushButton()' function if clicked during the 'enablePlayer()' function", () => {
+            spyOn(window, "enablePlayer");
+            enablePlayer();
+            if ($("#greenButton").click()) {
+                spyOn(window, "pushButton");
+                pushButton();
+            }
+            expect(window.pushButton).toHaveBeenCalled();
+        });
+        it("should have class 'active' if the 'enableColors()' function is called", () => {
+            spyOn(window, "enableColors");
+            enableColors();
+            $("#greenButton").addClass("active");
+            expect($("#greenButton")).toHaveClass("active");
+        });
+        it("should not have class 'active' if the 'disableColors()' function is called", () => {
+            spyOn(window, "disableColors");
+            disableColors();
+            expect($("#greenButton")).not.toHaveClass("active");
+        });
+        it("should play the 'greenAudio' audio file if player 'isCorrect'", async () => {
+            $("#greenButton").click();
+            let isCorrect = true;
+            spyOn(window, "check");
+            check();
+            if (isCorrect) {
+                await new Audio("../../../assets/sounds/green.mp3").play().then(
+                    () => {
+                        console.log("greenAudio Success");
+                        expect(true).toBeTruthy("from greenAudio audio resolve");
+                    },
+                    () => {
+                        console.log("greenAudio Error");
+                        expect(false).toBeFalsy("from greenAudio audio resolve");
+                    }
+                );
+            }
+        });
     });
 
 
@@ -283,6 +321,44 @@ describe("Simon Memory Game Testing", () => {
             $("#redButton").click(method.pushButton);
             $("disablePlayer").unbind(method.pushButton);
             expect(method.pushButton).not.toHaveBeenCalled();
+        });
+        it("should call the 'pushButton()' function if clicked during the 'enablePlayer()' function", () => {
+            spyOn(window, "enablePlayer");
+            enablePlayer();
+            if ($("#redButton").click()) {
+                spyOn(window, "pushButton");
+                pushButton();
+            }
+            expect(window.pushButton).toHaveBeenCalled();
+        });
+        it("should have class 'active' if the 'enableColors()' function is called", () => {
+            spyOn(window, "enableColors");
+            enableColors();
+            $("#redButton").addClass("active");
+            expect($("#redButton")).toHaveClass("active");
+        });
+        it("should not have class 'active' if the 'disableColors()' function is called", () => {
+            spyOn(window, "disableColors");
+            disableColors();
+            expect($("#redButton")).not.toHaveClass("active");
+        });
+        it("should play the 'redAudio' audio file if player 'isCorrect'", async () => {
+            $("#redButton").click();
+            let isCorrect = true;
+            spyOn(window, "check");
+            check();
+            if (isCorrect) {
+                await new Audio("../../../assets/sounds/red.mp3").play().then(
+                    () => {
+                        console.log("redAudio Success");
+                        expect(true).toBeTruthy("from redAudio audio resolve");
+                    },
+                    () => {
+                        console.log("redAudio Error");
+                        expect(false).toBeFalsy("from redAudio audio resolve");
+                    }
+                );
+            }
         });
     });
 
@@ -302,6 +378,44 @@ describe("Simon Memory Game Testing", () => {
             $("disablePlayer").unbind(method.pushButton);
             expect(method.pushButton).not.toHaveBeenCalled();
         });
+        it("should call the 'pushButton()' function if clicked during the 'enablePlayer()' function", () => {
+            spyOn(window, "enablePlayer");
+            enablePlayer();
+            if ($("#yellowButton").click()) {
+                spyOn(window, "pushButton");
+                pushButton();
+            }
+            expect(window.pushButton).toHaveBeenCalled();
+        });
+        it("should have class 'active' if the 'enableColors()' function is called", () => {
+            spyOn(window, "enableColors");
+            enableColors();
+            $("#yellowButton").addClass("active");
+            expect($("#yellowButton")).toHaveClass("active");
+        });
+        it("should not have class 'active' if the 'disableColors()' function is called", () => {
+            spyOn(window, "disableColors");
+            disableColors();
+            expect($("#yellowButton")).not.toHaveClass("active");
+        });
+        it("should play the 'yellowAudio' audio file if player 'isCorrect'", async () => {
+            $("#yellowButton").click();
+            let isCorrect = true;
+            spyOn(window, "check");
+            check();
+            if (isCorrect) {
+                await new Audio("../../../assets/sounds/yellow.mp3").play().then(
+                    () => {
+                        console.log("yellowAudio Success");
+                        expect(true).toBeTruthy("from yellowAudio audio resolve");
+                    },
+                    () => {
+                        console.log("yellowAudio Error");
+                        expect(false).toBeFalsy("from yellowAudio audio resolve");
+                    }
+                );
+            }
+        });
     });
 
 
@@ -319,6 +433,70 @@ describe("Simon Memory Game Testing", () => {
             $("#blueButton").click(method.pushButton);
             $("disablePlayer").unbind(method.pushButton);
             expect(method.pushButton).not.toHaveBeenCalled();
+        });
+        it("should call the 'pushButton()' function if clicked during the 'enablePlayer()' function", () => {
+            spyOn(window, "enablePlayer");
+            enablePlayer();
+            if ($("#blueButton").click()) {
+                spyOn(window, "pushButton");
+                pushButton();
+            }
+            expect(window.pushButton).toHaveBeenCalled();
+        });
+        it("should have class 'active' if the 'enableColors()' function is called", () => {
+            spyOn(window, "enableColors");
+            enableColors();
+            $("#blueButton").addClass("active");
+            expect($("#blueButton")).toHaveClass("active");
+        });
+        it("should not have class 'active' if the 'disableColors()' function is called", () => {
+            spyOn(window, "disableColors");
+            disableColors();
+            expect($("#blueButton")).not.toHaveClass("active");
+        });
+        it("should play the 'blueAudio' audio file if player 'isCorrect'", async () => {
+            $("#blueButton").click();
+            let isCorrect = true;
+            spyOn(window, "check");
+            check();
+            if (isCorrect) {
+                await new Audio("../../../assets/sounds/blue.mp3").play().then(
+                    () => {
+                        console.log("blueAudio Success");
+                        expect(true).toBeTruthy("from blueAudio audio resolve");
+                    },
+                    () => {
+                        console.log("blueAudio Error");
+                        expect(false).toBeFalsy("from blueAudio audio resolve");
+                    }
+                );
+            }
+        });
+    });
+
+
+    describe("The 'Lose' audio file", () => {
+        it("should exist", () => {
+            setFixtures(`<audio id="loseAudio"><source src="../../../assets/sounds/lose.mp3" type="audio/mpeg"></audio>`);
+            expect($("#blueButton")).toBeDefined();
+        });
+        it("should play the 'lose' audio file if player 'is not correct'", async () => {
+            $("#blueButton").click(); // should've clicked something else
+            let isCorrect = false;
+            spyOn(window, "check");
+            check();
+            if (!isCorrect) {
+                await new Audio("../../../assets/sounds/lose.mp3").play().then(
+                    () => {
+                        console.log("loseAudio Success");
+                        expect(true).toBeTruthy("from lose audio resolve");
+                    },
+                    () => {
+                        console.log("loseAudio Error");
+                        expect(false).toBeFalsy("from lose audio resolve");
+                    }
+                );
+            }
         });
     });
 
@@ -353,3 +531,6 @@ describe("Simon Memory Game Testing", () => {
 
 /* removeEventListener */
 // https://stackoverflow.com/questions/43489131/jasmine-test-removeeventlistener
+
+/* audio elements */
+// https://stackoverflow.com/questions/53900671/testing-htmlmediaelement-play-in-angular-7-jasmine-karma-chrome
