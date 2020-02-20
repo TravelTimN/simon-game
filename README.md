@@ -46,16 +46,16 @@ This project is an example project for the **Interactive Front-End** module of t
 
 "**_As a user, I would like to_** _______________"
 
-- read the instructions on how to play the game.
-- test my logical memory skills by matching a progressively difficult level of a series of colorful buttons.
-- play the game using either a mouse, the keyboard, or tapping with my finger on a touch screen.
-- play the game with both visual and audio effects from the buttons and sounds.
-- be notified when I've made a mistake from the sound of an error klaxon.
-- continue playing if I've made a mistake, but repeat the previous level a bit slower.
-- play the game in either standard mode, or strict mode (which ends the game immediately if I get one wrong answer).
-- restart the game at any point during my turn.
-- win the game after successfully matching 31 consecutive randomized colors.
-- hear the winning razz once I've completed all 31 levels successfully.
+- :x: read the instructions on how to play the game.
+- :white_check_mark: test my logical memory skills by matching a progressively difficult level of a series of colorful buttons.
+- :white_check_mark: play the game using either a mouse, the keyboard, or tapping with my finger on a touch screen.
+- :white_check_mark: play the game with both visual and audio effects from the buttons and sounds.
+- :white_check_mark: be notified when I've made a mistake from the sound of an error klaxon.
+- :white_check_mark: continue playing if I've made a mistake, but repeat the previous level a bit slower.
+- :white_check_mark: play the game in either standard mode, or strict mode (which ends the game immediately if I get one wrong answer).
+- :white_check_mark: restart the game at any point during my turn.
+- :white_check_mark: win the game after successfully matching 31 consecutive randomized colors.
+- :white_check_mark: hear the winning razz once I've completed all 31 levels successfully.
 
 ### Design
 
@@ -67,7 +67,7 @@ There was no need to utilize any particular frameworks or libraries for this pro
 
 - Bootstrap / Materialize
 - CSS Grid / Flexbox
-- jQuery
+- jQuery *(exception: jasmine-jquery only for tests)*
 
 #### Color Scheme
 
@@ -77,7 +77,7 @@ There was no need to utilize any particular frameworks or libraries for this pro
 - ![#0000FF](https://placehold.it/15/0000FF/0000FF) blue button
 
 
-All of these colors are set at `:root` level within my [style.css](assets/css/styles.css) file. This also allows me to reuse my colors as a `class` across the site, instead of having to assign the colors each and every time.
+All of these colors are set at `:root` level within my [style.css](assets/css/style.css) file. This also allows me to reuse my colors as a `class` across the site, instead of having to assign the colors each and every time.
 
 #### Icons
 
@@ -129,7 +129,7 @@ In accordance to the project brief, I have successfully implemented all of the *
 - If the player doesn't make a move within 3 seconds, a klaxon will sound to signify an error. This 3 second timer resets after each move. The level will repeat again at a slower playback speed only if *Strict Mode* is not active.
 
 **Automatic Console Shut-off**:
-- If the player does not interact with the game console for a consecutive 45 seconds, the game console will automatically shut itself off. This 45 second timer does not apply when it is Simon's turn; this is to take in consideration when player's are at high levels and have made an error, Simon repeats the round at a slower speed, which nearly exhausts the entire 45 seconds of inactivity.
+- If the player does not interact with the game console for 45 consecutive seconds, the game console will automatically shut itself off. This 45 second timer does not apply when it is Simon's turn; this is to take in consideration when player's are at high levels and have made an error, Simon repeats the round at a slower speed, which nearly exhausts the entire 45 seconds of inactivity.
 
 **Winning Razz**:
 - If the player is successful enough to beat Simon's 31 levels, the traditional winning *'Razz'* will trigger. This is a combination of rapid pulses of the final color, mixed with a round of applause in order from Red, Yellow, Blue, Green on repeat, followed by the losing klaxon to signify the player has won the game!
@@ -160,7 +160,7 @@ In accordance to the project brief, I have successfully implemented all of the *
 
 ### Miscellaneous Technologies
 
-- ![Visual Studio Code](https://img.shields.io/static/v1?label=VS%20Code&message=1.36.1&color=007ACC&logo=visual%20studio%20code&logoColor=ffffff)
+- ![Visual Studio Code](https://img.shields.io/static/v1?label=VS%20Code&message=1.42.1&color=007ACC&logo=visual%20studio%20code&logoColor=ffffff)
     - [VS Code](https://code.visualstudio.com/) - Used as my primary IDE for developing projects.
 - ![GitHub](https://img.shields.io/static/v1?label=GitHub&message=TravelTimN&color=181717&logo=github&logoColor=ffffff)
     - [GitHub](https://github.com/) - Used as remote storage of my projects online.
@@ -192,7 +192,7 @@ A thorough mix of automated and manual testing have gone into building the proje
 
 **JavaScript**
 - [JShint](https://jshint.com/)
-    - File: [script.js](assets/js/script.js?raw=true)
+    - File: [script.js](assets/js/script.js)
         - METRICS:
             - There are **44** functions in this file.
             - Function with the largest signature take **1** arguments, while the median is **0**.
@@ -201,7 +201,7 @@ A thorough mix of automated and manual testing have gone into building the proje
         - UNDEFINED VARIABLE:
             - `KeyboardEvent`
 
-    - File: [simon-tests.js](testing/automated/specs/simon-tests.js?raw=true)
+    - File: [simon-tests.js](testing/automated/specs/simon-tests.js)
         - METRICS:
             - There are **91** functions in this file.
             - Function with the largest signature take **0** arguments, while the median is **0**.
@@ -232,7 +232,7 @@ To ensure a broad range of users can successfully use the site, I tested it acro
 - **Opera** (*v.62.0.3331.99*)
 - **Internet Explorer** (*v.11.885.17134.0*)
 
-I have also created a testing matrix ([raw Excel file here](testing/manual/testing-simon-matrix.xlsx?raw=true)).
+I have also created a testing matrix ([raw Excel file here](testing/manual/testing-simon-matrix.xlsx)).
 
 **Testing Matrix**
 
@@ -257,7 +257,7 @@ While passing my code through the online validators, I encountered one questiona
 
 ### Automated Testing
 
-I used [Jasmine](https://jasmine.github.io/) to build all automated tests (test-driven development). These tests can be found in the [testing/automated](testing/automated/?raw=true) folder.
+I used [Jasmine 3.5.0](https://jasmine.github.io/) in conjunction with [jasmine-jquery 2.1.1](https://www.npmjs.com/package/jasmine-jquery) to build all automated tests (test-driven development). These tests can be found in the [testing/automated](testing/automated/) folder.
 
 There are **59 tests** in my specs, all successfully passing, with **0 failures**.
 
@@ -324,7 +324,7 @@ There are **59 tests** in my specs, all successfully passing, with **0 failures*
 <summary><b>CLICK HERE</b> to see tests on the <b>Green Button</b></summary>
 
 - should exist
-- should not be *'enabled'* if the `disablePlayer()` function is called
+- should *not* be *'enabled'* if the `disablePlayer()` function is called
 - should call the `pushButton()` function if clicked during the `enablePlayer()` function
 - should have class **active** if the `enableColors()` function is called
 - should *not* have class **active** if the `disableColors()` function is called
@@ -336,7 +336,7 @@ There are **59 tests** in my specs, all successfully passing, with **0 failures*
 <summary><b>CLICK HERE</b> to see tests on the <b>Red Button</b></summary>
 
 - should exist
-- should not be *'enabled'* if the `disablePlayer()` function is called
+- should *not* be *'enabled'* if the `disablePlayer()` function is called
 - should call the `pushButton()` function if clicked during the `enablePlayer()` function
 - should have class **active** if the `enableColors()` function is called
 - should *not* have class **active** if the `disableColors()` function is called
@@ -348,7 +348,7 @@ There are **59 tests** in my specs, all successfully passing, with **0 failures*
 <summary><b>CLICK HERE</b> to see tests on the <b>Yellow Button</b></summary>
 
 - should exist
-- should not be *'enabled'* if the `disablePlayer()` function is called
+- should *not* be *'enabled'* if the `disablePlayer()` function is called
 - should call the `pushButton()` function if clicked during the `enablePlayer()` function
 - should have class **active** if the `enableColors()` function is called
 - should *not* have class **active** if the `disableColors()` function is called
@@ -360,7 +360,7 @@ There are **59 tests** in my specs, all successfully passing, with **0 failures*
 <summary><b>CLICK HERE</b> to see tests on the <b>Blue Button</b></summary>
 
 - should exist
-- should not be *'enabled'* if the `disablePlayer()` function is called
+- should *not* be *'enabled'* if the `disablePlayer()` function is called
 - should call the `pushButton()` function if clicked during the `enablePlayer()` function
 - should have class **active** if the `enableColors()` function is called
 - should *not* have class **active** if the `disableColors()` function is called
@@ -382,7 +382,7 @@ There are **59 tests** in my specs, all successfully passing, with **0 failures*
 
 ## Deployment
 
-My [simon-game repository](https://github.com/TravelTimN/simon-game/commit/a6eab2aae265c7248225227dfaaf15050112a751) was developed locally using **VS Code**, and all commits were pushed to **GitHub** using **Git**.
+My [simon-game repository](https://github.com/TravelTimN/simon-game) was developed locally using **VS Code**, and all commits were pushed to **GitHub** using **Git**.
 
 ### Local Deployment
 
@@ -393,7 +393,11 @@ In order to run this project locally on your own system, you will need the follo
 
 Next, there are a series of steps to take in order to proceed with local deployment:
 
-- Clone this GitHub repository by either clicking the green "*Clone or download*" button above (this will download the project as a zip-file, *remember to unzip it first*), or by entering the following command into the Git CLI terminal:
+Either:
+- Clone this GitHub repository by either clicking the green "*Clone or download*" button above (this will download the project as a zip-file, *remember to unzip it first*)
+
+Or:
+- by entering the following command into the Git CLI terminal:
     - `git clone https://github.com/TravelTimN/simon-game.git`
     - [Troubleshooting for **git cloning**](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository)
 
