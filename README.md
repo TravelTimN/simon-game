@@ -40,7 +40,7 @@
 
 ## UX
 
-x.
+This project is an example project for the **Interactive Front-End** module of the [Code Institute](https://codeinstitute.net/) Full Stack Software Development course. The objective for this milestone project is to "*build an interactive front-end site that should respond to users' actions, such as a data dashboard, a memory game, or use of an external API such as Google Maps*".
 
 ### User Stories
 
@@ -153,6 +153,10 @@ In accordance to the project brief, I have successfully implemented all of the *
     - [CSS3](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS3) - Used as the base for cascading styles.
 - ![JavaScript](https://img.shields.io/static/v1?label=JavaScript&message=ES6&color=F7DF1E&logo=javascript&logoColor=ffffff)
     - [JavaScript ES6](https://developer.mozilla.org/en-US/docs/Web/JavaScript) - Used as the base for game interaction.
+- ![Jasmine](https://img.shields.io/static/v1?label=Jasmine&message=3.5.0&color=8A4182)
+    - [Jasmine](https://jasmine.github.io/) - Used for Test-Driven Development (TDD).
+- ![jasmine-jquery](https://img.shields.io/static/v1?label=jasmine-jquery&message=2.1.1&color=535B9F)
+    - [jasmine-jquery](https://www.npmjs.com/package/jasmine-jquery) - Used to simplify some of the Jasmine automated tests.
 
 ### Miscellaneous Technologies
 
@@ -188,13 +192,30 @@ A thorough mix of automated and manual testing have gone into building the proje
 
 **JavaScript**
 - [JShint](https://jshint.com/)
-    - METRICS:
-        - There are **45** functions in this file.
-        - Function with the largest signature take **1** arguments, while the median is **0**.
-        - Largest function has **64** statements in it, while the median is **3**.
-        - The most complex function has a cyclomatic complexity value of **11** while the median is **1**.
-    - UNDEFINED VARIABLE:
-        - `KeyboardEvent` (used for keyboard interaction)
+    - File: [script.js](assets/js/script.js?raw=true)
+        - METRICS:
+            - There are **44** functions in this file.
+            - Function with the largest signature take **1** arguments, while the median is **0**.
+            - Largest function has **21** statements in it, while the median is **3**.
+            - The most complex function has a cyclomatic complexity value of **11** while the median is **1**.
+        - UNDEFINED VARIABLE:
+            - `KeyboardEvent`
+
+    - File: [simon-tests.js](testing/automated/specs/simon-tests.js?raw=true)
+        - METRICS:
+            - There are **91** functions in this file.
+            - Function with the largest signature take **0** arguments, while the median is **0**.
+            - Largest function has **16** statements in it, while the median is **3**.
+            - The most complex function has a cyclomatic complexity value of **2** while the median is **1**.
+        - UNDEFINED VARIABLES:
+            - `describe`
+            - `beforeEach`
+            - `it`
+            - `expect`
+            - `spyOn`
+            - `jasmine`
+            - `method`
+            - `$`
 - [Esprima](https://esprima.org/demo/validate.html)
     - Code is syntactically valid.
 
@@ -204,17 +225,18 @@ Full details about compatibility tests can be found in my [testing folder](testi
 
 To ensure a broad range of users can successfully use the site, I tested it across the 6 major browsers in both desktop and mobile configuration.
 
-- **Chrome** (*v.79.0.3945.117*)
-- **Edge** (*v.44.17763.831.0*)
-- **Firefox** (*v.73.0beta*)
+- **Chrome** (*v.80.0.3987.116*)
+- **Firefox** (*v.74.0b5* - *Developer Edition*)
+- **Edge** (*v.80.0.361.56*)
 - **Safari** (*v.12.1.2*)
 - **Opera** (*v.62.0.3331.99*)
 - **Internet Explorer** (*v.11.885.17134.0*)
 
-I have also created a testing matrix ([raw Excel file here](testing/manual-testing-simon-matrix.xlsx?raw=true)).
+I have also created a testing matrix ([raw Excel file here](testing/manual/testing-simon-matrix.xlsx?raw=true)).
 
 **Testing Matrix**
-![Testing Matrix](testing/manual/testing-matrix.png "Testing Matrix")
+
+![Testing Matrix](testing/manual/testing-simon-matrix.png?raw=true "Testing Simon Matrix")
 
 **Chrome's DevTools Audit Report**
 
@@ -226,11 +248,133 @@ I have also created a testing matrix ([raw Excel file here](testing/manual-testi
 
 ### Known Issues
 
-- x.
+![GitHub closed issues](https://img.shields.io/github/issues-closed/traveltimn/simon-game)
+
+While passing my code through the online validators, I encountered one questionable issue. I opened an *Issue* on GitHub so I could revisit this problem and resolve it later.
+
+- [KeyboardEvent.keyCode depreciated](https://github.com/TravelTimN/simon-game/issues/1)
+    - This was fixed and pushed with [commit a6eab2a](https://github.com/TravelTimN/simon-game/commit/a6eab2aae265c7248225227dfaaf15050112a751).
 
 ### Automated Testing
 
-Jasmine Testing will go here eventually.
+I used [Jasmine](https://jasmine.github.io/) to build all automated tests (test-driven development). These tests can be found in the [testing/automated](testing/automated/?raw=true) folder.
+
+There are **59 tests** in my specs, all successfully passing, with **0 failures**.
+
+![Jasmine Spec Results](testing/automated/jasmine-spec-results.png?raw=true "Jasmine Spec Results")
+
+<details>
+<summary><b>CLICK HERE</b> to see tests on the <b>Power Button</b></summary>
+
+- should exist
+- should be *'off'* by default
+- should not trigger Simon's turn *(if power=off)*
+- should trigger the **strictButton** to be *'false'* *(during power off)*
+- should call the `disablePlayer()` function *(during power off)*
+- should call the `disableStart()` function after 500ms *(during power off)*
+- should call the `disableStrict()` function after 500ms *(during power off)*
+- should call the `disableColors()` function after 500ms *(during power off)*
+- should clear the **gameSpeed interval** after 500ms *(during power off)*
+- should clear the **playerTimer timeout** after 500ms *(during power off)*
+- should trigger the **game console** to turn *'on'* if clicked
+- should call the `enableStart()` function *(during power on)*
+- should call the `enableStrict()` function *(during power on)*
+- should call the `inactiveGame()` function *(during power on)*
+- should turn the **Level Counter** *'on'* *(during power on)*
+
+</details>
+
+<details>
+<summary><b>CLICK HERE</b> to see tests on the <b>Start Button</b></summary>
+
+- should exist
+- should be *'disabled'* *(if power=off)*
+- should have a **default** cursor *(if power=off)*
+- should be *'enabled'* *(if power=on)*
+- should have a **pointer** cursor *(if power=on)*
+- should call the `enablePlay()` function if clicked
+
+</details>
+
+<details>
+<summary><b>CLICK HERE</b> to see tests on the <b>Strict Button</b></summary>
+
+- should exist
+- should be *'disabled'* *(if power=off)*
+- should have a **default** cursor *(if power=off)*
+- should be *'enabled'* *(if power=on)*
+- should have a **pointer** cursor *(if power=on)*
+- should end the game if *'enabled'* and player is **incorrect**
+
+</details>
+
+<details>
+<summary><b>CLICK HERE</b> to see tests on the <b>Level Counter</b></summary>
+
+- should exist
+- should show **ON** when the game is powered *'on'*
+- should show **01** when the game *'starts'*
+- should show **NO** if a player is *'incorrect'*
+- should show **15** when a player reaches the *'fastest'* mode
+- should show **WIN** if a player completes all *'31 levels'*
+
+</details>
+
+<details>
+<summary><b>CLICK HERE</b> to see tests on the <b>Green Button</b></summary>
+
+- should exist
+- should not be *'enabled'* if the `disablePlayer()` function is called
+- should call the `pushButton()` function if clicked during the `enablePlayer()` function
+- should have class **active** if the `enableColors()` function is called
+- should *not* have class **active** if the `disableColors()` function is called
+- should play the **greenAudio** audio file if player **isCorrect**
+
+</details>
+
+<details>
+<summary><b>CLICK HERE</b> to see tests on the <b>Red Button</b></summary>
+
+- should exist
+- should not be *'enabled'* if the `disablePlayer()` function is called
+- should call the `pushButton()` function if clicked during the `enablePlayer()` function
+- should have class **active** if the `enableColors()` function is called
+- should *not* have class **active** if the `disableColors()` function is called
+- should play the **redAudio** audio file if player **isCorrect**
+
+</details>
+
+<details>
+<summary><b>CLICK HERE</b> to see tests on the <b>Yellow Button</b></summary>
+
+- should exist
+- should not be *'enabled'* if the `disablePlayer()` function is called
+- should call the `pushButton()` function if clicked during the `enablePlayer()` function
+- should have class **active** if the `enableColors()` function is called
+- should *not* have class **active** if the `disableColors()` function is called
+- should play the **yellowAudio** audio file if player **isCorrect**
+
+</details>
+
+<details>
+<summary><b>CLICK HERE</b> to see tests on the <b>Blue Button</b></summary>
+
+- should exist
+- should not be *'enabled'* if the `disablePlayer()` function is called
+- should call the `pushButton()` function if clicked during the `enablePlayer()` function
+- should have class **active** if the `enableColors()` function is called
+- should *not* have class **active** if the `disableColors()` function is called
+- should play the **blueAudio** audio file if player **isCorrect**
+
+</details>
+
+<details>
+<summary><b>CLICK HERE</b> to see tests on the <b>'Lose' audio file</b></summary>
+
+- should exist
+- should play the **lose** audio file if player **is not correct**
+
+</details>
 
 ##### back to [top](#table-of-contents)
 
@@ -238,7 +382,7 @@ Jasmine Testing will go here eventually.
 
 ## Deployment
 
-- x.
+My [simon-game repository](https://github.com/TravelTimN/simon-game/commit/a6eab2aae265c7248225227dfaaf15050112a751) was developed locally using **VS Code**, and all commits were pushed to **GitHub** using **Git**.
 
 ### Local Deployment
 
@@ -247,18 +391,39 @@ In order to run this project locally on your own system, you will need the follo
 - [GIT](https://www.atlassian.com/git/tutorials/install-git) for cloning and version control.
 - [Microsoft Visual Studio Code](https://code.visualstudio.com) (or any suitable IDE) to develop your project.
 
-Next, there's a series of steps to take in order to proceed with local deployment:
+Next, there are a series of steps to take in order to proceed with local deployment:
 
-- Clone this GitHub repository by either clicking the green "*Clone or download*" button above in order to download the project as a zip-file (remember to unzip it first), or by entering the following command into the Git CLI terminal:
+- Clone this GitHub repository by either clicking the green "*Clone or download*" button above (this will download the project as a zip-file, *remember to unzip it first*), or by entering the following command into the Git CLI terminal:
     - `git clone https://github.com/TravelTimN/simon-game.git`
+    - [Troubleshooting for **git cloning**](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository)
 
 Congratulations! Your project should be completely setup and ready for local development! :tada:
 
 ### Remote Deployment
 
-- x
+This site was deployed using [GitHub Pages](https://pages.github.com/) using the **master branch**.
 
-Congratulations! Your project should be completely setup and ready for remote deployment! :tada:
+Deployed Site:
+- [https://traveltimn.github.io/simon-game](https://traveltimn.github.io/simon-game)
+
+Once you have the project setup locally, you can proceed to deploy it remotely with the following steps:
+
+1. Navigate to your GitHub repository:
+    - `https://github.com/USERNAME/REPO`
+2. Click on the **Settings** tab at the top:
+    - `https://github.com/USERNAME/REPO/settings`
+3. Scroll down on that page to the **GitHub Pages** section.
+4. The first drop-down field should be **Source** with *None* preselected.
+5. Select **master branch** from the list.
+6. The page should refresh.
+7. Scroll back down to the **GitHub Pages** section.
+8. You should now have a deployed link:
+    - `https://USERNAME.github.io/REPO`
+
+**IMPORTANT NOTE**:
+- Please allow a few minutes to pass before opening your newly deployed link! Clicking this link too quickly may result in a failure to build the site, causing an Error 404 page instead.
+
+Congratulations! Your project should be deployed successfully on GitHub Pages! :tada:
 
 ##### back to [top](#table-of-contents)
 
@@ -268,8 +433,8 @@ Congratulations! Your project should be completely setup and ready for remote de
 
 ### Content
 
-- [WaitingForFriday](https://www.waitingforfriday.com/?p=586) - Reverse Engineering a Simon Game.
-- *"[How to Write a Git Commit Message](https://chris.beams.io/posts/git-commit/)"* by Chris Beams *(as recommended by Code Institute assessors)*
+- [WaitingForFriday](https://www.waitingforfriday.com/?p=586) - Reverse Engineering a Simon Game. I wanted to keep the game as real to the original as possible.
+- *"[How to Write a Git Commit Message](https://chris.beams.io/posts/git-commit/)"* by Chris Beams *(as recommended by Code Institute assessors)*.
 
 ### Media
 
@@ -280,10 +445,18 @@ Congratulations! Your project should be completely setup and ready for remote de
 
 ### Code
 
-- []() - x.
+- [Jasmine Cheatsheet](https://devhints.io/jasmine) - A helpful Jasmine cheatsheet.
+- [Jasmine 'setFixtures'](https://lostechies.com/derickbailey/2011/10/14/quick-hack-to-work-around-jasmine-jquery-fixture-limitations/) - How to use `setFixtures` in Jasmine.
+- [Jasmine 'spyOn'](https://stackoverflow.com/a/9511646) - How to use `spyOn` in Jasmine.
+- [Jasmine 'createSpy' + 'createSpyObj'](https://scriptverse.academy/tutorials/jasmine-createspy-createspyobj.html) - How to use `createSpy` and `createSpyObj` in Jasmine.
+- [Jasmine 'timeouts' + 'intervals'](https://stackoverflow.com/a/50883535) - How to use `set`||`clear` + `Timeout`||`Interval` in Jasmine.
+- [Jasmine 'timeouts' + 'intervals'](https://makandracards.com/makandra/32477-testing-settimeout-and-setinterval-with-jasmine) - How to use `set`||`clear` + `Timeout`||`Interval` in Jasmine.
+- [Jasmine 'addEventListener'](https://stackoverflow.com/a/32576013) - How to use `addEventListener` in Jasmine.
+- [Jasmine 'removeEventListener'](https://stackoverflow.com/questions/43489131/jasmine-test-removeeventlistener) - How to use `removeEventListener` in Jasmine.
+- [Jasmine audio files](https://stackoverflow.com/questions/53900671/testing-htmlmediaelement-play-in-angular-7-jasmine-karma-chrome) - How to test 'audio files' in Jasmine.
 
 ### Acknowledgements
 
-- []() - x.
+- [Chris Quinn](https://github.com/10xOXR) - My accountability partner on all projects.
 
 ##### back to [top](#table-of-contents)
