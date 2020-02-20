@@ -1,3 +1,5 @@
+/* jshint esversion: 8 */
+
 describe("Simon Memory Game Testing", () => {
 
     beforeEach(() => {
@@ -260,7 +262,7 @@ describe("Simon Memory Game Testing", () => {
                 pushButton: () => {
                     pushButton();
                 }
-            }
+            };
             spyOn(method, "pushButton");
             $("#greenButton").click(method.pushButton);
             $("disablePlayer").unbind(method.pushButton);
@@ -316,7 +318,7 @@ describe("Simon Memory Game Testing", () => {
                 pushButton: () => {
                     pushButton();
                 }
-            }
+            };
             spyOn(method, "pushButton");
             $("#redButton").click(method.pushButton);
             $("disablePlayer").unbind(method.pushButton);
@@ -372,7 +374,7 @@ describe("Simon Memory Game Testing", () => {
                 pushButton: () => {
                     pushButton();
                 }
-            }
+            };
             spyOn(method, "pushButton");
             $("#yellowButton").click(method.pushButton);
             $("disablePlayer").unbind(method.pushButton);
@@ -428,7 +430,7 @@ describe("Simon Memory Game Testing", () => {
                 pushButton: () => {
                     pushButton();
                 }
-            }
+            };
             spyOn(method, "pushButton");
             $("#blueButton").click(method.pushButton);
             $("disablePlayer").unbind(method.pushButton);
