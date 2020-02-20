@@ -1,4 +1,4 @@
-/* jshint esversion: 6 */
+/* jshint esversion: 8 */
 
 const powerButton = document.querySelector("#powerButton"); // power button
 const startButton = document.querySelector("#startButton"); // start button
