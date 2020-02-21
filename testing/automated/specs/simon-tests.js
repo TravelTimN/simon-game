@@ -224,8 +224,8 @@ describe("Simon Memory Game Testing", () => {
             $("#levelCounter").text("NO");
             expect($("#levelCounter")).toHaveText("NO");
         });
-        it("should show '15' when a player reaches the fastest mode", () => {
-            let level = 15;
+        it("should show '13' when a player reaches the fastest mode", () => {
+            let level = 13;
             let isCorrect = true;
             let hasWon = false;
             spyOn(window, "check");
@@ -234,11 +234,11 @@ describe("Simon Memory Game Testing", () => {
             jasmine.clock().install();
             setTimeout(() => {
                 setTimeoutCallback();
-                $("#levelCounter").text("15");
+                $("#levelCounter").text("13");
             }, 800);
             expect(setTimeoutCallback).not.toHaveBeenCalled();
             jasmine.clock().tick(801);
-            expect($("#levelCounter")).toHaveText("15");
+            expect($("#levelCounter")).toHaveText("13");
             expect(setTimeoutCallback).toHaveBeenCalled();
             jasmine.clock().uninstall();
         });
