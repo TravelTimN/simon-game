@@ -317,7 +317,7 @@ There are **59 tests** in my specs, all successfully passing, with **0 failures*
 - should show **ON** when the game is powered *'on'*
 - should show **01** when the game *'starts'*
 - should show **NO** if a player is *'incorrect'*
-- should show **15** when a player reaches the *'fastest'* mode
+- should show **13** when a player reaches the *'fastest'* mode
 - should show **WIN** if a player completes all *'31 levels'*
 
 </details>
