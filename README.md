@@ -48,7 +48,7 @@ This project is an example project for the **Interactive Front-End** module of t
 
 - :x: read the instructions on how to play the game.
 - :white_check_mark: test my logical memory skills by matching a progressively difficult level of a series of colorful buttons.
-- :white_check_mark: play the game using either a mouse, the keyboard, or tapping with my finger on a touch screen.
+- :white_check_mark: play the game using either a mouse, the keyboard, or tapping on a touch screen.
 - :white_check_mark: play the game with both visual and audio effects from the buttons and sounds.
 - :white_check_mark: be notified when I've made a mistake from the sound of an error klaxon.
 - :white_check_mark: continue playing if I've made a mistake, but repeat the previous level a bit slower.
@@ -96,10 +96,10 @@ There was no need to utilize any particular set of icons, such as Font Awesome, 
 I built mockup concept wireframes using [Balsamiq Wireframes](https://balsamiq.com/).
 - Code Institute have provided all students with free access until the end of 2020.
 
-My wireframes for this project can be found in the [**wireframes**](assets/wireframes/?raw=true) folder.
+My wireframes for this project can be found in the [**wireframes**](assets/wireframes/) folder.
 
-- [Wireframe](assets/wireframes/simon-wireframe.bmpr/?raw=true): original `Balsamiq.bmpr` file.
-- [Wireframe](assets/wireframes/simon-wireframe.png/?raw=true): visual representation for GitHub.
+- [Wireframe](assets/wireframes/simon-wireframe.bmpr): original `Balsamiq.bmpr` file.
+- [Wireframe](assets/wireframes/simon-wireframe.png): visual representation for GitHub.
 
 ![Wireframe](assets/wireframes/simon-wireframe.png/?raw=true)
 
@@ -156,7 +156,7 @@ In accordance to the project brief, I have successfully implemented all of the *
 - ![Jasmine](https://img.shields.io/static/v1?label=Jasmine&message=3.5.0&color=8A4182)
     - [Jasmine](https://jasmine.github.io/) - Used for Test-Driven Development (TDD).
 - ![jasmine-jquery](https://img.shields.io/static/v1?label=jasmine-jquery&message=2.1.1&color=535B9F)
-    - [jasmine-jquery](https://www.npmjs.com/package/jasmine-jquery) - Used to simplify some of the Jasmine automated tests.
+    - [jasmine-jquery](https://www.npmjs.com/package/jasmine-jquery) - Used to simplify some of the automated Jasmine tests.
 
 ### Miscellaneous Technologies
 
@@ -166,6 +166,8 @@ In accordance to the project brief, I have successfully implemented all of the *
     - [GitHub](https://github.com/) - Used as remote storage of my projects online.
 - ![Balsamiq Wireframes](https://img.shields.io/static/v1?label=Balsamiq&message=3.5.17&color=CC0200)
     - [Balsamiq](https://balsamiq.com/) - Used to bring my wireframes to life.
+- ![Audacity](https://img.shields.io/static/v1?label=Audacity&message=2.0.6&color=0000C0)
+    - [Audacity](http://audacity.sourceforge.net/) - Used to record my own audio files.
 
 ##### back to [top](#table-of-contents)
 
@@ -221,7 +223,7 @@ A thorough mix of automated and manual testing have gone into building the proje
 
 ### Compatibility
 
-Full details about compatibility tests can be found in my [testing folder](testing/?raw=true), which includes results from Chrome's DevTools Audit report as well.
+Full details about compatibility tests can be found in my [testing folder](testing/), which includes results from Chrome's DevTools Audit report as well.
 
 To ensure a broad range of users can successfully use the site, I tested it across the 6 major browsers in both desktop and mobile configuration.
 
@@ -391,14 +393,18 @@ In order to run this project locally on your own system, you will need the follo
 - [GIT](https://www.atlassian.com/git/tutorials/install-git) for cloning and version control.
 - [Microsoft Visual Studio Code](https://code.visualstudio.com) (or any suitable IDE) to develop your project.
 
-Next, there are a series of steps to take in order to proceed with local deployment:
+Next, to proceed with local deployment, you can...
 
-Either:
-- Clone this GitHub repository by either clicking the green "*Clone or download*" button above (this will download the project as a zip-file, *remember to unzip it first*)
+EITHER:
+- **Download** this GitHub repository
+    - by clicking the green "*Clone or download*" button above.
+    - select *Download Zip*.
+    - this will download the project as a zip-file (*remember to unzip it first*).
 
-Or:
-- by entering the following command into the Git CLI terminal:
-    - `git clone https://github.com/TravelTimN/simon-game.git`
+OR:
+- **Clone** this GitHub repository
+    - by entering the following command into the Git CLI terminal:
+        - `git clone https://github.com/TravelTimN/simon-game.git`
     - [Troubleshooting for **git cloning**](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository)
 
 Congratulations! Your project should be completely setup and ready for local development! :tada:
@@ -447,8 +453,15 @@ Congratulations! Your project should be deployed successfully on GitHub Pages! :
 - [TinyPNG](https://tinypng.com/) - Online Image Compressor.
 - [Shields.io](https://shields.io) - Markdown badges for README.
 
+All audio files were created by me. These files are not to be used without proper attribution, acknowledgment, and credit to this repository. You must specify that audio files were obtained from my repository, for example:
+
+- Audio files were obtained with approval from [https://github.com/TravelTimN/simon-game](https://github.com/TravelTimN/simon-game)
+
+You are, however, welcome to generate your own audio files using the same methods and tools that I used, but the use of my files should be attributed if you use them for your own project(s).
+
 ### Code
 
+- [Jasmine QRG](https://github.com/TravelTimN/ci-ifd-lead/blob/master/week5-jasmine/jasmine.md) - My Quick Reference Guide as CI IFD_lead.
 - [Jasmine Cheatsheet](https://devhints.io/jasmine) - A helpful Jasmine cheatsheet.
 - [Jasmine 'setFixtures'](https://lostechies.com/derickbailey/2011/10/14/quick-hack-to-work-around-jasmine-jquery-fixture-limitations/) - How to use `setFixtures` in Jasmine.
 - [Jasmine 'spyOn'](https://stackoverflow.com/a/9511646) - How to use `spyOn` in Jasmine.
