@@ -17,6 +17,10 @@ const blueButton = document.querySelector("#blueButton"); // blue button
 const blueAudio = document.querySelector("#blueAudio"); // blue audio file
 const loseAudio = document.querySelector("#loseAudio"); // lose audio file
 const gameConsole = document.querySelector("#outer-circle"); // game console
+// const infoModal = document.querySelector("#info-modal"); // info-modal
+// const infoModalClose = document.querySelector("#info-modal-close"); // info-modal-close
+// const winModal = document.querySelector("#win-modal"); // win-modal
+// const winModalClose = document.querySelector("#win-modal-close"); // win-modal-close
 
 
 let isOn = false; // game begins powered off
@@ -457,6 +461,8 @@ function enableRazz() {
                 disableColors();
                 announce.classList.remove("announce");
                 announce.innerHTML = "";
+                // winModal.classList.add("show");
+                // winModal.classList.remove("remove");
             }, 800); // play lose buzzer for 0.8s
             startButton.checked = false; // turn start button off
             enableStart(); // allow the user to play again
@@ -523,3 +529,9 @@ function pushButton(e) {
         }
     }
 }
+
+// winModalClose.addEventListener("click", closeModal);
+// function closeModal() {
+//     winModal.classList.add("hide");
+//     winModal.classList.remove("show");
+// }
