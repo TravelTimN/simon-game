@@ -558,6 +558,54 @@ input:checked+.slider::before {transform: translateX(29px);}
     100% {transform: scale(1); opacity: 0;}
 }
 
+/* ----- MODALS ----- */
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    border-radius: 50%;
+    border: 5px solid rgba(var(--white), 0.5);
+    height: calc(var(--size) + 1px);
+    width: calc(var(--size) + 1px);
+    margin: calc((var(--size) / 2 - -5px) * -1) 0 0 calc((var(--size) / 2 - -5px) * -1);
+    background-color: rgba(var(--black), 0.9);
+}
+
+.modal-close {
+    color: rgba(var(--white), 1);
+    position: absolute;
+    top: 2.5%;
+    left: 90%;
+    font-size: 5vh;
+    cursor: pointer;
+}
+
+.modal-header {
+    position: absolute;
+    height: 90%;
+    width: 90%;
+    text-align: center;
+    align-self: center;
+    justify-items: center;
+    padding: 5%;
+    top: 50%;
+    color: rgba(var(--white), 1);
+}
+
+.remove {display: none;}
+
+.hide {animation: modalFadeOut 1s forwards;}
+@keyframes modalFadeOut {
+    0% {opacity: 1; display: block; z-index: 15;}
+    100% {opacity: 0; display: none; z-index: -1;}
+}
+
+.show {animation: modalFadeIn 1s forwards;}
+@keyframes modalFadeIn {
+    0% {opacity: 0; display: none; z-index: -1;}
+    100% {opacity: 1; display: block; z-index: 15;}
+}
+
 /* ----- MEDIA QUERIES ----- */
 @media (min-width: 700px) {
     :root {--size: 90vh;} /* reset root 'size' variable */
@@ -569,4 +617,5 @@ input:checked+.slider::before {transform: translateX(29px);}
     #levelCounter {font-size: 2.5em; top: calc(50% - 20px); left: calc(50% - 26px);}
     #levelCounter.on {font-size: 2.5em; top: calc(50% - 20px); left: calc(50% - 30px);}
     #levelCounter.win {font-size: 2em; top: calc(50% - 15px); left: calc(50% - 35px);}
+    .modal-close {font-size: 5vw;}
 }
