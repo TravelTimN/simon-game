@@ -563,12 +563,13 @@ input:checked+.slider::before {transform: translateX(29px);}
     position: absolute;
     top: 50%;
     left: 50%;
-    border-radius: 50%;
-    border: 5px solid rgba(var(--white), 0.5);
     height: calc(var(--size) + 1px);
     width: calc(var(--size) + 1px);
     margin: calc((var(--size) / 2 - -5px) * -1) 0 0 calc((var(--size) / 2 - -5px) * -1);
-    background-color: rgba(var(--black), 0.9);
+    border-radius: 50%;
+    border: 5px solid rgba(var(--black), 1);
+    background-color: rgba(var(--white), 0.85);
+    box-shadow: 0 0 0 10px rgba(var(--white), 0.5);
 }
 
 .modal-close {
@@ -585,11 +586,11 @@ input:checked+.slider::before {transform: translateX(29px);}
     height: 90%;
     width: 90%;
     text-align: center;
-    align-self: center;
-    justify-items: center;
     padding: 5%;
-    top: 50%;
-    color: rgba(var(--white), 1);
+    top: 25%;
+    color: rgba(var(--black), 1);
+    font-size: 5vw;
+    font-weight: bolder;
 }
 
 .remove {display: none;}
