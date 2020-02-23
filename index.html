@@ -17,46 +17,68 @@
 
 <body>
 
+    <!-- outer circle -->
     <div id="outer-circle">
         <div id="greenButton" class="color-button" data-color="green"></div>
         <div id="redButton" class="color-button" data-color="red"></div>
         <div id="yellowButton" class="color-button" data-color="yellow"></div>
         <div id="blueButton" class="color-button" data-color="blue"></div>
 
+        <!-- inner circle -->
         <div id="inner-circle">
             <div id="simon">
                 <div id="memoryGame"></div>
             </div>
+            <!-- power button -->
             <label class="powerButton">
                 <input type="checkbox" id="powerButton" aria-labelledby="powerButton">
                 <span class="slider round"></span>
                 <span class="powerOff">OFF</span>
                 <span class="powerOn">ON</span>
             </label>
+            <!-- start button -->
             <div class="checkbox-round startButton">
                 <input type="checkbox" id="startButton" aria-labelledby="startButton">
                 <label for="startButton"></label>
             </div>
+            <!-- strict button -->
             <div class="checkbox-round strictButton">
                 <input type="checkbox" id="strictButton" aria-labelledby="strictButton">
                 <label for="strictButton"></label>
             </div>
+            <!-- level counter + announcer -->
             <div id="levelCounter"></div>
             <div id="announce"></div>
         </div>
 
-        <!-- <div id="info-modal" class="modal remove">
+        <!-- info modal -->
+        <div id="info-modal" class="modal remove">
             <div id="info-modal-close" class="modal-close">⊗</div>
             <div id="info-modal-header" class="modal-header">Info</div>
-        </div> -->
+        </div>
 
-        <!-- <div id="win-modal" class="modal remove">
+        <!-- lose modal -->
+        <div id="lose-modal" class="modal remove">
+            <div id="lose-modal-close" class="modal-close">⊗</div>
+            <div id="lose-modal-header" class="modal-header">
+                Sorry!<br>You got to<br>
+                Level <span id="levelEnd"></span>
+                <br>Game Over
+            </div>
+        </div>
+
+        <!-- win modal -->
+        <div id="win-modal" class="modal remove">
             <div id="win-modal-close" class="modal-close">⊗</div>
-            <div id="win-modal-header" class="modal-header">Win</div>
-        </div> -->
+            <div id="win-modal-header" class="modal-header">
+                You won in<br>
+                <span id="gameMins"></span>m<span id="gameSecs"></span>s!
+            </div>
+        </div>
 
     </div>
 
+    <!-- audio files -->
     <audio id="greenAudio" data-color="green"><source src="assets/sounds/green.mp3" type="audio/mpeg"></audio>
     <audio id="redAudio" data-color="red"><source src="assets/sounds/red.mp3" type="audio/mpeg"></audio>
     <audio id="yellowAudio" data-color="yellow"><source src="assets/sounds/yellow.mp3" type="audio/mpeg"></audio>
