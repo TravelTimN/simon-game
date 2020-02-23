@@ -17,10 +17,16 @@ const blueButton = document.querySelector("#blueButton"); // blue button
 const blueAudio = document.querySelector("#blueAudio"); // blue audio file
 const loseAudio = document.querySelector("#loseAudio"); // lose audio file
 const gameConsole = document.querySelector("#outer-circle"); // game console
-// const infoModal = document.querySelector("#info-modal"); // info-modal
-// const infoModalClose = document.querySelector("#info-modal-close"); // info-modal-close
-// const winModal = document.querySelector("#win-modal"); // win-modal
-// const winModalClose = document.querySelector("#win-modal-close"); // win-modal-close
+const infoModal = document.querySelector("#info-modal"); // info-modal
+const winModal = document.querySelector("#win-modal"); // win-modal
+const loseModal = document.querySelector("#lose-modal"); // lose-modal
+const modalCloseBtn = document.querySelectorAll(".modal-close"); // modal close button
+const infoModalClose = document.querySelector("#info-modal-close"); // info-modal-close
+const winModalClose = document.querySelector("#win-modal-close"); // win-modal-close
+const loseModalClose = document.querySelector("#lose-modal-close"); // lose-modal-close
+const gameMins = document.querySelector("#gameMins"); // game length minutes span
+const gameSecs = document.querySelector("#gameSecs"); // game length seconds span
+const levelEnd = document.querySelector("#levelEnd"); // game level-end span
 
 
 let isOn = false; // game begins powered off
@@ -38,6 +44,10 @@ let hardSpeed = 220; // levels 13+ play at 0.22s
 let level = 0; // level increases as you play
 let gameSpeed; // game speed
 let gameTimer; // 45second inactive power off
+let gameLength; // length of game
+let seconds = 0; // game length in seconds
+let minsCalc; // calculation of minutes
+let secsCalc; // calculation of seconds
 let simonTurn; // Simon's turn to play
 let flash; // flash is number of times we've flashed a color
 let playerOrder = []; // player's order
@@ -173,6 +183,7 @@ function powerOn() {
 
 // power off the game console
 function powerOff() {
+    clearInterval(gameLength);
     simonTurn = false; // stop Simon if playing current round
     disablePlayer();
     powerButton.disabled = true;
@@ -207,6 +218,13 @@ powerButton.addEventListener("click", () => {
 });
 
 
+// game length timer
+function startTimer() {
+    seconds = 0;
+    gameLength = setInterval(() => seconds++, 1000);
+}
+
+
 // turn the game off if no interaction within 45seconds
 function inactiveGame() {
     clearTimeout(gameTimer);
@@ -218,6 +236,7 @@ function inactiveGame() {
 startButton.addEventListener("click", () => {
     if (isOn || hasWon) {
         enablePlay();
+        startTimer();
         if (!startButton.checked) startButton.checked = true; // only switch off if game is not active
     }
 });
@@ -377,9 +396,14 @@ function enableLose() {
         announce.classList.remove("announce");
         announce.innerHTML = "";
         if (isStrict) { // strict mode - don't repeat level
+            clearInterval(gameLength);
             disablePlayer();
             enableStart();
             startButton.checked = false;
+            // lose modal showing the level achieved
+            loseModal.classList.add("show");
+            loseModal.classList.remove("remove");
+            levelEnd.innerHTML = (level <= 9) ? `0${level}` : level;
         } else { // normal mode - repeat mode at lower speed
             simonTurn = true;
             flash = 0;
@@ -393,6 +417,9 @@ function enableLose() {
 
 // enable win functionality
 function enableWin() {
+    clearInterval(gameLength);
+    minsCalc = Math.floor(seconds / 60); // get total minutes from 'seconds'
+    secsCalc = (seconds % 60 <= 9) ? `0${seconds % 60}` : seconds % 60; // get remaining 'seconds'
     disableSounds();
     disablePlayer();
     levelCounter.innerHTML = "WIN";
@@ -461,8 +488,11 @@ function enableRazz() {
                 disableColors();
                 announce.classList.remove("announce");
                 announce.innerHTML = "";
-                // winModal.classList.add("show");
-                // winModal.classList.remove("remove");
+                // win modal showing gameLength calculated
+                winModal.classList.add("show");
+                winModal.classList.remove("remove");
+                gameMins.innerHTML = minsCalc;
+                gameSecs.innerHTML = secsCalc;
             }, 800); // play lose buzzer for 0.8s
             startButton.checked = false; // turn start button off
             enableStart(); // allow the user to play again
@@ -530,8 +560,13 @@ function pushButton(e) {
     }
 }
 
-// winModalClose.addEventListener("click", closeModal);
-// function closeModal() {
-//     winModal.classList.add("hide");
-//     winModal.classList.remove("show");
-// }
+// closing the modals
+modalCloseBtn.forEach((modal) => {
+    modal.addEventListener("click", closeModal);
+});
+function closeModal() {
+    winModal.classList.add("hide");
+    winModal.classList.remove("show");
+    loseModal.classList.add("hide");
+    loseModal.classList.remove("show");
+}
