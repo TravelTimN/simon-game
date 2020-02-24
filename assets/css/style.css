@@ -570,7 +570,7 @@ input:checked+.slider::before {transform: translateX(29px);}
     border-radius: 50%;
     border: 5px solid rgba(var(--black), 1);
     background-color: rgba(var(--black), 0.85);
-    box-shadow: 0 0 0 10px rgba(var(--white), 0.75);
+    box-shadow: 0 0 0 10px rgba(var(--white), 1);
 }
 
 .modal-close {
@@ -581,6 +581,8 @@ input:checked+.slider::before {transform: translateX(29px);}
     font-size: 5vh;
     cursor: pointer;
 }
+
+.modal-close::after {content: "⊗";}
 
 .modal-header {
     display: flex;

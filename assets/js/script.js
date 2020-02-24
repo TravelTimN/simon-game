@@ -34,7 +34,7 @@ let simonOrder = []; // random numbers (1-4)
 let colors = ["green", "red", "yellow", "blue"]; // array of colors
 let colorAudio; // matching color to audio
 let colorButton; // which button is played
-let rounds = 1; // number of rounds to win
+let rounds = 31; // number of rounds to win
 let easy = 5; // levels 1-5 are 'easy'
 let easySpeed = 420; // levels 1-5 play at 0.42s
 let medium = 13; // levels 6-13 are 'medium' // levels 13-31 are 'hard'
