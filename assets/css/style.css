@@ -1,10 +1,11 @@
 /* ----- IMPORTS ----- */
-@import url("https://fonts.googleapis.com/css?family=Original+Surfer|Press+Start+2P|Quantico|Sarpanch&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Luckiest+Guy|Original+Surfer|Press+Start+2P|Quantico|Sarpanch&display=swap");
 
 /* ----- :ROOT VARS ----- */
 :root {
+    --fontLuckiesGuy: "Luckiest Guy", sans-serif;
     --fontOriginalSurfer: "Original Surfer", sans-serif;
-    --fontPressStart: "Press Start 2P", sans-serif, cursive;
+    --fontPressStart: "Press Start 2P", sans-serif;
     --fontSarpanch: "Sarpanch", sans-serif;
     --fontQuantico: "Quantico", sans-serif;
     --green: 0, 128, 0; /* #008000 */
@@ -568,8 +569,8 @@ input:checked+.slider::before {transform: translateX(29px);}
     margin: calc((var(--size) / 2 - -5px) * -1) 0 0 calc((var(--size) / 2 - -5px) * -1);
     border-radius: 50%;
     border: 5px solid rgba(var(--black), 1);
-    background-color: rgba(var(--white), 0.85);
-    box-shadow: 0 0 0 10px rgba(var(--white), 0.5);
+    background-color: rgba(var(--black), 0.85);
+    box-shadow: 0 0 0 10px rgba(var(--white), 0.75);
 }
 
 .modal-close {
@@ -582,29 +583,56 @@ input:checked+.slider::before {transform: translateX(29px);}
 }
 
 .modal-header {
-    position: absolute;
-    height: 90%;
-    width: 90%;
+    display: flex;
     text-align: center;
-    padding: 5%;
-    top: 25%;
-    color: rgba(var(--black), 1);
-    font-size: 5vw;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    color: rgba(var(--white), 1);
+    font-size: 13vw;
     font-weight: bolder;
+    font-family: var(--fontLuckiesGuy);
+    text-shadow: 0 -6px 0 rgba(var(--black), 1),
+                0 6px 0 rgba(var(--black), 1),
+                -6px 0 0 rgba(var(--black), 1),
+                6px 0 0 rgba(var(--black), 1),
+                -6px -6px 0 rgba(var(--black), 1),
+                6px -6px 0 rgba(var(--black), 1),
+                -6px 6px 0 rgba(var(--black), 1),
+                6px 6px 0 rgba(var(--black), 1),
+                -6px 18px 0 rgba(var(--black), 1),
+                0 18px 0 rgba(var(--black), 1),
+                6px 18px 0 rgba(var(--black), 1),
+                0 19px 1px rgba(var(--black), 0.1),
+                0 0 6px rgba(var(--black), 0.1),
+                0 6px 3px rgba(var(--black), 0.3),
+                0 12px 6px rgba(var(--black), 0.2),
+                0 18px 18px rgba(var(--black), 0.25),
+                0 24px 24px rgba(var(--black), 0.2),
+                0 36px 36px rgba(var(--black), 0.15);
 }
 
 .remove {display: none;}
-
 .hide {animation: modalFadeOut 1s forwards;}
 @keyframes modalFadeOut {
     0% {opacity: 1; display: block; z-index: 15;}
     100% {opacity: 0; display: none; z-index: -1;}
 }
 
-.show {animation: modalFadeIn 1s forwards;}
+.show {animation: modalFadeIn 1s forwards, bgColor 12s infinite;}
 @keyframes modalFadeIn {
     0% {opacity: 0; display: none; z-index: -1;}
     100% {opacity: 1; display: block; z-index: 15;}
+}
+
+@keyframes bgColor {
+    0% {background: rgba(var(--green), 0.85);}
+    25% {background: rgba(var(--red), 0.85);}
+    50% {background: rgba(var(--yellow), 0.85);}
+    75% {background: rgba(var(--blue), 0.85);}
+    100% {background: rgba(var(--green), 0.85);}
 }
 
 /* ----- MEDIA QUERIES ----- */
@@ -618,5 +646,6 @@ input:checked+.slider::before {transform: translateX(29px);}
     #levelCounter {font-size: 2.5em; top: calc(50% - 20px); left: calc(50% - 26px);}
     #levelCounter.on {font-size: 2.5em; top: calc(50% - 20px); left: calc(50% - 30px);}
     #levelCounter.win {font-size: 2em; top: calc(50% - 15px); left: calc(50% - 35px);}
+    .modal-header {font-size: 13vh;}
     .modal-close {font-size: 5vw;}
 }

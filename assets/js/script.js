@@ -24,8 +24,7 @@ const modalCloseBtn = document.querySelectorAll(".modal-close"); // modal close 
 const infoModalClose = document.querySelector("#info-modal-close"); // info-modal-close
 const winModalClose = document.querySelector("#win-modal-close"); // win-modal-close
 const loseModalClose = document.querySelector("#lose-modal-close"); // lose-modal-close
-const gameMins = document.querySelector("#gameMins"); // game length minutes span
-const gameSecs = document.querySelector("#gameSecs"); // game length seconds span
+const gameTime = document.querySelector("#gameTime"); // game length time span
 const levelEnd = document.querySelector("#levelEnd"); // game level-end span
 
 
@@ -35,7 +34,7 @@ let simonOrder = []; // random numbers (1-4)
 let colors = ["green", "red", "yellow", "blue"]; // array of colors
 let colorAudio; // matching color to audio
 let colorButton; // which button is played
-let rounds = 31; // number of rounds to win
+let rounds = 1; // number of rounds to win
 let easy = 5; // levels 1-5 are 'easy'
 let easySpeed = 420; // levels 1-5 play at 0.42s
 let medium = 13; // levels 6-13 are 'medium' // levels 13-31 are 'hard'
@@ -403,7 +402,7 @@ function enableLose() {
             // lose modal showing the level achieved
             loseModal.classList.add("show");
             loseModal.classList.remove("remove");
-            levelEnd.innerHTML = (level <= 9) ? `0${level}` : level;
+            levelEnd.innerHTML = (level <= 9) ? `Level 0${level}` : `Level ${level}`;
         } else { // normal mode - repeat mode at lower speed
             simonTurn = true;
             flash = 0;
@@ -491,8 +490,7 @@ function enableRazz() {
                 // win modal showing gameLength calculated
                 winModal.classList.add("show");
                 winModal.classList.remove("remove");
-                gameMins.innerHTML = minsCalc;
-                gameSecs.innerHTML = secsCalc;
+                gameTime.innerHTML = `${minsCalc}m : ${secsCalc}s`;
             }, 800); // play lose buzzer for 0.8s
             startButton.checked = false; // turn start button off
             enableStart(); // allow the user to play again
