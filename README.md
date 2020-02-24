@@ -85,11 +85,12 @@ There was no need to utilize any particular set of icons, such as Font Awesome, 
 
 #### Typography
 
-- 4 [Google Fonts](https://fonts.google.com/) were used across the site:
+- 5 [Google Fonts](https://fonts.google.com/) were used across the site:
     - [Original Surfer](https://fonts.google.com/specimen/Original+Surfer) : main body text.
     - [Press Start 2P](https://fonts.google.com/specimen/Press+Start+2P) : button letters (RGBY).
     - [Quantico](https://fonts.google.com/specimen/Quantico) : counter and announcements.
     - [Sarpanch](https://fonts.google.com/specimen/Sarpanch) : game logo text.
+    - [Luckiest Guy](https://fonts.google.com/specimen/Luckiest+Guy00) : all modal text
 
 ### Wireframes
 
