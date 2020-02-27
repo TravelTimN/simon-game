@@ -127,7 +127,7 @@ In accordance to the project brief, I have successfully implemented all of the *
 - At any point during their turn, player's can opt to restart the game for a new randomized series of colors.
 
 **Player Timeout**:
-- If the player doesn't make a move within 3 seconds, a klaxon will sound to signify an error. This 3 second timer resets after each move. The level will repeat again at a slower playback speed only if *Strict Mode* is not active.
+- If the player doesn't make a move within 5 seconds, a klaxon will sound to signify an error. This 5 second timer resets after each move. The level will repeat again at a slower playback speed only if *Strict Mode* is not active.
 
 **Automatic Console Shut-off**:
 - If the player does not interact with the game console for 45 consecutive seconds, the game console will automatically shut itself off. This 45 second timer does not apply when it is Simon's turn; this is to take in consideration when player's are at high levels and have made an error, Simon repeats the round at a slower speed, which nearly exhausts the entire 45 seconds of inactivity.
