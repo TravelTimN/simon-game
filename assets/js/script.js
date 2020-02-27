@@ -18,12 +18,10 @@ const blueAudio = document.querySelector("#blueAudio"); // blue audio file
 const loseAudio = document.querySelector("#loseAudio"); // lose audio file
 const gameConsole = document.querySelector("#outer-circle"); // game console
 const infoModal = document.querySelector("#info-modal"); // info-modal
+const infoBtn = document.querySelector("#info"); // info button
 const winModal = document.querySelector("#win-modal"); // win-modal
 const loseModal = document.querySelector("#lose-modal"); // lose-modal
 const modalCloseBtn = document.querySelectorAll(".modal-close"); // modal close button
-const infoModalClose = document.querySelector("#info-modal-close"); // info-modal-close
-const winModalClose = document.querySelector("#win-modal-close"); // win-modal-close
-const loseModalClose = document.querySelector("#lose-modal-close"); // lose-modal-close
 const gameTime = document.querySelector("#gameTime"); // game length time span
 const levelEnd = document.querySelector("#levelEnd"); // game level-end span
 
@@ -55,15 +53,136 @@ let isCorrect; // check if player is correct
 let hasWon; // has the player won?
 
 
+// enable Info Button
+function enableInfo() {
+    infoBtn.classList.add("add");
+    infoBtn.classList.remove("remove");
+    infoBtn.style.cursor = "pointer";
+}
+
+
+// disable Info Button
+function disableInfo() {
+    infoBtn.classList.add("remove");
+    infoBtn.classList.remove("add");
+    infoBtn.style.cursor = "default";
+}
+
+
+// show the Info Modal
+infoBtn.addEventListener("click", showInfoModal);
+function showInfoModal() {
+    disableInfo();
+    infoModal.classList.add("show");
+    infoModal.classList.remove("remove");
+}
+
+
+// closing all of the modals
+modalCloseBtn.forEach((modal) => {
+    modal.addEventListener("click", closeModal);
+});
+function closeModal() {
+    infoModal.classList.add("hide");
+    infoModal.classList.remove("show");
+    winModal.classList.add("hide");
+    winModal.classList.remove("show");
+    loseModal.classList.add("hide");
+    loseModal.classList.remove("show");
+    if (!powerButton.checked) {
+        setTimeout(() => {
+            enableInfo();
+        }, 400);
+    }
+}
+
+
 // initial load of page, buttons shouldn't be active until game is on
 disableStart();
 disableStrict();
 
 
-// disables the start button
-function disableStart() {
-    startButton.setAttribute("disabled", "disabled");
-    startButtonLabel.style.cursor = "default";
+// power the game on|off with appropriate functions
+powerButton.addEventListener("click", () => {
+    if (powerButton.checked) {
+        powerOn();
+    } else {
+        powerOff();
+    }
+});
+
+
+// power on the game console
+function powerOn() {
+    levelCounter.className = ""; // clear all classes
+    levelCounter.classList.add("on"); // add class 'on'
+    levelCounter.innerHTML = "ON";
+    enableStart();
+    enableStrict();
+    isOn = true;
+    inactiveGame();
+    disableInfo();
+    gameConsole.addEventListener("click", inactiveGame); // game console inactivity
+    window.addEventListener("keydown", inactiveGame); // game console inactivity
+}
+
+
+// power off the game console
+function powerOff() {
+    clearInterval(gameLength);
+    simonTurn = false; // stop Simon if playing current round
+    disablePlayer();
+    powerButton.disabled = true;
+    setTimeout(() => {
+        powerButton.checked = false;
+        startButton.checked = false;
+        strictButton.checked = false;
+        levelCounter.innerHTML = "";
+        levelCounter.className = ""; // clear all classes
+        enableInfo();
+        disableStart();
+        disableStrict();
+        disableColors();
+        disableSounds();
+        clearInterval(gameSpeed);
+        isOn = false;
+        isStrict = false;
+        clearTimeout(playerTimer); // restart the player timer
+    }, 500); // delay power-off - allow Simon to play last move
+    setTimeout(() => {
+        powerButton.disabled = false; // temporarily disable power button
+    }, 1000);
+}
+
+
+// play the game if 'isOn' or 'hasWon'
+startButton.addEventListener("click", () => {
+    if (isOn || hasWon) {
+        enablePlay();
+        startTimer();
+        if (!startButton.checked) startButton.checked = true; // only switch off if game is not active
+    }
+});
+
+
+// game length timer
+function startTimer() {
+    seconds = 0;
+    gameLength = setInterval(() => seconds++, 1000);
+}
+
+
+// player's get 5 seconds per move
+function resetTimer() {
+    clearTimeout(playerTimer);
+    playerTimer = setTimeout(enableLose, 5000);
+}
+
+
+// turn the game off if no interaction within 45seconds
+function inactiveGame() {
+    clearTimeout(gameTimer);
+    gameTimer = setTimeout(powerOff, 45000);
 }
 
 
@@ -74,17 +193,28 @@ function enableStart() {
 }
 
 
-// disable the strict button
-function disableStrict() {
-    strictButton.setAttribute("disabled", "disabled");
-    strictButtonLabel.style.cursor = "default";
+// disables the start button
+function disableStart() {
+    startButton.setAttribute("disabled", "disabled");
+    startButtonLabel.style.cursor = "default";
 }
+
+
+// toggle strict button true/false
+strictButton.addEventListener("click", () => isStrict = strictButton.checked);
 
 
 // enable the strict button
 function enableStrict() {
     strictButton.removeAttribute("disabled");
     strictButtonLabel.style.cursor = "pointer";
+}
+
+
+// disable the strict button
+function disableStrict() {
+    strictButton.setAttribute("disabled", "disabled");
+    strictButtonLabel.style.cursor = "default";
 }
 
 
@@ -117,15 +247,6 @@ function enablePlayer() {
 }
 
 
-// pause the colored buttons' audio so another audio can play (no echoing)
-function disableSounds() {
-    greenAudio.pause();
-    redAudio.pause();
-    yellowAudio.pause();
-    blueAudio.pause();
-}
-
-
 // disable 'active' class for colored buttons flashing
 function disableColors() {
     greenButton.classList.remove("active");
@@ -141,6 +262,15 @@ function enableColors() {
     redButton.classList.add("active");
     yellowButton.classList.add("active");
     blueButton.classList.add("active");
+}
+
+
+// pause the colored buttons' audio so another audio can play (no echoing)
+function disableSounds() {
+    greenAudio.pause();
+    redAudio.pause();
+    yellowAudio.pause();
+    blueAudio.pause();
 }
 
 
@@ -162,85 +292,6 @@ function audioLength() {
 }
 
 
-// toggle strict button true/false
-strictButton.addEventListener("click", () => isStrict = strictButton.checked);
-
-
-// power on the game console
-function powerOn() {
-    levelCounter.className = ""; // clear all classes
-    levelCounter.classList.add("on"); // add class 'on'
-    levelCounter.innerHTML = "ON";
-    enableStart();
-    enableStrict();
-    isOn = true;
-    inactiveGame();
-    gameConsole.addEventListener("click", inactiveGame); // game console inactivity
-    window.addEventListener("keydown", inactiveGame); // game console inactivity
-}
-
-
-// power off the game console
-function powerOff() {
-    clearInterval(gameLength);
-    simonTurn = false; // stop Simon if playing current round
-    disablePlayer();
-    powerButton.disabled = true;
-    setTimeout(() => {
-        powerButton.checked = false;
-        startButton.checked = false;
-        strictButton.checked = false;
-        levelCounter.innerHTML = "";
-        levelCounter.className = ""; // clear all classes
-        disableStart();
-        disableStrict();
-        disableColors();
-        disableSounds();
-        clearInterval(gameSpeed);
-        isOn = false;
-        isStrict = false;
-        clearTimeout(playerTimer); // restart the player timer
-    }, 500); // delay power-off - allow Simon to play last move
-    setTimeout(() => {
-        powerButton.disabled = false; // temporarily disable power button
-    }, 1000);
-}
-
-
-// power the game on|off with appropriate functions
-powerButton.addEventListener("click", () => {
-    if (powerButton.checked) {
-        powerOn();
-    } else {
-        powerOff();
-    }
-});
-
-
-// game length timer
-function startTimer() {
-    seconds = 0;
-    gameLength = setInterval(() => seconds++, 1000);
-}
-
-
-// turn the game off if no interaction within 45seconds
-function inactiveGame() {
-    clearTimeout(gameTimer);
-    gameTimer = setTimeout(powerOff, 45000);
-}
-
-
-// play the game if 'isOn' or 'hasWon'
-startButton.addEventListener("click", () => {
-    if (isOn || hasWon) {
-        enablePlay();
-        startTimer();
-        if (!startButton.checked) startButton.checked = true; // only switch off if game is not active
-    }
-});
-
-
 // the game play
 function enablePlay() {
     simonTurn = true; // Simon starts each round
@@ -257,15 +308,8 @@ function enablePlay() {
         let randomColor = colors[Math.floor(Math.random() * colors.length)];
         simonOrder.push(randomColor);
     }
-    console.log(simonOrder); // temporarily on to test higher levels ( DELETE LATER )
+    console.log(simonOrder); // demo for testing higher levels
     gameSpeed = setInterval(gameTurn, 500); // start the game after 0.5s
-}
-
-
-// player's get 3 seconds per move
-function resetTimer() {
-    clearTimeout(playerTimer);
-    playerTimer = setTimeout(enableLose, 3000);
 }
 
 
@@ -313,6 +357,74 @@ function gameTurn() {
         colorButton.classList.add("active");
         audioLength();
         flash++;
+    }
+}
+
+
+// whether a keystroke is pushed or the button clicked
+function pushButton(e) {
+    if (isOn && e.isTrusted) {
+        let btnKey = "";
+        let doCheck = false;
+        if (e instanceof KeyboardEvent) {
+            // keyboard event only for corresponding colors
+            switch (e.code) {
+                case "KeyG": // allows "G" or "g"
+                    btnKey = "green";
+                    doCheck = true;
+                    break;
+                case "KeyR": // allows "R" or "r"
+                    btnKey = "red";
+                    doCheck = true;
+                    break;
+                case "KeyY": // allows "Y" or "y"
+                    btnKey = "yellow";
+                    doCheck = true;
+                    break;
+                case "KeyB": // allows "B" or "b"
+                    btnKey = "blue";
+                    doCheck = true;
+                    break;
+            }
+        } else if (e instanceof MouseEvent) {
+            // click event per button color
+            btnKey = this.dataset.color;
+            doCheck = true;
+        }
+        if (doCheck) {
+            playerOrder.push(btnKey); // push color onto playerOrder array
+            check(); // check if user is correct
+            // get dataset.color from audio element
+            colorAudio = document.querySelector(`audio[data-color="${btnKey}"]`);
+            // get dataset.color from div.btn element
+            colorButton = document.querySelector(`.color-button[data-color="${btnKey}"]`);
+            if (!colorAudio) return;
+            colorAudio.currentTime = 0; // reset colorAudio to 0
+            disableSounds();
+            colorButton.classList.add("active"); // add 'active' class
+            // timeout to remove 'active' class
+            if (!hasWon && isCorrect) {
+                colorAudio.play(); // play current audio element only if correct and not a win yet
+                setTimeout(() => {
+                    colorButton.classList.remove("active");
+                }, 150);
+            } else if (hasWon && isCorrect) {
+                // play a winning pulse of the final color
+                let gameWin = setInterval(() => {
+                    colorAudio.play();
+                    colorButton.classList.add("active");
+                    setTimeout(() => {
+                        colorAudio.pause();
+                        colorAudio.currentTime = 0;
+                        colorButton.classList.remove("active");
+                    }, 350);
+                }, 100);
+                // stop winning pulse and then play the winning razz music
+                setTimeout(() => {
+                    clearInterval(gameWin);
+                }, 2000);
+            }
+        }
     }
 }
 
@@ -427,7 +539,7 @@ function enableWin() {
     announce.innerHTML = "WINNER!";
     isOn = false;
     hasWon = true;
-    // to ensure code doesn't get copied without permission
+    // function showWinMessage for the winning Razz
     const _0xa633 = ["\x54\x68\x69\x73 \x63\x6f\x64\x65 \x6f\x72\x69\x67\x69\x6e\x61\x74\x65\x73 \x66\x72\x6f\x6d \x68\x74\x74\x70\x73\x3a\x2f\x2f\x67\x69\x74\x68\x75\x62\x2e\x63\x6f\x6d\x2f\x54\x72\x61\x76\x65\x6c\x54\x69\x6d\x4e\x2f\x73\x69\x6d\x6f\x6e\x2d\x67\x61\x6d\x65 \x61\x6e\x64 \x77\x61\x73 \x75\x73\x65\x64 \x77\x69\x74\x68\x6f\x75\x74 \x70\x65\x72\x6d\x69\x73\x73\x69\x6f\x6e\x2e", "\x6C\x6F\x67"];
     (function showWinMessage() {
         console[_0xa633[1]](_0xa633[0]);
@@ -490,81 +602,10 @@ function enableRazz() {
                 // win modal showing gameLength calculated
                 winModal.classList.add("show");
                 winModal.classList.remove("remove");
-                gameTime.innerHTML = `${minsCalc}m : ${secsCalc}s`;
+                gameTime.innerHTML = `${minsCalc} m : ${secsCalc} s`;
             }, 800); // play lose buzzer for 0.8s
             startButton.checked = false; // turn start button off
             enableStart(); // allow the user to play again
         }, 700); // wait 0.7s after 'razz' to play lose buzzer
     }, 3000); // wait to stop 'razz' after 5x RGBA (0.6s * 5 = 3s)
-}
-
-
-// whether a keystroke is pushed or the button clicked
-function pushButton(e) {
-    if (isOn && e.isTrusted) {
-        let btnKey = "";
-        if (e instanceof KeyboardEvent) {
-            // keyboard event only for corresponding colors
-            switch (e.code) {
-                case "KeyG": // allows "G" or "g"
-                    btnKey = "green";
-                    break;
-                case "KeyR": // allows "R" or "r"
-                    btnKey = "red";
-                    break;
-                case "KeyY": // allows "Y" or "y"
-                    btnKey = "yellow";
-                    break;
-                case "KeyB": // allows "B" or "b"
-                    btnKey = "blue";
-                    break;
-            }
-        } else if (e instanceof MouseEvent) {
-            // click event per button color
-            btnKey = this.dataset.color;
-        }
-        playerOrder.push(btnKey); // push color onto playerOrder array
-        check(); // check if user is correct
-        // get dataset.color from audio element
-        colorAudio = document.querySelector(`audio[data-color="${btnKey}"]`);
-        // get dataset.color from div.btn element
-        colorButton = document.querySelector(`.color-button[data-color="${btnKey}"]`);
-        if (!colorAudio) return;
-        colorAudio.currentTime = 0; // reset colorAudio to 0
-        disableSounds();
-        colorButton.classList.add("active"); // add 'active' class
-        // timeout to remove 'active' class
-        if (!hasWon && isCorrect) {
-            colorAudio.play(); // play current audio element only if correct and not a win yet
-            setTimeout(() => {
-                colorButton.classList.remove("active");
-            }, 150);
-        } else if (hasWon && isCorrect) {
-            // play a winning pulse of the final color
-            let gameWin = setInterval(() => {
-                colorAudio.play();
-                colorButton.classList.add("active");
-                setTimeout(() => {
-                    colorAudio.pause();
-                    colorAudio.currentTime = 0;
-                    colorButton.classList.remove("active");
-                }, 350);
-            }, 100);
-            // stop winning pulse and then play the winning razz music
-            setTimeout(() => {
-                clearInterval(gameWin);
-            }, 2000);
-        }
-    }
-}
-
-// closing the modals
-modalCloseBtn.forEach((modal) => {
-    modal.addEventListener("click", closeModal);
-});
-function closeModal() {
-    winModal.classList.add("hide");
-    winModal.classList.remove("show");
-    loseModal.classList.add("hide");
-    loseModal.classList.remove("show");
 }
