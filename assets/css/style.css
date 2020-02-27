@@ -1,6 +1,7 @@
 /* ----- IMPORTS ----- */
 @import url("https://fonts.googleapis.com/css?family=Luckiest+Guy|Original+Surfer|Press+Start+2P|Quantico|Sarpanch&display=swap");
 
+
 /* ----- :ROOT VARS ----- */
 :root {
     --fontLuckiesGuy: "Luckiest Guy", sans-serif;
@@ -42,6 +43,7 @@ body {
 
 *::selection {background-color: transparent;}
 
+
 /* ----- OUTER CIRCLE ----- */
 #outer-circle {
     border-radius: 50%;
@@ -56,6 +58,7 @@ body {
     0% {transform: rotate(2160deg);}
     100% {transform: rotate(0);}
 }
+
 
 /* ----- BUTTONS | GREEN / RED / BLUE / YELLOW ----- */
 #greenButton,
@@ -115,6 +118,7 @@ body {
     border-color: transparent;
 }
 
+
 /* ----- GREEN ----- */
 #greenButton {
     border-radius: calc(var(--size) / 2) 0 0 0;
@@ -168,6 +172,7 @@ body {
         rgba(var(--greenActive), 1) 50%,
         rgba(var(--white), 1) 100%);
 }
+
 
 /* ----- RED ----- */
 #redButton {
@@ -223,6 +228,7 @@ body {
         rgba(var(--redActive), 0.6) 100%);
 }
 
+
 /* ----- BLUE ----- */
 #blueButton {
     border-radius: 0 0 calc(var(--size) / 2) 0;
@@ -277,6 +283,7 @@ body {
         rgba(var(--blueActive), 0.6) 100%);
 }
 
+
 /* ----- YELLOW ----- */
 #yellowButton {
     border-radius: 0 0 0 calc(var(--size) / 2);
@@ -330,6 +337,7 @@ body {
         rgba(var(--yellowActive), 1) 50%,
         rgba(var(--white), 1) 100%);
 }
+
 
 /* ----- INNER CIRCLE ----- */
 #inner-circle {
@@ -413,6 +421,7 @@ body {
         2px 2px 0 rgba(var(--white), 1);
 }
 
+
 /* ----- BUTTONS | START + STRICT ----- */
 .checkbox-round {
     position: absolute;
@@ -448,6 +457,7 @@ body {
 .checkbox-round input[type="checkbox"] {visibility: hidden;}
 .checkbox-round input[type="checkbox"]:checked+label::after {opacity: 1;}
 
+
 /* ----- START ----- */
 .startButton {left: 27%;}
 .startButton::after {content: "START"; position: absolute; left: -15px; bottom: -15px;}
@@ -459,6 +469,7 @@ body {
     box-shadow: 0 0 20px 5px rgba(var(--yellow), 1);
 }
 
+
 /* ----- STRICT ----- */
 .strictButton {right: 27%;}
 .strictButton::after {content: "STRICT"; position: absolute; left: -15px; bottom: -15px;}
@@ -469,6 +480,7 @@ body {
     background: rgba(var(--red), 1);
     box-shadow: 0 0 20px 5px rgba(var(--red), 1);
 }
+
 
 /* ----- POWER BUTTON ----- */
 .powerButton {
@@ -483,9 +495,7 @@ body {
 
 .powerButton input {opacity: 0; width: 0; height: 0;}
 .powerOff {position: absolute; top: 10%; left: -30px;}
-/* .powerOff::after {content: "OFF";} */
 .powerOn {position: absolute; top: 10%; left: 57px;}
-/* .powerOn::after {content: "ON";} */
 
 .slider {
     position: absolute;
@@ -529,12 +539,15 @@ input:checked+.slider::before {transform: translateX(29px);}
 
 .slider.round::before {border-radius: 50%;}
 
-/* ----- COUNTER ----- */
+
+/* ----- COUNTER | ANNOUNCE | INFO ----- */
 #levelCounter,
-#announce {
+#announce,
+#info {
     font-family: var(--fontQuantico);
     color: rgba(var(--red), 1);
     position: absolute;
+    z-index: 15;
     top: calc(50% - 2vw);
     left: calc(50% - 3.5vw);
     font-size: 5vw;
@@ -559,9 +572,30 @@ input:checked+.slider::before {transform: translateX(29px);}
     100% {transform: scale(1); opacity: 0;}
 }
 
+#info {
+    top: calc(50% - 3vw);
+    left: calc(50% - 1.5vw);
+}
+
+#info:not(.add) {
+    /* only delay on initial load */
+    opacity: 0;
+    animation: fadeInfo 1s forwards;
+    animation-delay: 3.5s;
+}
+
+@keyframes fadeInfo {
+    0% {opacity: 0; cursor: default;}
+    100% {opacity: 1; cursor: pointer;}
+}
+
+#info-prev, #info-next {cursor: pointer;}
+
+
 /* ----- MODALS ----- */
 .modal {
     position: absolute;
+    z-index: 20;
     top: 50%;
     left: 50%;
     height: calc(var(--size) + 1px);
@@ -616,7 +650,9 @@ input:checked+.slider::before {transform: translateX(29px);}
                 0 36px 36px rgba(var(--black), 0.15);
 }
 
+.add {display: block;}
 .remove {display: none;}
+
 .hide {animation: modalFadeOut 1s forwards;}
 @keyframes modalFadeOut {
     0% {opacity: 1; display: block; z-index: 15;}
@@ -636,6 +672,7 @@ input:checked+.slider::before {transform: translateX(29px);}
     75% {background: rgba(var(--blue), 0.85);}
     100% {background: rgba(var(--green), 0.85);}
 }
+
 
 /* ----- MEDIA QUERIES ----- */
 @media (min-width: 700px) {
