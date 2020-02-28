@@ -46,7 +46,7 @@ This project is an example project for the **Interactive Front-End** module of t
 
 "**_As a user, I would like to_** _______________"
 
-- :x: read the instructions on how to play the game.
+- :white_check_mark: read the instructions on how to play the game.
 - :white_check_mark: test my logical memory skills by matching a progressively difficult level of a series of colorful buttons.
 - :white_check_mark: play the game using either a mouse, the keyboard, or tapping on a touch screen.
 - :white_check_mark: play the game with both visual and audio effects from the buttons and sounds.
@@ -81,7 +81,10 @@ All of these colors are set at `:root` level within my [style.css](assets/css/st
 
 #### Icons
 
-There was no need to utilize any particular set of icons, such as Font Awesome, for this project.
+- [Font Awesome 5.12.1](https://fontawesome.com/)
+    - 2 *Font Awesome* icons were used, purely for social media icons on the Info Modal.
+        - [GitHub brand](https://fontawesome.com/icons/github-square?style=brands)
+        - [Linkedin brand](https://fontawesome.com/icons/linkedin?style=brands)
 
 #### Typography
 
@@ -90,7 +93,7 @@ There was no need to utilize any particular set of icons, such as Font Awesome, 
     - [Press Start 2P](https://fonts.google.com/specimen/Press+Start+2P) : button letters (RGBY).
     - [Quantico](https://fonts.google.com/specimen/Quantico) : counter and announcements.
     - [Sarpanch](https://fonts.google.com/specimen/Sarpanch) : game logo text.
-    - [Luckiest Guy](https://fonts.google.com/specimen/Luckiest+Guy00) : all modal text
+    - [Luckiest Guy](https://fonts.google.com/specimen/Luckiest+Guy00) : all modal text.
 
 ### Wireframes
 
@@ -119,6 +122,9 @@ In accordance to the project brief, I have successfully implemented all of the *
 
 **Progressive Difficulty**:
 - Players can progress through multiple levels if successfully matching Simon's moves each round. Levels get harder the further you manage to play.
+    - *Levels 1-5 are EASY*
+    - *Levels 6-13 are MEDIUM*
+    - *Levels 14-31 are HARD*
 
 **Strict Mode**:
 - To truly test their memory matching skills, players can choose to play in Strict Mode, but one wrong move will immediately end the game!
@@ -134,6 +140,7 @@ In accordance to the project brief, I have successfully implemented all of the *
 
 **Winning Razz**:
 - If the player is successful enough to beat Simon's 31 levels, the traditional winning *'Razz'* will trigger. This is a combination of rapid pulses of the final color, mixed with a round of applause in order from Red, Yellow, Blue, Green on repeat, followed by the losing klaxon to signify the player has won the game!
+    - Winning Modal will display length of time it took to beat Simon.
 
 ### Features Left to Implement
 
@@ -197,10 +204,10 @@ A thorough mix of automated and manual testing have gone into building the proje
 - [JShint](https://jshint.com/)
     - File: [script.js](assets/js/script.js)
         - METRICS:
-            - There are **44** functions in this file.
+            - There are **57** functions in this file.
             - Function with the largest signature take **1** arguments, while the median is **0**.
             - Largest function has **21** statements in it, while the median is **3**.
-            - The most complex function has a cyclomatic complexity value of **11** while the median is **1**.
+            - The most complex function has a cyclomatic complexity value of **12** while the median is **1**.
         - UNDEFINED VARIABLE:
             - `KeyboardEvent`
 
@@ -245,7 +252,7 @@ I have also created a testing matrix ([raw Excel file here](testing/manual/testi
 
 | Performance | Accessibility | Best Practices | SEO | PWA |
 | :---: | :---: | :---: | :---: | :---: |
-| 100% | 100% | 100% | 100% | - |
+| 98% | 100% | 100% | 100% | - |
 
 ![Chrome DevTools Audit Report](testing/manual/devtools-audit.png?raw=true "Chrome Audit Report")
 
@@ -398,8 +405,8 @@ Next, to proceed with local deployment, you can...
 
 EITHER:
 - **Download** this GitHub repository
-    - by clicking the green "*Clone or download*" button above.
-    - select *Download Zip*.
+    - by clicking the green "*Clone or download*" button above,
+    - select *Download Zip*,
     - this will download the project as a zip-file (*remember to unzip it first*).
 
 OR:
@@ -450,13 +457,12 @@ Congratulations! Your project should be deployed successfully on GitHub Pages! :
 ### Media
 
 - [Szynalski](https://www.szynalski.com/tone-generator/) - Online Tone Generator to create all sounds.
-- [Techsini](https://techsini.com/multi-mockup/) - Mock-up Image for README.
 - [TinyPNG](https://tinypng.com/) - Online Image Compressor.
 - [Shields.io](https://shields.io) - Markdown badges for README.
 
 All audio files were created by me. These files are not to be used without proper attribution, acknowledgment, and credit to this repository. You must specify that audio files were obtained from my repository, for example:
 
-- Audio files were obtained with approval from [https://github.com/TravelTimN/simon-game](https://github.com/TravelTimN/simon-game)
+> "*Audio files were obtained with approval from [https://github.com/TravelTimN/simon-game](https://github.com/TravelTimN/simon-game)*"
 
 You are, however, welcome to generate your own audio files using the same methods and tools that I used, but the use of my files should be attributed if you use them for your own project(s).
 
