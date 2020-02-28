@@ -12,13 +12,15 @@
     <meta name="theme-color" content="#000000">
     <link rel="icon" sizes="150x150" href="assets/img/favicon.png" type="image/x-icon">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+        integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
     <link rel="stylesheet" href="assets/css/style.css" type="text/css">
 </head>
 
 <body>
 
     <!-- outer circle -->
-    <div id="outer-circle">
+    <main id="outer-circle">
         <div id="greenButton" class="color-button" data-color="green"></div>
         <div id="redButton" class="color-button" data-color="red"></div>
         <div id="yellowButton" class="color-button" data-color="yellow"></div>
@@ -56,15 +58,72 @@
         <div id="info-modal" class="modal remove">
             <div class="modal-close"></div>
             <div class="modal-header">
-                <div id="info-prev" class="remove">⏶</div>
-                <div id="info01">Simon<br>Game Rules</div>
-                <div id="info02" class="remove">1</div>
-                <div id="info03" class="remove">2</div>
-                <div id="info04" class="remove">3</div>
-                <div id="info05" class="remove">4</div>
-                <div id="info06" class="remove">5</div>
-                <div id="info07" class="remove">6</div>
-                <div id="info-next">⏷</div>
+                <!-- instructions -->
+                <div id="info-1">
+                    <span id="info-prev-first" class="hide"></span>
+                    <br>Simon<br>Game<br>Rules<br>
+                    <span class="info-next"></span>
+                </div>
+                <div id="info-2" class="remove">
+                    <span class="info-prev"></span>
+                    <br>Turn<br>Game<br>On<br>
+                    <span class="info-next"></span>
+                </div>
+                <div id="info-3" class="remove">
+                    <span class="info-prev"></span>
+                    <br>Press<br>Start<br>Button<br>
+                    <span class="info-next"></span>
+                </div>
+                <div id="info-4" class="remove">
+                    <span class="info-prev"></span>
+                    <br>Repeat<br>the<br>Sequence<br>
+                    <span class="info-next"></span>
+                </div>
+                <div id="info-5" class="remove">
+                    <span class="info-prev"></span>
+                    <br>Click,<br>Type,<br>or Tap<br>
+                    <span class="info-next"></span>
+                </div>
+                <div id="info-6" class="remove">
+                    <span class="info-prev"></span>
+                    <br>Only<br>5 seconds<br>to Guess<br>
+                    <span class="info-next"></span>
+                </div>
+                <div id="info-7" class="remove">
+                    <span class="info-prev"></span>
+                    <br>Levels<br>1 - 5 are<br>Easy<br>
+                    <span class="info-next"></span>
+                </div>
+                <div id="info-8" class="remove">
+                    <span class="info-prev"></span>
+                    <br>Levels<br>6 - 13 are<br>Medium<br>
+                    <span class="info-next"></span>
+                </div>
+                <div id="info-9" class="remove">
+                    <span class="info-prev"></span>
+                    <br>Levels<br>14 - 31 are<br>Hard<br>
+                    <span class="info-next"></span>
+                </div>
+                <div id="info-10" class="remove">
+                    <span class="info-prev"></span>
+                    <br>Win<br>after 31<br>Rounds<br>
+                    <span class="info-next"></span>
+                </div>
+                <div id="info-11" class="remove">
+                    <span class="info-prev"></span>
+                    <br>Optional<br>Strict<br>Mode<br>
+                    <span class="info-next"></span>
+                </div>
+                <div id="info-12" class="remove">
+                    <span class="info-prev"></span>
+                    <br>&copy; 2020<br>Tim Nelson<br>
+                    <a href="https://github.com/TravelTimN/simon-game" target="_blank" rel="noopener"
+                        aria-label="GitHub - TravelTimN" title="GitHub"><i class="fab fa-github-square"></i></a>
+                    <a href="https://www.linkedin.com/in/travel-tim-nelson" target="_blank" rel="noopener"
+                        aria-label="LinkedIn - Travel-Tim-Nelson" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <br>
+                    <span id="info-next-last" class="hide"></span>
+                </div>
             </div>
         </div>
 
@@ -84,7 +143,7 @@
             </div>
         </div>
 
-    </div>
+    </main>
 
     <!-- audio files -->
     <audio id="greenAudio" data-color="green"><source src="assets/sounds/green.mp3" type="audio/mpeg"></audio>
