@@ -598,6 +598,7 @@ input:checked+.slider::before {transform: translateX(29px);}
 .info-next, #info-next-last {
     cursor: pointer;
     font-size: 15vw;
+    line-height: 1.5;
 }
 
 
@@ -698,5 +699,5 @@ input:checked+.slider::before {transform: translateX(29px);}
     .modal-header {font-size: 13vh;}
     .modal-close {font-size: 5vw;}
     #info {font-size: 5vw; top: calc(50% - 3vw); left: calc(50% - 1.5vw);}
-    .info-prev, #info-prev-first, .info-next, #info-next-last {font-size: 10vw;}
+    .info-prev, #info-prev-first, .info-next, #info-next-last {font-size: 10vw; line-height: 0.75;}
 }
