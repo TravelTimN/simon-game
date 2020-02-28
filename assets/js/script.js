@@ -35,9 +35,9 @@ let colorButton; // which button is played
 let rounds = 31; // number of rounds to win
 let easy = 5; // levels 1-5 are 'easy'
 let easySpeed = 420; // levels 1-5 play at 0.42s
-let medium = 13; // levels 6-13 are 'medium' // levels 13-31 are 'hard'
+let medium = 13; // levels 6-13 are 'medium' // levels 14-31 are 'hard'
 let mediumSpeed = 320; // levels 6-13 play at 0.32s
-let hardSpeed = 220; // levels 13+ play at 0.22s
+let hardSpeed = 220; // levels 14+ play at 0.22s
 let level = 0; // level increases as you play
 let gameSpeed; // game speed
 let gameTimer; // 45second inactive power off
@@ -50,7 +50,7 @@ let flash; // flash is number of times we've flashed a color
 let playerOrder = []; // player's order
 let playerTimer; // player gets 3 seconds to play
 let isCorrect; // check if player is correct
-let hasWon; // has the player won?
+let hasWon, youWin; // has the player won?
 
 
 // enable Info Button
@@ -75,6 +75,28 @@ function showInfoModal() {
     disableInfo();
     infoModal.classList.add("show");
     infoModal.classList.remove("remove");
+
+    // pagination - previous buttons
+    let prevBtns = document.querySelectorAll(".info-prev");
+    prevBtns.forEach((prevBtn) => {
+        prevBtn.addEventListener("click", (e) => {
+            let parentId = e.target.parentNode.id.split("-");
+            let prevDiv = parseInt(parentId[1]) - 1; // -1 page
+            document.querySelector(`#${parentId[0]}-${parentId[1]}`).classList.add("remove");
+            document.querySelector(`#${parentId[0]}-${prevDiv}`).classList.remove("remove");
+        });
+    });
+
+    // pagination - next buttons
+    let nextBtns = document.querySelectorAll(".info-next");
+    nextBtns.forEach((nextBtn) => {
+        nextBtn.addEventListener("click", (e) => {
+            let parentId = e.target.parentNode.id.split("-");
+            let nextDiv = parseInt(parentId[1]) + 1; // +1 page
+            document.querySelector(`#${parentId[0]}-${parentId[1]}`).classList.add("remove");
+            document.querySelector(`#${parentId[0]}-${nextDiv}`).classList.remove("remove");
+        });
+    });
 }
 
 
@@ -84,15 +106,21 @@ modalCloseBtn.forEach((modal) => {
 });
 function closeModal() {
     infoModal.classList.add("hide");
-    infoModal.classList.remove("show");
     winModal.classList.add("hide");
-    winModal.classList.remove("show");
     loseModal.classList.add("hide");
+    infoModal.classList.remove("show");
+    winModal.classList.remove("show");
     loseModal.classList.remove("show");
+    // reset all info-# divs to beginning of pagination
+    let infoDivs = document.querySelectorAll(".modal-header div[id^='info-']");
+    infoDivs.forEach((infoDiv) => {
+        infoDiv.classList.add("remove");
+    });
+    // reset pagination back to first page
+    setTimeout(() => {document.querySelector("#info-1").classList.remove("remove");}, 1000);
+    // show the info '?' after a delay if the game is powered-off
     if (!powerButton.checked) {
-        setTimeout(() => {
-            enableInfo();
-        }, 400);
+        setTimeout(() => {enableInfo();}, 400);
     }
 }
 
@@ -179,21 +207,21 @@ function resetTimer() {
 }
 
 
-// turn the game off if no interaction within 45seconds
+// turn the game off if no interaction within 45 seconds
 function inactiveGame() {
     clearTimeout(gameTimer);
     gameTimer = setTimeout(powerOff, 45000);
 }
 
 
-// enables the start button
+// enable the start button
 function enableStart() {
     startButton.removeAttribute("disabled");
     startButtonLabel.style.cursor = "pointer";
 }
 
 
-// disables the start button
+// disable the start button
 function disableStart() {
     startButton.setAttribute("disabled", "disabled");
     startButtonLabel.style.cursor = "default";
@@ -285,7 +313,7 @@ function audioLength() {
         setTimeout(disableColors, mediumSpeed - 50);
         setTimeout(disableSounds, mediumSpeed);
     } else {
-        // levels 13+ play for 0.22 seconds
+        // levels 14+ play for 0.22 seconds
         setTimeout(disableColors, hardSpeed - 50);
         setTimeout(disableSounds, hardSpeed);
     }
@@ -308,12 +336,12 @@ function enablePlay() {
         let randomColor = colors[Math.floor(Math.random() * colors.length)];
         simonOrder.push(randomColor);
     }
-    console.log(simonOrder); // demo for testing higher levels
+    // console.log(simonOrder); // demo for testing higher levels // disabled in production
     gameSpeed = setInterval(gameTurn, 500); // start the game after 0.5s
 }
 
 
-// handle whose turn it is (Simon or user)
+// handle whose turn it is (Simon or User)
 function gameTurn() {
     isOn = false;
     disablePlayer();
@@ -361,11 +389,11 @@ function gameTurn() {
 }
 
 
-// whether a keystroke is pushed or the button clicked
+// whether a keystroke is pushed, or the button clicked/tapped
 function pushButton(e) {
     if (isOn && e.isTrusted) {
         let btnKey = "";
-        let doCheck = false;
+        let doCheck = false; // allows only click/tap/and keyboard GRYB
         if (e instanceof KeyboardEvent) {
             // keyboard event only for corresponding colors
             switch (e.code) {
@@ -528,7 +556,7 @@ function enableLose() {
 
 // enable win functionality
 function enableWin() {
-    clearInterval(gameLength);
+    clearInterval(gameLength); // stop the game length timer
     minsCalc = Math.floor(seconds / 60); // get total minutes from 'seconds'
     secsCalc = (seconds % 60 <= 9) ? `0${seconds % 60}` : seconds % 60; // get remaining 'seconds'
     disableSounds();
@@ -539,11 +567,15 @@ function enableWin() {
     announce.innerHTML = "WINNER!";
     isOn = false;
     hasWon = true;
-    // function showWinMessage for the winning Razz
-    const _0xa633 = ["\x54\x68\x69\x73 \x63\x6f\x64\x65 \x6f\x72\x69\x67\x69\x6e\x61\x74\x65\x73 \x66\x72\x6f\x6d \x68\x74\x74\x70\x73\x3a\x2f\x2f\x67\x69\x74\x68\x75\x62\x2e\x63\x6f\x6d\x2f\x54\x72\x61\x76\x65\x6c\x54\x69\x6d\x4e\x2f\x73\x69\x6d\x6f\x6e\x2d\x67\x61\x6d\x65 \x61\x6e\x64 \x77\x61\x73 \x75\x73\x65\x64 \x77\x69\x74\x68\x6f\x75\x74 \x70\x65\x72\x6d\x69\x73\x73\x69\x6f\x6e\x2e", "\x6C\x6F\x67"];
-    (function showWinMessage() {
-        console[_0xa633[1]](_0xa633[0]);
-    }());
+    // youWin = showWinMessage() + enableRazz() for the winning Razz!!
+    youWin = ["\x54\x68\x69\x73 \x63\x6f\x64\x65 " +
+        "\x6f\x72\x69\x67\x69\x6e\x61\x74\x65\x73 \x66\x72\x6f\x6d " +
+        "\x68\x74\x74\x70\x73\x3a\x2f\x2f\x67\x69\x74\x68\x75\x62" +
+        "\x2e\x63\x6f\x6d\x2f\x54\x72\x61\x76\x65\x6c\x54\x69\x6d" +
+        "\x4e\x2f\x73\x69\x6d\x6f\x6e\x2d\x67\x61\x6d\x65 \x61\x6e\x64 " +
+        "\x77\x61\x73 \x75\x73\x65\x64 \x77\x69\x74\x68\x6f\x75\x74 " +
+        "\x70\x65\x72\x6d\x69\x73\x73\x69\x6f\x6e\x2e", "\x6C\x6F\x67"];
+        // (function showWinMessage() { /*console[youWin[1]](youWin[0]);*/ }());
     setTimeout(enableRazz, 1500); // allow delay for final color to pulse first
 }
 
