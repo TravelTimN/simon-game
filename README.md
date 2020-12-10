@@ -1,3 +1,7 @@
+10DEC2020 - Update branch from `master` to `main`.
+
+---
+
 ![Simon Memory Game](assets/img/favicon.png?raw=true "Simon Memory Game")
 
 # [Simon Memory Game](https://traveltimn.github.io/simon-game)
