@@ -75,10 +75,10 @@ There was no need to utilize any particular frameworks or libraries for this pro
 
 #### Color Scheme
 
-- ![#008000](https://placehold.it/15/008000/008000) green button
-- ![#FF0000](https://placehold.it/15/FF0000/FF0000) red button
-- ![#FFFF00](https://placehold.it/15/FFFF00/FFFF00) yellow button
-- ![#0000FF](https://placehold.it/15/0000FF/0000FF) blue button
+- ![#008000](https://via.placeholder.com/15/008000/008000) green button
+- ![#FF0000](https://via.placeholder.com/15/FF0000/FF0000) red button
+- ![#FFFF00](https://via.placeholder.com/15/FFFF00/FFFF00) yellow button
+- ![#0000FF](https://via.placeholder.com/15/0000FF/0000FF) blue button
 
 
 All of these colors are set at `:root` level within my [style.css](assets/css/style.css) file. This also allows me to reuse my colors as a `class` across the site, instead of having to assign the colors each and every time.
@@ -423,7 +423,7 @@ Congratulations! Your project should be completely setup and ready for local dev
 
 ### Remote Deployment
 
-This site was deployed using [GitHub Pages](https://pages.github.com/) using the **master branch**.
+This site was deployed using [GitHub Pages](https://pages.github.com/) using the **main branch**.
 
 Deployed Site:
 - [https://traveltimn.github.io/simon-game](https://traveltimn.github.io/simon-game)
@@ -436,7 +436,7 @@ Once you have the project setup locally, you can proceed to deploy it remotely w
     - `https://github.com/USERNAME/REPO/settings`
 3. Scroll down on that page to the **GitHub Pages** section.
 4. The first drop-down field should be **Source** with *None* preselected.
-5. Select **master branch** from the list.
+5. Select **main branch** from the list.
 6. The page should refresh.
 7. Scroll back down to the **GitHub Pages** section.
 8. You should now have a deployed link:
@@ -472,7 +472,7 @@ You are, however, welcome to generate your own audio files using the same method
 
 ### Code
 
-- [Jasmine QRG](https://github.com/TravelTimN/ci-ifd-lead/blob/master/week5-jasmine/jasmine.md) - My Quick Reference Guide as CI IFD_lead.
+- [Jasmine QRG](https://github.com/TravelTimN/ci-ifd-lead/blob/main/week5-jasmine/jasmine.md) - My Quick Reference Guide as CI IFD_lead.
 - [Jasmine Cheatsheet](https://devhints.io/jasmine) - A helpful Jasmine cheatsheet.
 - [Jasmine 'setFixtures'](https://lostechies.com/derickbailey/2011/10/14/quick-hack-to-work-around-jasmine-jquery-fixture-limitations/) - How to use `setFixtures` in Jasmine.
 - [Jasmine 'spyOn'](https://stackoverflow.com/a/9511646) - How to use `spyOn` in Jasmine.
