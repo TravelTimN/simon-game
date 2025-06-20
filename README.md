@@ -461,6 +461,7 @@ Congratulations! Your project should be deployed successfully on GitHub Pages! :
 ### Media
 
 - [Szynalski](https://www.szynalski.com/tone-generator/) - Online Tone Generator to create all sounds.
+- [marcgg](https://marcgg.com/blog/2016/11/01/javascript-audio) - Generate sounds programmatically with JavaScript.
 - [TinyPNG](https://tinypng.com/) - Online Image Compressor.
 - [Shields.io](https://shields.io) - Markdown badges for README.
 
